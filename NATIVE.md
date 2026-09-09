@@ -7,7 +7,7 @@ existing accessible implementation.
 
 ## Distribution
 
-**Unreleased:** the next reviewed release can include `civic-ui-css-VERSION.tgz`
+**Unreleased 0.3.0 preparation:** the next reviewed release can include `civic-ui-css-VERSION.tgz`
 beside the React package and `SHA256SUMS`. Version 0.2.0 does not have this asset.
 Do not use an unreleased URL or replace published assets. No npm account is needed.
 

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Native Civic UI test fixture</title>
+<link rel="stylesheet" href="./css/native.css">
+<link rel="stylesheet" href="./css/themes/neutral.css">
+<style>
+  body { margin: 0; font: 16px system-ui, sans-serif; }
+  main { padding: 16px; background: var(--civic-bg); color: var(--civic-text); }
+  form { display: grid; gap: 16px; max-width: 640px; margin-bottom: 24px; }
+  .civic-table { min-width: 900px; }
+  .civic-pagination { flex-wrap: wrap; padding: 16px 0; }
+</style>
+<main class="civic-scope civic-neutral">
+  <h1>Regional report</h1>
+  <form>
+    <div class="civic-field">
+      <label for="region">Region</label>
+      <select id="region" name="region" class="civic-select civic-select--native" aria-describedby="region-hint">
+        <option value="all">All regions</option><option value="north">North</option>
+      </select>
+      <small id="region-hint">Reporting area</small>
+    </div>
+    <div class="civic-field">
+      <label for="query">Search</label>
+      <input id="query" class="civic-input" type="search">
+    </div>
+    <div class="civic-field">
+      <label for="invalid">Invalid region</label>
+      <select id="invalid" class="civic-select civic-select--native" aria-invalid="true" aria-describedby="region-error">
+        <option>Choose a region</option>
+      </select>
+      <small id="region-error" class="civic-error">Select a reporting area</small>
+    </div>
+    <div class="civic-field">
+      <label for="disabled-region">Unavailable region</label>
+      <select id="disabled-region" class="civic-select civic-select--native" disabled><option>Unavailable</option></select>
+    </div>
+    <label class="civic-choice"><input type="checkbox" name="comparison"><span>Include comparison</span></label>
+    <label class="civic-choice"><input type="checkbox" disabled checked><span>Required baseline</span></label>
+    <button type="button" class="civic-button civic-button--primary">Apply</button>
+    <button type="button" class="civic-button" disabled>Unavailable action</button>
+  </form>
+  <div class="civic-table-scroll" role="region" aria-label="Regional totals" tabindex="0">
+    <table class="civic-table">
+      <caption>Regional totals</caption>
+      <thead><tr><th scope="col">Region</th><th scope="col">Population</th><th scope="col">Total</th></tr></thead>
+      <tbody><tr><th scope="row">North</th><td>1000</td><td>120</td></tr></tbody>
+    </table>
+  </div>
+  <nav class="civic-pagination" aria-label="Results pages">
+    <button type="button" class="civic-button" disabled>Previous</button>
+    <span aria-live="polite">1 / 2</span>
+    <button type="button" class="civic-button">Next</button>
+  </nav>
+</main>
+</html>

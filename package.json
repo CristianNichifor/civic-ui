@@ -12,6 +12,7 @@
     "dist",
     "README.md",
     "COMPONENTS.md",
+    "NATIVE.md",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "RELEASING.md",
@@ -23,6 +24,7 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./native.css": "./dist/native.css",
     "./themes/usr.css": "./dist/themes/usr.css",
     "./themes/neutral.css": "./dist/themes/neutral.css"
   },

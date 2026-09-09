@@ -26,6 +26,10 @@ Neutral supports `data-civic-mode="dark"`. The optional `themes/usr.css` adapter
 
 ## Develop and Verify
 
+The interactive [component showcase](https://cristiannichifor.github.io/civic-ui/)
+is deployed from checked `main` after the showcase PR is merged. See
+[showcase documentation](https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md) for local preview, examples and limitations.
+
 Use Node from `.nvmrc` and the checked-in npm lockfiles:
 
 ```bash
@@ -36,11 +40,11 @@ npm test
 npm run preview
 ```
 
-Preview: http://127.0.0.1:5221/. Query options: `?theme=usr`, `?theme=neutral&mode=dark`, or `?edge=1` for control-state fixtures.
+Fixture preview: http://127.0.0.1:5221/. Showcase: http://127.0.0.1:5221/showcase.html. Fixture query options: `?theme=usr`, `?theme=neutral&mode=dark`, or `?edge=1` for control-state fixtures.
 
 `verify` builds and packs the package, checks its exact file allowlist and license notices, then creates independent React 18.3.1 and React 19.1.1 consumers. Each consumer installs its checked-in dependency lockfile before installing the newly packed artifact without saving a local-path dependency. Both undergo strict type checks and production builds. No parent repository, aliases or sibling dependencies are required.
 
-`test` runs 42 tests across Chromium, Firefox and WebKit against both production consumers. Theme checks cover field associations, invalid state, select padding, icons, keyboard focus, disabled controls, interactions, no external requests/storage, and 320/390/1440 layouts in neutral light/dark and the USR host-token adapter. Additional neutral-theme tests cover disabled Tab skipping, native select validation, long labels/actions and keyboard activation. Screenshots and machine-readable package results stay in ignored `artifacts/`. Build fixtures first with `verify`.
+`test` runs 60 tests across Chromium, Firefox and WebKit against both production consumers: 42 control checks and 18 showcase checks. Theme checks cover field associations, invalid state, select padding, icons, keyboard focus, disabled controls, interactions, no external requests/storage, and 320/390/1440 layouts in neutral light/dark and the USR host-token adapter. Additional neutral-theme tests cover disabled Tab skipping, native select validation, long labels/actions and keyboard activation. Showcase checks cover theme switching, editable state, offline interaction, clipboard success/failure handling and downloaded source. Clipboard outcomes are stubbed; actual permission prompts remain browser-dependent. Screenshots and machine-readable package results stay in ignored `artifacts/`. Build fixtures first with `verify`.
 
 CI runs browser tests in the official `mcr.microsoft.com/playwright:v1.63.0-noble` image with bundled browsers and system dependencies. Keep that image version in both workflows aligned with `@playwright/test`. Package builds and release commands run on the host using `.nvmrc`. Local browser execution requires supported system libraries; installing browser binaries alone may not suffice on unsupported Linux distributions.
 

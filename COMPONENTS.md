@@ -1,4 +1,4 @@
-# Component Contracts (0.2.0 Preview)
+# Component Contracts (0.2.0)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
@@ -62,10 +62,30 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 
 ## Adoption Gates
 
-1. Review and merge the library PR, then approve and manually publish the versioned GitHub release.
+1. Use a reviewed, published GitHub release. Version 0.2.0 is available; a new release is needed only for package changes, not for adopting existing components.
 2. Migrate forms and feedback in USR demo and reforms in separate PRs. Preserve labels, values, validation, handlers and host tokens.
 3. Replace overlays and tabs only where the documented interaction contract matches. Preserve route/hash behavior and focus return.
 4. Adopt table primitives without changing record text, amounts, order or calculation engines. Compare old/new datasets and behavior.
-5. Run each consumer's type/build, keyboard, responsive, offline and data-parity checks. Commit manifest and lockfile together with the migration.
+5. Run each consumer's type/build, keyboard, responsive, offline and data-parity checks. When updating the dependency, commit manifest and lockfile together with the migration.
 
-No app dependency is changed by this library PR. Comboboxes and domain-specific components remain deferred until an actual consumer needs them. Browser automation is not screen-reader, SSR/RSC or physical-device certification.
+## Consumer Acceptance Checklist
+
+Batch compatible changes into a reviewed PR per consumer; component-by-component PRs are not required. This checklist defines acceptance evidence, not a claim that any particular application's migration is complete.
+
+| Surface | Existing components | Preserve and verify in the consumer |
+| --- | --- | --- |
+| Contact and numeric forms | `Field`, `Input`, `NativeSelect`, `Textarea`, `Button` | Labels, help/error associations, native attributes, option values/order, parsing, submit behavior and reset state. |
+| Participation and privacy choices | `Checkbox`, `RadioGroup` | Explicit consent defaults, disabled/restricted choices, event handlers, keyboard selection and caller-owned review state. Never infer consent or membership from styling. |
+| Feedback | `Notice`, `ValidationSummary`, `EmptyState`, `LoadingIndicator` | Existing text, announcement timing, retry actions and validation focus without changing hash routes. |
+| Tables | `Table`, `SortableHeader`, `Pagination` | Record text/order, totals, captions, header scope, sorting, page boundaries and horizontal scrolling. The library does not calculate, sort or slice data. |
+| Dialogs, menus and tabs | `Dialog`, `AlertDialog`, `DropdownMenu`, `Tabs`, `Tooltip` | Accessible names, focus return, Escape behavior, theme inheritance and durable state. Router navigation is not a `Tabs` replacement. |
+
+- Capture the current behavior and representative numeric/data outputs before migration. Compare after migration; changed component counts alone are not evidence of parity.
+- Run type checks, production builds and focused interaction tests in Chromium, Firefox and WebKit. Check narrow/mobile and desktop layouts, keyboard focus, disabled states, hover/text colors and contained overflow.
+- Exercise built-app interactions offline after assets load. Verify that the migration introduces no network calls or persistence. This does not certify a cold offline start, a service worker, or reload with a stopped local server.
+- Keep domain engines, permissions, URLs, synthetic demo data and storage behavior caller-owned. Tests and screenshots must not introduce personal records or credentials.
+- Remove obsolete wrappers/styles only after checking all their consumers. Record intentional local exceptions instead of forcing a semantic mismatch into a shared component.
+
+Native range/date/file inputs, router links, editable or virtualized grids, specialized salary layouts and domain cards can remain local when these APIs do not fit. Add a shared abstraction only after a concrete consumer requirement is established. A migration using only 0.2.0 exports does not require a package version bump or a new release.
+
+Browser automation is not screen-reader, SSR/RSC or physical-device certification.

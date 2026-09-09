@@ -17,7 +17,7 @@ change in-memory example state. Source snippets can be selected, copied or
 downloaded; clipboard access can be denied by a browser and reports that failure.
 Button snippets require caller-owned handlers/state. They are not standalone apps.
 
-The 0.2.0 preview also renders form choices, validation summaries, notices, badges,
+The 0.2.0 showcase also renders form choices, validation summaries, notices, badges,
 empty/loading states, dialogs, tooltips, a command menu, tabs and a sortable,
 paginated synthetic table. See [component contracts](COMPONENTS.md) for API examples
 and adoption gates. Add `?portal=1` to exercise the explicit overlay destination;

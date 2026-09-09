@@ -1,10 +1,10 @@
 # Civic UI
 
-Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.1.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0) is available through GitHub Releases. Not an official identity kit.
+Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0) is available through GitHub Releases. Not an official identity kit.
 
 ## Components
 
-The working tree prepares **0.2.0**, not yet published. Version 0.1.0 consumers remain unchanged until a reviewed release is adopted.
+The components below are included in **0.2.0**. Consumers remain on their pinned version until a reviewed dependency update is adopted.
 
 - Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`.
 - Feedback: `Notice`, `ValidationSummary`, `StatusBadge`, `EmptyState`, `LoadingIndicator`.
@@ -63,4 +63,4 @@ Only controls and themes are included. No app fixtures, personal records, creden
 
 Before release: review source/archive contents, run hosted CI, and approve a versioned GitHub release. Browser checks are not a complete accessibility audit. WebKit coverage is not Safari or iOS device certification. Native CSS nesting remains in output. SSR/RSC and screen-reader behavior are not certified. Normal CI never publishes; the separate manual release workflow creates drafts only and never merges PRs.
 
-Existing consuming apps are not migrated by this repository. Adopt each approved release in separate reviewed changes with behavior and data-parity checks. Comboboxes, date pickers, domain cards, authentication and application navigation are outside this change.
+Existing consuming apps are not migrated by this repository. Adopt each approved release in separate reviewed changes using the [consumer acceptance checklist](COMPONENTS.md#consumer-acceptance-checklist). Comboboxes, date pickers, domain cards, authentication and application navigation remain outside the package.

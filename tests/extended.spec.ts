@@ -220,12 +220,18 @@ test("explicit portals escape transformed containers and retain their host theme
       .evaluate((el) => getComputedStyle(el).color),
   );
   await page.keyboard.press("Escape");
+  await expect(host.getByRole("dialog")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Edit document", exact: true })).toBeFocused();
   await page
     .getByRole("button", { name: "Archive document", exact: true })
     .click();
   await expect(host.getByRole("alertdialog")).toBeVisible();
   await page.keyboard.press("Escape");
+  await expect(host.getByRole("alertdialog")).toHaveCount(0);
+  // Radix restores focus asynchronously; wait before focusing the next trigger.
+  await expect(page.getByRole("button", { name: "Archive document", exact: true })).toBeFocused();
   await page.getByRole("button", { name: "Help", exact: true }).focus();
+  await expect(page.getByRole("button", { name: "Help", exact: true })).toBeFocused();
   await expect(host.getByRole("tooltip")).toHaveText("Document help");
   await page.keyboard.press("Escape");
   await page.getByRole("button", { name: "Document actions" }).focus();

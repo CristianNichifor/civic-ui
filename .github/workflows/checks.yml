@@ -26,3 +26,29 @@ jobs:
         run: docker run --rm --ipc=host -e CI=1 -v "$GITHUB_WORKSPACE:/work" -w /work mcr.microsoft.com/playwright:v1.63.0-noble npm test
       - run: npm run test:release
       - run: npm run release:assets
+      - name: Stage showcase
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          cp -r artifacts/react19/dist artifacts/showcase-site
+          cp artifacts/showcase-site/showcase.html artifacts/showcase-site/index.html
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          path: artifacts/showcase-site
+  deploy-showcase:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: showcase-pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy showcase
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

@@ -32,7 +32,7 @@ for (const [major, react, types, domTypes] of [[18, '18.3.1', '18.3.31', '18.3.7
   // Always test the newly packed bytes, not npm's previous same-version installation.
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
-  for (const name of ['index.html', 'main.tsx', 'type-contract.tsx', 'host.css', 'tsconfig.json']) await copyFile(resolve(root, 'fixtures', name), resolve(dir, name));
+  for (const name of ['index.html', 'main.tsx', 'type-contract.tsx', 'host.css', 'tsconfig.json', 'showcase.html', 'showcase.tsx', 'showcase.css', 'vite.config.js']) await copyFile(resolve(root, 'fixtures', name), resolve(dir, name));
   for (const name of ['package.json', 'package-lock.json']) {
     await copyFile(resolve(root, `fixtures/react${major}`, name), resolve(dir, name));
   }

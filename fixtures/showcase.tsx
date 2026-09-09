@@ -6,6 +6,7 @@ import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
 import '@cristiannichifor/civic-ui/themes/usr.css';
 import './showcase.css';
+import { ExtendedShowcase } from './extended-showcase';
 
 const examples = {
   fields: `import { Field, Input, NativeSelect } from '@cristiannichifor/civic-ui';
@@ -66,7 +67,7 @@ function Showcase() {
   return <div className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'}>
     <a className="skip" href="#controls">Skip to controls</a>
     <header>
-      <div><h1>Civic UI</h1><span className="version">v0.1.0 / React {version}</span></div>
+      <div><h1>Civic UI</h1><span className="version">v0.2.0 preview / React {version}</span></div>
       <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a>
         <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a></nav>
     </header>
@@ -95,6 +96,7 @@ function Showcase() {
           <Field id="showcase-long" label="A longer category label for public documents and collaborative resources">{props => <NativeSelect {...props}><option>Documents and collaborative resources from the local archive</option><option>National archive</option></NativeSelect>}</Field>
         </div>
       </section>
+      <ExtendedShowcase />
     </main>
     <footer><span>MIT / Synthetic examples</span><a href="https://github.com/CristianNichifor/civic-ui">Source</a><a href="https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0">GitHub release</a></footer>
   </div>;

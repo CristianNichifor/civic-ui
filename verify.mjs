@@ -11,8 +11,8 @@ const offline = process.env.CIVIC_OFFLINE === '1' ? ['--offline'] : [];
 await mkdir(resolve(root, 'artifacts'), { recursive: true });
 run('npm', ['run', 'build']);
 const packed = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', 'artifacts'], { cwd: root, encoding: 'utf8' }))[0];
-const expectedFiles = ['README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASING.md', 'CHANGELOG.md', 'package.json', 'dist/index.js', 'dist/index.d.ts',
-  'dist/components.d.ts', 'dist/styles.css', 'dist/foundations.css', 'dist/controls.css',
+const expectedFiles = ['README.md', 'COMPONENTS.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASING.md', 'CHANGELOG.md', 'package.json', 'dist/index.js', 'dist/index.d.ts',
+  'dist/components.d.ts', 'dist/extended.d.ts', 'dist/styles.css', 'dist/foundations.css', 'dist/controls.css',
   'dist/themes/usr.css', 'dist/themes/neutral.css', 'dist/licenses/react-LICENSE', 'dist/licenses/lucide-react-LICENSE'];
 assert.deepEqual(packed.files.map(({ path }) => path).sort(), expectedFiles.sort());
 const manifest = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
@@ -32,7 +32,7 @@ for (const [major, react, types, domTypes] of [[18, '18.3.1', '18.3.31', '18.3.7
   // Always test the newly packed bytes, not npm's previous same-version installation.
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
-  for (const name of ['index.html', 'main.tsx', 'type-contract.tsx', 'host.css', 'tsconfig.json', 'showcase.html', 'showcase.tsx', 'showcase.css', 'vite.config.js']) await copyFile(resolve(root, 'fixtures', name), resolve(dir, name));
+  for (const name of ['index.html', 'main.tsx', 'type-contract.tsx', 'host.css', 'tsconfig.json', 'showcase.html', 'showcase.tsx', 'extended-showcase.tsx', 'showcase.css', 'vite.config.js']) await copyFile(resolve(root, 'fixtures', name), resolve(dir, name));
   for (const name of ['package.json', 'package-lock.json']) {
     await copyFile(resolve(root, `fixtures/react${major}`, name), resolve(dir, name));
   }

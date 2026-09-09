@@ -11,18 +11,17 @@ await build({
   root,
   build: {
     outDir: 'dist',
-    lib: { entry: resolve(source, 'components.tsx'), formats: ['es'], fileName: () => 'index.js' },
-    rollupOptions: { external: id => /^(react|lucide-react)(\/|$)/.test(id) },
+    lib: { entry: resolve(source, 'index.ts'), formats: ['es'], fileName: () => 'index.js' },
+    rollupOptions: { external: id => /^(react|react-dom|lucide-react|@radix-ui\/[^/]+)(\/|$)/.test(id) },
     minify: false,
   },
   esbuild: { jsx: 'automatic' },
 });
 execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc'),
-  resolve(source, 'components.tsx'), '--declaration', '--emitDeclarationOnly',
+  resolve(source, 'index.ts'), '--declaration', '--emitDeclarationOnly',
   '--strict', '--jsx', 'react-jsx', '--module', 'ESNext', '--moduleResolution', 'Bundler',
   '--target', 'ES2022', '--rootDir', source, '--outDir', resolve(root, 'dist'),
 ], { stdio: 'inherit' });
-await writeFile(resolve(root, 'dist/index.d.ts'), 'export { Button, IconButton, Field, Input, NativeSelect } from "./components";\n');
 await mkdir(resolve(root, 'dist/themes'), { recursive: true });
 for (const name of ['foundations.css', 'controls.css']) {
   await copyFile(resolve(source, name), resolve(root, 'dist', name));

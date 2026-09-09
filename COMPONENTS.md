@@ -4,6 +4,7 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 
 ## Forms
 
+- In 0.2.0, `Input` and `NativeSelect` require a `.civic-field` ancestor for their full base styles. Prefer the `Field` API shown below for that wrapper and accessible label associations. A `.civic-scope` ancestor alone is not sufficient: the select's native-arrow removal and reserved chevron padding are field-scoped. Replacing an existing select inside a plain label without adding `Field` can display both native and custom arrows.
 - `Textarea` forwards its native ref and attributes, including `rows`, `required`, `disabled`, `readOnly` and validation attributes. Use `Field` for label, description and error association, as with `Input` and `NativeSelect`.
 - `Checkbox` requires `label`, forwards the input ref and native checkbox attributes. Use `checked`/`onChange` or `defaultChecked`; `name` and `value` participate in native form submission. A label can include visible help; supply `aria-describedby` for external help. Indeterminate selection is not a separate API in this version.
 - `RadioGroup` requires `label`, `options`, `value` and `onValueChange`. Options have unique `value`, `label` and optional `disabled`. Set `name` for native form submission. `required`, group `disabled` and `error` are supported. Without a name it uses a unique React ID. Arrow behavior remains browser-native, including platform differences at group boundaries.

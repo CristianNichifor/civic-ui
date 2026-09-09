@@ -20,9 +20,9 @@ jobs:
             fixtures/react18/package-lock.json
             fixtures/react19/package-lock.json
       - run: npm ci --ignore-scripts
-      # Hosted Ubuntu provides runtime libraries; avoid unrelated third-party apt indexes.
-      - run: npx --no-install playwright install chromium
       - run: npm run verify
-      - run: npm test
+      # Only browser checks run in the image; normal tooling stays on the Node version above.
+      - name: Chromium, Firefox and WebKit checks
+        run: docker run --rm --ipc=host -e CI=1 -v "$GITHUB_WORKSPACE:/work" -w /work mcr.microsoft.com/playwright:v1.63.0-noble npm test
       - run: npm run test:release
       - run: npm run release:assets

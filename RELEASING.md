@@ -11,9 +11,9 @@ No npm account, registry token or npm publication is used. `private: true` inten
 
 Only the release job has repository write permission. It uses the built-in GitHub token for draft creation, not a stored registry secret. Normal PR CI remains read-only.
 
-## Consume After Publication
+## Consume a Published Release
 
-The following URL will work only after v0.1.0 is published:
+Version 0.1.0 is published on GitHub Releases:
 
 ```bash
 npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.1.0/civic-ui-0.1.0.tgz
@@ -25,4 +25,4 @@ For an independent checksum check, download the tarball and `SHA256SUMS` from th
 
 React and Lucide remain peer dependencies. Initial installation needs access to the public release/registry or populated caches. Built local apps do not need a GitHub or npm account at runtime. This does not add a service worker or guarantee server-stopped reloads.
 
-Migrate the pay-app pilot separately, including the package import-name and explicit stylesheet-import changes from pilot.2. Preserve its own theme adapter and rerun calculation/data parity, responsive UI, keyboard and offline checks. Do not change the USR demo automatically.
+Consumer migrations belong in separate reviewed changes. Preserve each host's theme adapter and rerun its behavior/data parity, responsive UI, keyboard and offline checks. Package changes do not update consuming applications automatically.

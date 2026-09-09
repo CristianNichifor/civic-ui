@@ -17,7 +17,7 @@ for (const [theme, mode, color] of [
       return route.continue();
     });
     await page.goto(`/?theme=${theme}&mode=${mode}`);
-    await expect(page.getByTestId('version')).toContainText(info.project.name === 'react18' ? '18.3.1' : '19.1.1');
+    await expect(page.getByTestId('version')).toContainText(info.project.metadata.react);
     await expect(page.locator('main')).toHaveCSS('color', color);
     const select = page.getByLabel('Category', { exact: true });
     await expect(select).toHaveCSS('padding-right', '44px');

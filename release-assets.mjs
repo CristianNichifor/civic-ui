@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
+import { prepareNativeAsset } from './native-assets.mjs';
 
 export async function prepareAssets(root) {
   const manifest = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
@@ -20,8 +21,9 @@ export async function prepareAssets(root) {
   const filename = `civic-ui-${manifest.version}.tgz`;
   await mkdir(output, { recursive: true });
   await copyFile(source, resolve(output, filename));
-  await writeFile(resolve(output, 'SHA256SUMS'), `${digest}  ${filename}\n`);
-  return { tag: `v${manifest.version}`, filename, sha256: digest };
+  const native = await prepareNativeAsset(source, output, manifest.version);
+  await writeFile(resolve(output, 'SHA256SUMS'), `${digest}  ${filename}\n${native.sha256}  ${native.filename}\n`);
+  return { tag: `v${manifest.version}`, filename, sha256: digest, native };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

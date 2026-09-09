@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Add an opt-in native CSS entry and documented plain HTML contract for fields,
+  browser-arrow selects, checkboxes, buttons and accessible table scroll regions.
+- Prepare a separate, deterministic CSS-only GitHub release asset with MIT license
+  and checksum; no React runtime or npm account required.
+- Test the extracted CSS in plain HTML at three widths and both neutral color modes,
+  in Chromium, Firefox and WebKit with JavaScript disabled and networking offline.
+
 ## 0.2.0 (Unreleased)
 
 - Add Textarea, Checkbox and native RadioGroup form controls.

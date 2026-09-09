@@ -1,5 +1,8 @@
 # Civic UI
 
+For non-React applications, see the [native HTML/CSS contract](NATIVE.md).
+The CSS-only release asset is unreleased; existing v0.2.0 assets are unchanged.
+
 Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0) is available through GitHub Releases. Not an official identity kit.
 
 ## Components

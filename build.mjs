@@ -23,7 +23,7 @@ execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc')
   '--target', 'ES2022', '--rootDir', source, '--outDir', resolve(root, 'dist'),
 ], { stdio: 'inherit' });
 await mkdir(resolve(root, 'dist/themes'), { recursive: true });
-for (const name of ['foundations.css', 'controls.css']) {
+for (const name of ['foundations.css', 'controls.css', 'native.css']) {
   await copyFile(resolve(source, name), resolve(root, 'dist', name));
 }
 await writeFile(resolve(root, 'dist/styles.css'), '@import "./foundations.css";\n@import "./controls.css";\n');

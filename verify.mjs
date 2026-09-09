@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { prepareNativeAsset } from './native-assets.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const run = (cmd, args, cwd = root) => execFileSync(cmd, args, { cwd, stdio: 'inherit' });
@@ -11,8 +12,8 @@ const offline = process.env.CIVIC_OFFLINE === '1' ? ['--offline'] : [];
 await mkdir(resolve(root, 'artifacts'), { recursive: true });
 run('npm', ['run', 'build']);
 const packed = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', 'artifacts'], { cwd: root, encoding: 'utf8' }))[0];
-const expectedFiles = ['README.md', 'COMPONENTS.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASING.md', 'CHANGELOG.md', 'package.json', 'dist/index.js', 'dist/index.d.ts',
-  'dist/components.d.ts', 'dist/extended.d.ts', 'dist/styles.css', 'dist/foundations.css', 'dist/controls.css',
+const expectedFiles = ['README.md', 'COMPONENTS.md', 'NATIVE.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASING.md', 'CHANGELOG.md', 'package.json', 'dist/index.js', 'dist/index.d.ts',
+  'dist/components.d.ts', 'dist/extended.d.ts', 'dist/styles.css', 'dist/native.css', 'dist/foundations.css', 'dist/controls.css',
   'dist/themes/usr.css', 'dist/themes/neutral.css', 'dist/licenses/react-LICENSE', 'dist/licenses/lucide-react-LICENSE'];
 assert.deepEqual(packed.files.map(({ path }) => path).sort(), expectedFiles.sort());
 const manifest = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
@@ -27,6 +28,12 @@ const js = await readFile(resolve(root, 'dist/index.js'), 'utf8');
 assert(!js.includes('/home/') && !js.includes('usr.css') && !js.includes('neutral.css'));
 const tarball = resolve(root, 'artifacts', packed.filename);
 const results = { package: packed.filename, sha256: createHash('sha256').update(await readFile(tarball)).digest('hex'), consumers: [] };
+const nativeDir = resolve(root, 'artifacts/native');
+await rm(nativeDir, { recursive: true, force: true });
+await mkdir(resolve(nativeDir, 'css'), { recursive: true });
+const native = await prepareNativeAsset(tarball, nativeDir, manifest.version);
+run('tar', ['-xzf', resolve(nativeDir, native.filename), '-C', resolve(nativeDir, 'css')]);
+await copyFile(resolve(root, 'fixtures/native.html'), resolve(nativeDir, 'index.html'));
 for (const [major, react, types, domTypes] of [[18, '18.3.1', '18.3.31', '18.3.7'], [19, '19.1.1', '19.2.18', '19.2.7']]) {
   const dir = resolve(root, `artifacts/react${major}`);
   // Always test the newly packed bytes, not npm's previous same-version installation.

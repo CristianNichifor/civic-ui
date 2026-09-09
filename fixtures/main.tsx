@@ -8,6 +8,22 @@ import '@cristiannichifor/civic-ui/themes/usr.css';
 import './host.css';
 
 const ref = createRef<HTMLSelectElement>();
+function EdgeControls() {
+  const [choice, setChoice] = useState('');
+  const [actions, setActions] = useState(0);
+  const longText = 'A longer category label that wraps naturally across multiple lines on a narrow mobile display';
+  return <section aria-label="Control states">
+    <Field id="disabled-input" label="Disabled input">{props => <Input {...props} disabled value="Fixed" />}</Field>
+    <Field id="disabled-select" label="Disabled select">{props => <NativeSelect {...props} disabled defaultValue="fixed"><option value="fixed">Fixed</option></NativeSelect>}</Field>
+    <Button disabled onClick={() => setActions(n => n + 1)}>Disabled action</Button>
+    <Field id="invalid-select" label="Required category" description="Choose a category" error={!choice ? 'Category is required' : undefined}>
+      {props => <NativeSelect {...props} required value={choice} onChange={event => setChoice(event.target.value)}><option value="">Select category</option><option value="chosen">Chosen</option></NativeSelect>}
+    </Field>
+    <Field id="long-select" label={longText}>{props => <NativeSelect {...props} defaultValue="long"><option value="long">{longText}</option></NativeSelect>}</Field>
+    <Button onClick={() => setActions(n => n + 1)}>Continue with the selected category and review the document</Button>
+    <output data-testid="edge-actions">{actions}</output>
+  </section>;
+}
 function App() {
   const [saved, setSaved] = useState(false);
   const [title, setTitle] = useState('');
@@ -33,6 +49,7 @@ function App() {
       </div>
       <output aria-live="polite">{category}{submitted && title ? `: ${title}` : ''}</output>
     </form>
+    {params.has('edge') && <EdgeControls />}
   </main>;
 }
 createRoot(document.getElementById('root')!).render(<App />);

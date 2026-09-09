@@ -11,7 +11,7 @@ No npm account, registry token or npm publication is used. `private: true` inten
 
 Only the release job has repository write permission. It uses the built-in GitHub token for draft creation, not a stored registry secret. Normal PR CI remains read-only.
 
-## CSS-Only Asset (Unreleased)
+## CSS-Only Asset (0.3.0 Preparation)
 
 Release preparation now stages `civic-ui-css-VERSION.tgz` from the same verified
 package bytes. Its exact allowlist is CSS, `NATIVE.md` and `LICENSE`, with a second
@@ -20,9 +20,10 @@ plain-HTML browser fixture loads the extracted archive over `file://`, with
 JavaScript disabled and HTTP(S) requests blocked, in all three engines, then
 checks controls with offline emulation enabled (see the WebKit note in NATIVE.md).
 
-Before publishing this addition, prepare and review a new package/lockfile version
-and changelog entry. The unchanged 0.2.0 version in this branch is not permission
-to overwrite its published release. No CSS-only asset exists for that release.
+The package and lockfile now prepare version 0.3.0, with an unreleased changelog
+entry. Review and merge this preparation before running the manual release
+workflow. Version 0.3.0 is not published by this change. Do not overwrite the
+published 0.2.0 release; no CSS-only asset exists for that version.
 The asset builder uses GNU tar for reproducible archive metadata, as available in
 the Ubuntu release workflow. See [NATIVE.md](NATIVE.md) for the supported markup
 and host-owned behavior.

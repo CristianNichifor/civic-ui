@@ -1,15 +1,21 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 (Unreleased)
 
 - Add an opt-in native CSS entry and documented plain HTML contract for fields,
   browser-arrow selects, checkboxes, buttons and accessible table scroll regions.
 - Prepare a separate, deterministic CSS-only GitHub release asset with MIT license
   and checksum; no React runtime or npm account required.
 - Test the extracted CSS in plain HTML at three widths and both neutral color modes,
-  in Chromium, Firefox and WebKit with JavaScript disabled and networking offline.
+  in Chromium, Firefox and WebKit with JavaScript disabled and HTTP(S) blocked;
+  enable offline emulation after file navigation for WebKit compatibility.
 
-## 0.2.0 (Unreleased)
+No React API or dependency changes. Release preparation does not publish assets
+or update consumer pins; publication requires manual review.
+
+## 0.2.0
+
+Published on GitHub Releases.
 
 - Add Textarea, Checkbox and native RadioGroup form controls.
 - Add Notice, ValidationSummary, StatusBadge, EmptyState and LoadingIndicator.
@@ -19,7 +25,7 @@
 - Add React DOM peer and pinned MIT-licensed Radix dependencies; retain GitHub-only distribution.
 - Expand React 18/19 browser coverage for keyboard behavior, focus return, validation, themes, mobile bounds, sorting, pagination and offline interaction.
 
-No consuming application, data, route or published 0.1.0 asset is changed. Merge and release publication require manual review.
+This release did not change consuming application code, data, routes or published 0.1.0 assets.
 
 ## 0.1.0
 

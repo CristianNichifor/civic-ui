@@ -4,7 +4,14 @@ Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.1.0]
 
 ## Components
 
-`Button`, `IconButton`, `Field`, `Input`, and `NativeSelect` wrap native HTML controls. Callers own values, validation, IDs, permissions and business logic. `Field` associates labels and descriptions; `IconButton` requires an accessible label. React and Lucide remain external peer dependencies.
+The working tree prepares **0.2.0**, not yet published. Version 0.1.0 consumers remain unchanged until a reviewed release is adopted.
+
+- Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`.
+- Feedback: `Notice`, `ValidationSummary`, `StatusBadge`, `EmptyState`, `LoadingIndicator`.
+- Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`.
+- Data presentation: `Table`, `SortableHeader`, `Pagination`.
+
+Callers own values, validation, IDs, permissions and business logic. Forms retain native HTML controls. Radix handles complex focus and keyboard behavior. React, React DOM and Lucide remain external peers; five pinned Radix primitives are external runtime dependencies. See [component contracts and examples](COMPONENTS.md).
 
 The package exports ESM JavaScript, TypeScript declarations, base CSS and two independent theme adapters:
 
@@ -27,7 +34,7 @@ Neutral supports `data-civic-mode="dark"`. The optional `themes/usr.css` adapter
 ## Develop and Verify
 
 The interactive [component showcase](https://cristiannichifor.github.io/civic-ui/)
-is deployed from checked `main` after the showcase PR is merged. See
+is deployed from checked `main`. See
 [showcase documentation](https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md) for local preview, examples and limitations.
 
 Use Node from `.nvmrc` and the checked-in npm lockfiles:
@@ -44,7 +51,7 @@ Fixture preview: http://127.0.0.1:5221/. Showcase: http://127.0.0.1:5221/showcas
 
 `verify` builds and packs the package, checks its exact file allowlist and license notices, then creates independent React 18.3.1 and React 19.1.1 consumers. Each consumer installs its checked-in dependency lockfile before installing the newly packed artifact without saving a local-path dependency. Both undergo strict type checks and production builds. No parent repository, aliases or sibling dependencies are required.
 
-`test` runs 60 tests across Chromium, Firefox and WebKit against both production consumers: 42 control checks and 18 showcase checks. Theme checks cover field associations, invalid state, select padding, icons, keyboard focus, disabled controls, interactions, no external requests/storage, and 320/390/1440 layouts in neutral light/dark and the USR host-token adapter. Additional neutral-theme tests cover disabled Tab skipping, native select validation, long labels/actions and keyboard activation. Showcase checks cover theme switching, editable state, offline interaction, clipboard success/failure handling and downloaded source. Clipboard outcomes are stubbed; actual permission prompts remain browser-dependent. Screenshots and machine-readable package results stay in ignored `artifacts/`. Build fixtures first with `verify`.
+`test` covers Chromium, Firefox and WebKit against both production consumers. Checks exercise field associations, validation, select padding, keyboard focus, disabled controls, dialogs, menus, tooltips, tabs, sorting, pagination, reduced motion, offline interactions and responsive layouts in neutral light/dark and the USR host-token adapter. Showcase checks include clipboard success/failure handling and downloaded source. Clipboard outcomes are stubbed; actual permission prompts remain browser-dependent. Screenshots and machine-readable package results stay in ignored `artifacts/`. Build fixtures first with `verify`.
 
 CI runs browser tests in the official `mcr.microsoft.com/playwright:v1.63.0-noble` image with bundled browsers and system dependencies. Keep that image version in both workflows aligned with `@playwright/test`. Package builds and release commands run on the host using `.nvmrc`. Local browser execution requires supported system libraries; installing browser binaries alone may not suffice on unsupported Linux distributions.
 
@@ -52,8 +59,8 @@ For cached offline verification, use `CIVIC_OFFLINE=1 npm run verify`. Initial i
 
 ## Scope and Release Gates
 
-Only controls and themes are included. No app fixtures, personal records, credentials, fonts, logos, Radix components or domain engines are shipped. [MIT license](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) apply; trademarks and third-party assets are not licensed by this project.
+Only controls and themes are included. No app fixtures, personal records, credentials, fonts, logos or domain engines are shipped. Radix implementations are installed as dependencies, not bundled into the library archive. [MIT license](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) apply; trademarks and third-party assets are not licensed by this project.
 
 Before release: review source/archive contents, run hosted CI, and approve a versioned GitHub release. Browser checks are not a complete accessibility audit. WebKit coverage is not Safari or iOS device certification. Native CSS nesting remains in output. SSR/RSC and screen-reader behavior are not certified. Normal CI never publishes; the separate manual release workflow creates drafts only and never merges PRs.
 
-Existing consuming apps are not migrated by this repository. Adopt the first approved release in a separate reviewed change with behavior and data-parity checks.
+Existing consuming apps are not migrated by this repository. Adopt each approved release in separate reviewed changes with behavior and data-parity checks. Comboboxes, date pickers, domain cards, authentication and application navigation are outside this change.

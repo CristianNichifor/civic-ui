@@ -23,6 +23,6 @@ Commit the consumer's package manifest and lockfile together. The manifest pins 
 
 For an independent checksum check, download the tarball and `SHA256SUMS` from the same release into one directory and run `sha256sum -c SHA256SUMS`. Checksums detect changed bytes; they are not a separate signature or proof of publisher identity.
 
-React and Lucide remain peer dependencies. Initial installation needs access to the public release/registry or populated caches. Built local apps do not need a GitHub or npm account at runtime. This does not add a service worker or guarantee server-stopped reloads.
+For 0.2.0, React, React DOM and Lucide are peers; Radix primitives are runtime dependencies. Keep React and React DOM on matching versions. Initial installation needs access to the public release/registry or populated caches. Built local apps do not need a GitHub or npm account at runtime. This does not add a service worker or guarantee server-stopped reloads.
 
 Consumer migrations belong in separate reviewed changes. Preserve each host's theme adapter and rerun its behavior/data parity, responsive UI, keyboard and offline checks. Package changes do not update consuming applications automatically.

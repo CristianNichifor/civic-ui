@@ -9,7 +9,15 @@ The original code distributed in this package is MIT-licensed. Dependencies reta
 
 React, its JSX runtime, and Lucide are external imports, not bundled implementations. For convenience and attribution, the build copies the complete license texts from the installed, locked React and Lucide packages into `dist/licenses/react-LICENSE` and `dist/licenses/lucide-react-LICENSE`. Consumers distributing these dependencies or bundled icons must preserve their applicable notices too.
 
-ReactDOM is used only by test consumers, under MIT. No Radix implementation is included in this package. TypeScript and Vite are build tools, not distributed runtime code; their licenses remain in their installed packages.
+React DOM is also a runtime peer under MIT, including optional portal rendering. Its license is retained in its installed package.
+
+## Runtime Dependencies (0.2.0)
+
+The package imports these pinned, MIT-licensed Radix primitives without bundling their implementations: `@radix-ui/react-dialog` 1.1.23, `@radix-ui/react-alert-dialog` 1.1.23, `@radix-ui/react-dropdown-menu` 2.1.24, `@radix-ui/react-tabs` 1.1.21 and `@radix-ui/react-tooltip` 1.2.16. [Radix license](https://github.com/radix-ui/primitives/blob/main/LICENSE).
+
+Their installed transitive dependencies include Radix support packages, Floating UI, aria-hidden, react-remove-scroll and its helpers (MIT), and tslib (0BSD). The root lockfile records resolved versions and license metadata. Dependency license texts remain in installed packages; application distributors must preserve applicable notices. These permissive dependencies do not change Civic UI's MIT license. Transitive ranges are locked by each consumer's own lockfile, not the published tarball.
+
+TypeScript and Vite are build tools, not distributed runtime code; their licenses remain in their installed packages.
 
 ## Scope
 

@@ -23,3 +23,5 @@ jobs:
       - run: npx --no-install playwright install --with-deps chromium
       - run: npm run verify
       - run: npm test
+      - run: npm run test:release
+      - run: npm run release:assets

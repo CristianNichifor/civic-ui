@@ -1,6 +1,6 @@
 # Civic UI
 
-Small, MIT-licensed React controls with separate, opt-in themes. Local prerelease preparation, not a published package or an official identity kit.
+Small, MIT-licensed React controls with separate, opt-in themes. Version 0.1.0 is prepared for GitHub Releases, pending publication. Not an official identity kit.
 
 ## Components
 
@@ -20,7 +20,7 @@ import '@cristiannichifor/civic-ui/themes/neutral.css';
 </section>
 ```
 
-This illustrates the intended package API, not an available registry install. The npm scope is provisional until ownership is verified. `private: true` prevents accidental publication; it does not restrict the MIT source license.
+Install the versioned tarball from GitHub Releases after publication; see [release and installation instructions](RELEASING.md). No npm account is required. The scoped name is an import identifier, not an npm registry distribution. `private: true` prevents accidental registry publication; it does not restrict the MIT source license.
 
 Neutral supports `data-civic-mode="dark"`. The optional `themes/usr.css` adapter uses `civic-usr` and maps existing host `--usr-*` tokens without loading fonts, logos or an independent brand palette. Hosts can supply `--civic-*` tokens directly instead. JavaScript never imports a theme or stylesheet automatically.
 
@@ -48,6 +48,6 @@ For cached offline verification, use `CIVIC_OFFLINE=1 npm run verify`. Initial i
 
 Only controls and themes are included. No app fixtures, personal records, credentials, fonts, logos, Radix components or domain engines are shipped. [MIT license](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) apply; trademarks and third-party assets are not licensed by this project.
 
-Before release: confirm the distribution name, review source/archive contents, run hosted CI, decide browser support, and approve a versioned release. Current checks are Chromium-only, not a complete accessibility audit. Native CSS nesting remains in output. SSR/RSC, other browsers and screen-reader behavior are not certified. CI has no publication or merge step.
+Before release: review source/archive contents, run hosted CI, and approve a versioned GitHub release. Current checks are Chromium-only, not a complete accessibility audit. Native CSS nesting remains in output. SSR/RSC, other browsers and screen-reader behavior are not certified. Normal CI never publishes; the separate manual release workflow creates drafts only and never merges PRs.
 
 Existing consuming apps are not migrated by this repository. Adopt the first approved release in a separate reviewed change with behavior and data-parity checks.

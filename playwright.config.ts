@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests', outputDir: './artifacts/test-results', workers: 1, reporter: 'list',
+  testMatch: '**/*.spec.ts',
   use: { launchOptions: { executablePath: process.env.DEMO_CHROMIUM }, trace: 'retain-on-failure' },
   projects: [18, 19].map(version => ({ name: `react${version}`, use: { baseURL: `http://127.0.0.1:${version === 18 ? 5218 : 5219}` } })),
   webServer: [18, 19].map(version => ({

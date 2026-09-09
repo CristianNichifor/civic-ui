@@ -1,0 +1,40 @@
+name: Prepare GitHub release
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-release
+  cancel-in-progress: false
+jobs:
+  draft:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts
+      # Hosted Ubuntu provides runtime libraries; avoid unrelated third-party apt indexes.
+      - run: npx --no-install playwright install chromium
+      - run: npm run verify
+      - run: npm test
+      - run: npm run test:release
+      - run: npm run release:assets
+      - name: Create draft with verified assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          gh release create "v${VERSION}" \
+            "artifacts/release/civic-ui-${VERSION}.tgz" \
+            artifacts/release/SHA256SUMS \
+            --target "$GITHUB_SHA" --title "Civic UI v${VERSION}" \
+            --notes-file CHANGELOG.md --draft

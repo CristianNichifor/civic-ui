@@ -1,0 +1,7 @@
+{
+  "name": "civic-react19-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": { "react": "19.1.1", "react-dom": "19.1.1", "lucide-react": "1.43.0" },
+  "devDependencies": { "@types/react": "19.2.18", "@types/react-dom": "19.2.7" }
+}

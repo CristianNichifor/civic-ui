@@ -1,0 +1,22 @@
+:root {
+  font-family: system-ui, sans-serif;
+  --usr-font-sans: system-ui, sans-serif;
+  --usr-surface-muted: #f0f2f5;
+  --usr-surface: #ffffff;
+  --usr-surface-raised: #e5e9ee;
+  --usr-text: #002a59;
+  --usr-text-muted: #4c698a;
+  --usr-line-strong: #7f94ac;
+  --usr-navy: #002a59;
+  --usr-blue-mid: #00458c;
+  --usr-on-navy: #ffffff;
+  --usr-focus: #00458c;
+  --usr-accent: #ff0021;
+  --usr-danger: #002a59;
+  --usr-radius-control: 6px;
+}
+body { margin: 0; }
+main { min-height: 100vh; box-sizing: border-box; padding: 24px; background: var(--civic-bg); color: var(--civic-text); }
+h1 { font-size: 24px; }
+form { display: grid; gap: 24px; max-width: 480px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }

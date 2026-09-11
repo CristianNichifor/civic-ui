@@ -1,7 +1,7 @@
 # Civic UI
 
 For non-React applications, see the [native HTML/CSS contract](NATIVE.md).
-Version 0.3.0 is published through GitHub Releases. Existing v0.2.0 assets remain unchanged. See the [adoption guide](ADOPTION.md) for the CSS-only archive and verification steps.
+Version 0.4.0 is published through GitHub Releases. Existing v0.3.0 and v0.2.0 assets remain unchanged. See the [adoption guide](ADOPTION.md) for the React and CSS-only archives and verification steps.
 
 Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0) is available through GitHub Releases. Not an official identity kit.
 

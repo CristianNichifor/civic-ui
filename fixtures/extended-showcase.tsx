@@ -14,6 +14,7 @@ import {
   StatusBadge,
   EmptyState,
   LoadingIndicator,
+  OperationStatus,
   Table,
   SortableHeader,
   Pagination,
@@ -90,6 +91,12 @@ export function ExtendedShowcase() {
         <Notice title="Archive available" tone="success">
           Four synthetic documents
         </Notice>
+        <OperationStatus
+          state="loading"
+          label="Updating archive"
+          detail="Downloading the verified release."
+          progress={62}
+        />
         <div className="button-row">
           <StatusBadge>Draft</StatusBadge>
           <StatusBadge tone="success">Published</StatusBadge>

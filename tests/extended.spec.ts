@@ -156,6 +156,9 @@ test("overlay themes and mobile bounds work offline with reduced motion", async 
   page,
   context,
 }, info) => {
+  const operation = page.locator('.civic-operation-status[data-state="loading"]');
+  await expect(operation).toContainText("Updating archive");
+  await expect(operation.locator("progress")).toHaveAttribute("value", "62");
   await context.setOffline(true);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator(".civic-loading svg")).toHaveCSS(

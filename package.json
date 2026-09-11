@@ -1,6 +1,6 @@
 {
   "name": "@cristiannichifor/civic-ui",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "Native React controls with opt-in neutral and host-brand themes",
   "license": "MIT",
@@ -59,6 +59,9 @@
     "@radix-ui/react-alert-dialog": "1.1.23",
     "@radix-ui/react-dialog": "1.1.23",
     "@radix-ui/react-dropdown-menu": "2.1.24",
+    "@radix-ui/react-popover": "1.1.15",
+    "@radix-ui/react-select": "2.2.6",
+    "@radix-ui/react-switch": "1.2.6",
     "@radix-ui/react-tabs": "1.1.21",
     "@radix-ui/react-tooltip": "1.2.16"
   }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0
+
+Unreleased.
+
+- Add themed `Switch`, `Select` and `Popover` wrappers around Radix primitives.
+- Keep state, persistence, validation, translations and side effects caller-owned.
+- Add showcase examples and keyboard interaction coverage.
+
 ## 0.6.0
 
 Published on GitHub Releases.

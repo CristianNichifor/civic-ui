@@ -14,12 +14,16 @@ import * as A from "@radix-ui/react-alert-dialog";
 import * as T from "@radix-ui/react-tabs";
 import * as Tip from "@radix-ui/react-tooltip";
 import * as Menu from "@radix-ui/react-dropdown-menu";
+import * as P from "@radix-ui/react-popover";
+import * as S from "@radix-ui/react-select";
+import * as Sw from "@radix-ui/react-switch";
 import {
   ArrowDown,
   ArrowUp,
   ArrowUpDown,
   CircleCheck,
   CircleX,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Info,
@@ -252,6 +256,105 @@ export function SegmentedControl({
         </label>
       ))}
     </fieldset>
+  );
+}
+
+export function Switch({
+  label,
+  checked,
+  onCheckedChange,
+  disabled,
+}: {
+  label: string;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+  disabled?: boolean;
+}) {
+  return (
+    <label className="civic-switch">
+      <Sw.Root
+        className="civic-switch__control"
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        disabled={disabled}
+      >
+        <Sw.Thumb className="civic-switch__thumb" />
+      </Sw.Root>
+      <span>{label}</span>
+    </label>
+  );
+}
+
+export function Select({
+  label,
+  value,
+  defaultValue,
+  onValueChange,
+  options,
+  placeholder = "Select an option",
+  disabled,
+}: {
+  label: string;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  options: { value: string; label: string; disabled?: boolean }[];
+  placeholder?: string;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="civic-select-field">
+      <span className="civic-select-field__label">{label}</span>
+      <S.Root
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        disabled={disabled}
+      >
+        <S.Trigger className="civic-select-trigger" aria-label={label}>
+          <S.Value placeholder={placeholder} />
+          <ChevronDown aria-hidden="true" />
+        </S.Trigger>
+        <S.Portal>
+          <S.Content className="civic-select-content" position="popper" sideOffset={4}>
+            <S.Viewport>
+              {options.map((option) => (
+                <S.Item
+                  className="civic-select-item"
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.disabled}
+                >
+                  <S.ItemText>{option.label}</S.ItemText>
+                </S.Item>
+              ))}
+            </S.Viewport>
+          </S.Content>
+        </S.Portal>
+      </S.Root>
+    </div>
+  );
+}
+
+export function Popover({
+  trigger,
+  children,
+  label,
+}: {
+  trigger: ReactElement;
+  children: ReactNode;
+  label: string;
+}) {
+  return (
+    <P.Root>
+      <P.Trigger asChild>{trigger}</P.Trigger>
+      <P.Portal>
+        <P.Content className="civic-popover" aria-label={label} sideOffset={6} collisionPadding={12}>
+          {children}
+          <P.Arrow className="civic-popover-arrow" />
+        </P.Content>
+      </P.Portal>
+    </P.Root>
   );
 }
 

@@ -1,4 +1,4 @@
-# Component Contracts (0.6.0)
+# Component Contracts (0.7.0 draft)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
@@ -10,6 +10,9 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 - `RadioGroup` requires `label`, `options`, `value` and `onValueChange`. Options have unique `value`, `label` and optional `disabled`. Set `name` for native form submission. `required`, group `disabled` and `error` are supported. Without a name it uses a unique React ID. Arrow behavior remains browser-native, including platform differences at group boundaries.
 - `RangeSlider` requires a visible `label`, numeric `value`, bounds and `onValueChange`. It renders a native range input and labelled output; domain units, formatting and persistence remain caller-owned.
 - `SegmentedControl` requires a `label`, unique options, controlled `value` and `onValueChange`. It uses native radio inputs styled as a compact choice set; use `RadioGroup` when options should be stacked or need visible help/error text.
+- `Switch` requires a visible `label` and exposes Radix checked state; persistence and side effects remain caller-owned.
+- `Select` requires a visible `label` and option values; it provides Radix keyboard navigation while preserving caller-owned values and validation.
+- `Popover` requires a focusable `trigger`, accessible `label` and caller-owned content. It is for transient supporting content, not navigation or destructive confirmation.
 
 ```tsx
 <Field id="notes" label="Notes" error={error}>

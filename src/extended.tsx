@@ -181,6 +181,80 @@ export function RadioGroup({
   );
 }
 
+export function RangeSlider({
+  label,
+  value,
+  min = 0,
+  max = 100,
+  step = 1,
+  onValueChange,
+  className = "",
+  ...props
+}: Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "min" | "max" | "step" | "onChange"> & {
+  label: string;
+  value: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  onValueChange: (value: number) => void;
+}) {
+  const id = useId();
+  return (
+    <label className={`civic-range ${className}`.trim()} htmlFor={id}>
+      <span className="civic-range__header">
+        <span>{label}</span>
+        <output htmlFor={id}>{value}</output>
+      </span>
+      <input
+        {...props}
+        id={id}
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => onValueChange(event.currentTarget.valueAsNumber)}
+      />
+    </label>
+  );
+}
+
+export function SegmentedControl({
+  label,
+  options,
+  value,
+  onValueChange,
+  name,
+  disabled,
+}: {
+  label: string;
+  options: { value: string; label: ReactNode; disabled?: boolean }[];
+  value: string;
+  onValueChange: (value: string) => void;
+  name?: string;
+  disabled?: boolean;
+}) {
+  const id = useId();
+  return (
+    <fieldset className="civic-segmented" disabled={disabled}>
+      <legend className="civic-visually-hidden">{label}</legend>
+      {options.map((option) => (
+        <label className="civic-segmented__option" key={option.value}>
+          <input
+            type="radio"
+            name={name || id}
+            value={option.value}
+            checked={value === option.value}
+            disabled={option.disabled}
+            onChange={() => onValueChange(option.value)}
+          />
+          <span>{option.label}</span>
+        </label>
+      ))}
+    </fieldset>
+  );
+}
+
 export function Notice({
   title,
   children,

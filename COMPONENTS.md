@@ -1,4 +1,4 @@
-# Component Contracts (0.5.0)
+# Component Contracts (0.6.0 draft)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
@@ -8,6 +8,8 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 - `Textarea` forwards its native ref and attributes, including `rows`, `required`, `disabled`, `readOnly` and validation attributes. Use `Field` for label, description and error association, as with `Input` and `NativeSelect`.
 - `Checkbox` requires `label`, forwards the input ref and native checkbox attributes. Use `checked`/`onChange` or `defaultChecked`; `name` and `value` participate in native form submission. A label can include visible help; supply `aria-describedby` for external help. Indeterminate selection is not a separate API in this version.
 - `RadioGroup` requires `label`, `options`, `value` and `onValueChange`. Options have unique `value`, `label` and optional `disabled`. Set `name` for native form submission. `required`, group `disabled` and `error` are supported. Without a name it uses a unique React ID. Arrow behavior remains browser-native, including platform differences at group boundaries.
+- `RangeSlider` requires a visible `label`, numeric `value`, bounds and `onValueChange`. It renders a native range input and labelled output; domain units, formatting and persistence remain caller-owned.
+- `SegmentedControl` requires a `label`, unique options, controlled `value` and `onValueChange`. It uses native radio inputs styled as a compact choice set; use `RadioGroup` when options should be stacked or need visible help/error text.
 
 ```tsx
 <Field id="notes" label="Notes" error={error}>

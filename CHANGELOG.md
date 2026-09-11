@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0
+
+Unreleased.
+
+- Add native `RangeSlider` and `SegmentedControl` primitives for bounded numeric
+  input and compact mutually-exclusive choices.
+- Keep formatting, persistence, validation and domain semantics caller-owned.
+- Add showcase examples and browser coverage for keyboard and native form behavior.
+
 ## 0.5.0
 
 Published on GitHub Releases.

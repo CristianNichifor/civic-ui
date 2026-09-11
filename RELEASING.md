@@ -20,8 +20,8 @@ plain-HTML browser fixture loads the extracted archive over `file://`, with
 JavaScript disabled and HTTP(S) requests blocked, in all three engines, then
 checks controls with offline emulation enabled (see the WebKit note in NATIVE.md).
 
-The package and lockfile are versioned together for each release. The v0.4.0
-release adds React components as well as the deterministic CSS-only asset. The
+The package and lockfile are versioned together for each release. The v0.5.0
+release adds shared React primitives as well as the deterministic CSS-only asset. The
 published release and checksums are recorded in [ADOPTION.md](ADOPTION.md).
 Never claim an archive URL or checksum for a version before its release assets
 exist.
@@ -31,10 +31,10 @@ and host-owned behavior.
 
 ## Consume a Published Release
 
-Version 0.4.0 is the current published GitHub release:
+Version 0.5.0 is the current published GitHub release:
 
 ```bash
-npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-0.4.0.tgz
+npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-0.5.0.tgz
 ```
 
 Commit the consumer's package manifest and lockfile together. The manifest pins the versioned HTTPS artifact; npm's lockfile records its integrity. Review the release checksum before adoption. Do not use a moving `latest` URL, a local filesystem path, or install this name from the npm registry.

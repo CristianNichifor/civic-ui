@@ -2,22 +2,22 @@
 
 This guide describes the supported Civic UI adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
 
-Version 0.6.0 is the current published artifact and adds `RangeSlider` and
-`SegmentedControl` for native bounded numeric and mutually-exclusive choices.
+Version 0.7.0 is the current published artifact and adds `Switch`, `Select` and
+`Popover` wrappers around Radix primitives.
 
 ## Published Artifacts
 
-- React package: [v0.6.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.6.0)
-- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-0.6.0.tgz`
-- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-css-0.6.0.tgz`
-- React archive SHA-256: `6e73ec143c1539e7c71bde1dbdaf53b35ebf7791ac0ad932a49b18ccb7207e76`
-- CSS archive SHA-256: `527c7a0a32570073cd14acf77d8dc19fd3366d914e47e3957f5f34a344115c0e`
+- React package: [v0.7.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.7.0)
+- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.7.0/civic-ui-0.7.0.tgz`
+- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.7.0/civic-ui-css-0.7.0.tgz`
+- React archive SHA-256: `0c89a5684c5c8bbfff1b8a84188a3a60b2967bf9ab11b0f33daeb3c5e0a0aecc`
+- CSS archive SHA-256: `eb4045484622e98f840e1468c5ccb4308d8c65fcdddc46fb0e02efb0f6c73510`
 
 Verify the archive before extracting it:
 
 ```bash
-curl -L -o civic-ui-css-0.6.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-css-0.6.0.tgz
-printf '%s  %s\n' 527c7a0a32570073cd14acf77d8dc19fd3366d914e47e3957f5f34a344115c0e civic-ui-css-0.6.0.tgz | sha256sum --check
+curl -L -o civic-ui-css-0.7.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.7.0/civic-ui-css-0.7.0.tgz
+printf '%s  %s\n' eb4045484622e98f840e1468c5ccb4308d8c65fcdddc46fb0e02efb0f6c73510 civic-ui-css-0.7.0.tgz | sha256sum --check
 ```
 
 ## CSS-Only Adoption

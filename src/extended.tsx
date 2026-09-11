@@ -428,9 +428,13 @@ export function OperationStatus({
           : state === "loading"
             ? LoaderCircle
             : Info;
-  const live = state === "error" ? "assertive" : "polite";
   return (
-    <div className="civic-operation-status" data-state={state} role={live}>
+    <div
+      className="civic-operation-status"
+      data-state={state}
+      role="status"
+      aria-live={state === "error" ? "assertive" : "polite"}
+    >
       <Icon className={state === "loading" ? "civic-operation-status__spinner" : undefined} aria-hidden="true" />
       <div className="civic-operation-status__body">
         <strong>{label}</strong>

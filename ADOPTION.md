@@ -2,22 +2,22 @@
 
 This guide describes the supported Civic UI adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
 
-The next package release is prepared as v0.4.0 and adds the `OperationStatus`
-and `FilterToolbar` primitives. Until its release workflow is run, v0.3.0 is the
-current published artifact and remains the only version with a downloadable
-archive URL below.
+Version 0.4.0 is the current published artifact and adds the `OperationStatus`
+and `FilterToolbar` primitives.
 
 ## Published Artifacts
 
-- React package: [v0.3.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.3.0)
-- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.3.0/civic-ui-css-0.3.0.tgz`
-- CSS archive SHA-256: `644b181b1a061516ddfe7cbcbba9d94101e7e0b4f97f4a52c085cccba1f27226`
+- React package: [v0.4.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.4.0)
+- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-0.4.0.tgz`
+- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-css-0.4.0.tgz`
+- React archive SHA-256: `fda682aa7540192d03047f1904465c6e720f25ec434d8c39126407114e5db6c6`
+- CSS archive SHA-256: `269dc6d01f4da09707521229111ac55011f78f55518a7c8d73d660503ed84de7`
 
 Verify the archive before extracting it:
 
 ```bash
-curl -L -o civic-ui-css-0.3.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.3.0/civic-ui-css-0.3.0.tgz
-printf '%s  %s\n' 644b181b1a061516ddfe7cbcbba9d94101e7e0b4f97f4a52c085cccba1f27226 civic-ui-css-0.3.0.tgz | sha256sum --check
+curl -L -o civic-ui-css-0.4.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-css-0.4.0.tgz
+printf '%s  %s\n' 269dc6d01f4da09707521229111ac55011f78f55518a7c8d73d660503ed84de7 civic-ui-css-0.4.0.tgz | sha256sum --check
 ```
 
 ## CSS-Only Adoption

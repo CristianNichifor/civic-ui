@@ -21,20 +21,20 @@ JavaScript disabled and HTTP(S) requests blocked, in all three engines, then
 checks controls with offline emulation enabled (see the WebKit note in NATIVE.md).
 
 The package and lockfile are versioned together for each release. The v0.4.0
-preparation adds React components as well as the deterministic CSS-only asset.
-Review and merge the preparation before running the manual release workflow.
-Never claim an archive URL or checksum until the workflow has created the draft
-release and its assets.
+release adds React components as well as the deterministic CSS-only asset. The
+published release and checksums are recorded in [ADOPTION.md](ADOPTION.md).
+Never claim an archive URL or checksum for a version before its release assets
+exist.
 The asset builder uses GNU tar for reproducible archive metadata, as available in
 the Ubuntu release workflow. See [NATIVE.md](NATIVE.md) for the supported markup
 and host-owned behavior.
 
 ## Consume a Published Release
 
-Version 0.3.0 is the current published GitHub release:
+Version 0.4.0 is the current published GitHub release:
 
 ```bash
-npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.3.0/civic-ui-0.3.0.tgz
+npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-0.4.0.tgz
 ```
 
 Commit the consumer's package manifest and lockfile together. The manifest pins the versioned HTTPS artifact; npm's lockfile records its integrity. Review the release checksum before adoption. Do not use a moving `latest` URL, a local filesystem path, or install this name from the npm registry.

@@ -4,6 +4,8 @@ import {
   Textarea,
   Checkbox,
   RadioGroup,
+  RangeSlider,
+  SegmentedControl,
   Notice,
   ValidationSummary,
   Dialog,
@@ -32,6 +34,8 @@ export function ExtendedShowcase() {
     ? (overlayRoot ?? undefined)
     : undefined;
   const [audience, setAudience] = useState("public");
+  const [density, setDensity] = useState("comfortable");
+  const [zoom, setZoom] = useState(50);
   const [confirmed, setConfirmed] = useState(false);
   const [action, setAction] = useState("No action selected");
   const [page, setPage] = useState(1);
@@ -75,6 +79,23 @@ export function ExtendedShowcase() {
                 { value: "draft", label: "Draft" },
                 { value: "restricted", label: "Restricted", disabled: true },
               ]}
+            />
+            <SegmentedControl
+              label="View density"
+              value={density}
+              onValueChange={setDensity}
+              options={[
+                { value: "comfortable", label: "Comfortable" },
+                { value: "compact", label: "Compact" },
+              ]}
+            />
+            <RangeSlider
+              label="Preview zoom"
+              value={zoom}
+              min={25}
+              max={100}
+              step={5}
+              onValueChange={setZoom}
             />
           </div>
         </div>

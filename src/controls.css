@@ -99,6 +99,64 @@
   .civic-radio-group legend {
     font-weight: 600;
   }
+  .civic-range {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+    color: var(--civic-text);
+  }
+  .civic-range__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .civic-range output {
+    color: var(--civic-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .civic-range input[type="range"] {
+    width: 100%;
+    min-width: 0;
+    accent-color: var(--civic-action);
+  }
+  .civic-segmented {
+    display: inline-flex;
+    min-width: 0;
+    padding: 2px;
+    margin: 0;
+    border: 1px solid var(--civic-border);
+    border-radius: var(--civic-radius);
+    background: var(--civic-raised);
+  }
+  .civic-segmented__option {
+    position: relative;
+    display: flex;
+    min-height: var(--civic-control-height);
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    color: var(--civic-text);
+    cursor: pointer;
+    text-align: center;
+  }
+  .civic-segmented__option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .civic-segmented__option:has(input:checked) {
+    border-radius: calc(var(--civic-radius) - 1px);
+    background: var(--civic-action);
+    color: var(--civic-on-action);
+  }
+  .civic-segmented__option:has(input:focus-visible) {
+    outline: 2px solid var(--civic-accent);
+    outline-offset: 1px;
+  }
+  .civic-segmented__option:has(input:disabled) {
+    color: var(--civic-muted);
+    cursor: not-allowed;
+  }
   .civic-error {
     color: var(--civic-danger);
   }

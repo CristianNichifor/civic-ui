@@ -37,6 +37,18 @@ test("native choices and validation links retain form semantics", async ({
   await expect(group.getByLabel("Public", { exact: true })).toBeChecked();
 });
 
+test("range and segmented controls keep native form semantics", async ({ page }) => {
+  const slider = page.getByRole("slider", { name: "Preview zoom" });
+  await expect(slider).toHaveValue("50");
+  await slider.press("ArrowRight");
+  await expect(slider).toHaveValue("55");
+  await expect(page.getByText("55", { exact: true })).toBeVisible();
+  const density = page.getByRole("group", { name: "View density" });
+  await expect(density.getByRole("radio", { name: "Comfortable" })).toBeChecked();
+  await density.getByText("Compact", { exact: true }).click();
+  await expect(density.getByRole("radio", { name: "Compact" })).toBeChecked();
+});
+
 test("dialog traps focus, escapes and restores trigger focus", async ({
   page,
 }) => {

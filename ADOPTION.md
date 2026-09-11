@@ -2,22 +2,22 @@
 
 This guide describes the supported Civic UI adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
 
-Version 0.5.0 is the current published artifact and adds `Card`, `Progress`,
-`Skeleton` and `VisuallyHidden` primitives.
+Version 0.6.0 is the current published artifact and adds `RangeSlider` and
+`SegmentedControl` for native bounded numeric and mutually-exclusive choices.
 
 ## Published Artifacts
 
-- React package: [v0.5.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.5.0)
-- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-0.5.0.tgz`
-- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-css-0.5.0.tgz`
-- React archive SHA-256: `364ba9e8f1dadf8a66f50c9d6f30f8a0702ef5aa1a68929882f002a428f23a1e`
-- CSS archive SHA-256: `8c60541f0d615fdb07695052c1df9c7c001eac0c067e784c4f875a908ba437a8`
+- React package: [v0.6.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.6.0)
+- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-0.6.0.tgz`
+- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-css-0.6.0.tgz`
+- React archive SHA-256: `6e73ec143c1539e7c71bde1dbdaf53b35ebf7791ac0ad932a49b18ccb7207e76`
+- CSS archive SHA-256: `527c7a0a32570073cd14acf77d8dc19fd3366d914e47e3957f5f34a344115c0e`
 
 Verify the archive before extracting it:
 
 ```bash
-curl -L -o civic-ui-css-0.5.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-css-0.5.0.tgz
-printf '%s  %s\n' 8c60541f0d615fdb07695052c1df9c7c001eac0c067e784c4f875a908ba437a8 civic-ui-css-0.5.0.tgz | sha256sum --check
+curl -L -o civic-ui-css-0.6.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.6.0/civic-ui-css-0.6.0.tgz
+printf '%s  %s\n' 527c7a0a32570073cd14acf77d8dc19fd3366d914e47e3957f5f34a344115c0e civic-ui-css-0.6.0.tgz | sha256sum --check
 ```
 
 ## CSS-Only Adoption

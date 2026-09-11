@@ -226,6 +226,32 @@
     .civic-filter-toolbar__actions > * { min-width: min(100%, 18rem); }
     .civic-filter-toolbar__meta { align-items: stretch; }
   }
+  .civic-operation-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--civic-border);
+    background: var(--civic-raised);
+    color: var(--civic-text);
+    overflow-wrap: anywhere;
+  }
+  .civic-operation-status > svg {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .civic-operation-status[data-state="success"] { border-color: var(--civic-action); }
+  .civic-operation-status[data-state="warning"],
+  .civic-operation-status[data-state="error"] { border-color: var(--civic-accent); }
+  .civic-operation-status__body {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+  .civic-operation-status__detail { color: var(--civic-muted); }
+  .civic-operation-status progress { width: min(100%, 28rem); accent-color: var(--civic-action); }
+  .civic-operation-status__spinner { animation: civic-spin 1s linear infinite; }
   .civic-pagination {
     justify-content: center;
   }

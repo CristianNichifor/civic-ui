@@ -2,7 +2,7 @@
 
 ## 0.6.0
 
-Unreleased.
+Published on GitHub Releases.
 
 - Add native `RangeSlider` and `SegmentedControl` primitives for bounded numeric
   input and compact mutually-exclusive choices.

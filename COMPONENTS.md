@@ -1,4 +1,4 @@
-# Component Contracts (0.6.0 draft)
+# Component Contracts (0.6.0)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 

@@ -14,6 +14,9 @@ import {
   StatusBadge,
   EmptyState,
   LoadingIndicator,
+  FilterToolbar,
+  Input,
+  NativeSelect,
   Table,
   SortableHeader,
   Pagination,
@@ -180,6 +183,18 @@ export function ExtendedShowcase() {
           <span>07</span>
           <h2>Tabs and tables</h2>
         </div>
+        <FilterToolbar
+          label="Archive filters"
+          resultCount="4 documents"
+          actions={<Button>Apply filters</Button>}
+        >
+          <Input aria-label="Search archive" placeholder="Search archive" />
+          <NativeSelect aria-label="Visibility filter" defaultValue="all">
+            <option value="all">All visibility</option>
+            <option value="public">Public</option>
+            <option value="draft">Draft</option>
+          </NativeSelect>
+        </FilterToolbar>
         <Tabs
           label="Archive views"
           items={[

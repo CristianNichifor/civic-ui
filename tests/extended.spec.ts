@@ -152,6 +152,14 @@ test("tabs, caller-owned sorting and pagination preserve rows", async ({
   ).toBeFocused();
 });
 
+test("filter toolbar exposes fields, result count and actions", async ({ page }) => {
+  const toolbar = page.getByRole("group", { name: "Archive filters" });
+  await expect(toolbar.getByRole("textbox", { name: "Search archive" })).toBeVisible();
+  await expect(toolbar.getByRole("combobox", { name: "Visibility filter" })).toBeVisible();
+  await expect(toolbar).toContainText("4 documents");
+  await expect(toolbar.getByRole("button", { name: "Apply filters" })).toBeVisible();
+});
+
 test("overlay themes and mobile bounds work offline with reduced motion", async ({
   page,
   context,

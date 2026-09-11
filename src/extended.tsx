@@ -401,6 +401,34 @@ export function LoadingIndicator({ label = "Loading" }: { label?: string }) {
     </span>
   );
 }
+
+export function FilterToolbar({
+  children,
+  actions,
+  resultCount,
+  label = "Filters",
+}: {
+  children: ReactNode;
+  actions?: ReactNode;
+  resultCount?: ReactNode;
+  label?: string;
+}) {
+  return (
+    <div className="civic-filter-toolbar" role="group" aria-label={label}>
+      <div className="civic-filter-toolbar__fields">{children}</div>
+      {(actions || resultCount !== undefined) && (
+        <div className="civic-filter-toolbar__meta">
+          {resultCount !== undefined && (
+            <span className="civic-filter-toolbar__count" aria-live="polite">
+              {resultCount}
+            </span>
+          )}
+          {actions && <div className="civic-filter-toolbar__actions">{actions}</div>}
+        </div>
+      )}
+    </div>
+  );
+}
 export const Table = forwardRef<
   HTMLTableElement,
   TableHTMLAttributes<HTMLTableElement> & { label: string }

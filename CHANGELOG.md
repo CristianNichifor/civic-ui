@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.5.0 (unreleased)
+## 0.5.0
+
+Published on GitHub Releases.
 
 - Add reusable `Card`, `Progress`, `Skeleton` and `VisuallyHidden` primitives based on
   repeated consumer patterns across the civic demos and simulators.

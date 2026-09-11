@@ -2,22 +2,22 @@
 
 This guide describes the supported Civic UI adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
 
-Version 0.4.0 is the current published artifact and adds the `OperationStatus`
-and `FilterToolbar` primitives.
+Version 0.5.0 is the current published artifact and adds `Card`, `Progress`,
+`Skeleton` and `VisuallyHidden` primitives.
 
 ## Published Artifacts
 
-- React package: [v0.4.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.4.0)
-- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-0.4.0.tgz`
-- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-css-0.4.0.tgz`
-- React archive SHA-256: `fda682aa7540192d03047f1904465c6e720f25ec434d8c39126407114e5db6c6`
-- CSS archive SHA-256: `269dc6d01f4da09707521229111ac55011f78f55518a7c8d73d660503ed84de7`
+- React package: [v0.5.0 release](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.5.0)
+- React archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-0.5.0.tgz`
+- CSS-only archive: `https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-css-0.5.0.tgz`
+- React archive SHA-256: `364ba9e8f1dadf8a66f50c9d6f30f8a0702ef5aa1a68929882f002a428f23a1e`
+- CSS archive SHA-256: `8c60541f0d615fdb07695052c1df9c7c001eac0c067e784c4f875a908ba437a8`
 
 Verify the archive before extracting it:
 
 ```bash
-curl -L -o civic-ui-css-0.4.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-css-0.4.0.tgz
-printf '%s  %s\n' 269dc6d01f4da09707521229111ac55011f78f55518a7c8d73d660503ed84de7 civic-ui-css-0.4.0.tgz | sha256sum --check
+curl -L -o civic-ui-css-0.5.0.tgz https://github.com/CristianNichifor/civic-ui/releases/download/v0.5.0/civic-ui-css-0.5.0.tgz
+printf '%s  %s\n' 8c60541f0d615fdb07695052c1df9c7c001eac0c067e784c4f875a908ba437a8 civic-ui-css-0.5.0.tgz | sha256sum --check
 ```
 
 ## CSS-Only Adoption

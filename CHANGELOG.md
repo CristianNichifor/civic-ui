@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.4.0 (Unreleased)
+## 0.4.0
+
+Published on GitHub Releases.
 
 - Add `OperationStatus` for explicit idle, running, success and failure states
   with caller-owned labels and retry actions.

@@ -49,6 +49,21 @@ test("range and segmented controls keep native form semantics", async ({ page })
   await expect(density.getByRole("radio", { name: "Compact" })).toBeChecked();
 });
 
+test("switch, select and popover preserve keyboard contracts", async ({ page }) => {
+  const toggle = page.getByRole("switch", { name: "Notify reviewers" });
+  await expect(toggle).toBeChecked();
+  await toggle.press("Space");
+  await expect(toggle).not.toBeChecked();
+  const select = page.getByRole("combobox", { name: "Review format" });
+  await select.press("ArrowDown");
+  await page.getByRole("option", { name: "Private" }).click();
+  await expect(select).toContainText("Private");
+  await page.getByRole("button", { name: "Review guidance" }).click();
+  await expect(page.getByRole("dialog", { name: "Review guidance" })).toContainText(
+    "evidence-based",
+  );
+});
+
 test("dialog traps focus, escapes and restores trigger focus", async ({
   page,
 }) => {

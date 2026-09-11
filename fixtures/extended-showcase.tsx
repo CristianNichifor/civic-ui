@@ -6,6 +6,9 @@ import {
   RadioGroup,
   RangeSlider,
   SegmentedControl,
+  Switch,
+  Select,
+  Popover,
   Notice,
   ValidationSummary,
   Dialog,
@@ -36,6 +39,8 @@ export function ExtendedShowcase() {
   const [audience, setAudience] = useState("public");
   const [density, setDensity] = useState("comfortable");
   const [zoom, setZoom] = useState(50);
+  const [notifications, setNotifications] = useState(true);
+  const [format, setFormat] = useState("public");
   const [confirmed, setConfirmed] = useState(false);
   const [action, setAction] = useState("No action selected");
   const [page, setPage] = useState(1);
@@ -97,6 +102,26 @@ export function ExtendedShowcase() {
               step={5}
               onValueChange={setZoom}
             />
+            <Switch
+              label="Notify reviewers"
+              checked={notifications}
+              onCheckedChange={setNotifications}
+            />
+            <Select
+              label="Review format"
+              value={format}
+              onValueChange={setFormat}
+              options={[
+                { value: "public", label: "Public" },
+                { value: "private", label: "Private" },
+              ]}
+            />
+            <Popover
+              label="Review guidance"
+              trigger={<Button>Review guidance</Button>}
+            >
+              <p>Keep review notes concise and evidence-based.</p>
+            </Popover>
           </div>
         </div>
         <ValidationSummary

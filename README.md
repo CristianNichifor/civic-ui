@@ -1,18 +1,18 @@
 # Civic UI
 
 For non-React applications, see the [native HTML/CSS contract](NATIVE.md).
-Version 0.6.0 is the current published release. Existing v0.5.0, v0.4.0, v0.3.0 and v0.2.0 assets remain unchanged. See the [adoption guide](ADOPTION.md) for the React and CSS-only archives and verification steps.
+Version 0.6.0 is the current published release; 0.7.0 is in development. Existing v0.6.0, v0.5.0, v0.4.0, v0.3.0 and v0.2.0 assets remain unchanged. See the [adoption guide](ADOPTION.md) for the React and CSS-only archives and verification steps.
 
 Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0) is available through GitHub Releases. Not an official identity kit.
 
 ## Components
 
-The components below are included in **0.6.0**. Consumers remain on their pinned version until a reviewed dependency update is adopted.
+The components below are included in **0.6.0** and the 0.7.0 draft. Consumers remain on their pinned version until a reviewed dependency update is adopted.
 
 - Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`, `RangeSlider`, `SegmentedControl`.
 - Feedback: `Notice`, `ValidationSummary`, `StatusBadge`, `EmptyState`, `LoadingIndicator`, `Progress`, `Skeleton`.
 - Layout and accessibility: `Card`, `VisuallyHidden`.
-- Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`.
+- Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`, `Switch`, `Select`, `Popover`.
 - Data presentation: `Table`, `SortableHeader`, `Pagination`.
 
 Callers own values, validation, IDs, permissions and business logic. Forms retain native HTML controls. Radix handles complex focus and keyboard behavior. React, React DOM and Lucide remain external peers; five pinned Radix primitives are external runtime dependencies. See [component contracts and examples](COMPONENTS.md).

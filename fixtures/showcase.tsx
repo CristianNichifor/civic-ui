@@ -1,7 +1,7 @@
 import { useState, version } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bookmark, Check, Copy, Download, ExternalLink } from 'lucide-react';
-import { Button, IconButton, Field, Input, NativeSelect } from '@cristiannichifor/civic-ui';
+import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden } from '@cristiannichifor/civic-ui';
 import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
 import '@cristiannichifor/civic-ui/themes/usr.css';
@@ -67,8 +67,8 @@ function Showcase() {
   return <div className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'}>
     <a className="skip" href="#controls">Skip to controls</a>
     <header>
-      <div><h1>Civic UI</h1><span className="version">v0.2.0 preview / React {version}</span></div>
-      <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a>
+      <div><h1>Civic UI</h1><span className="version">v0.5.0 preview / React {version}</span></div>
+      <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a><a href="#primitives">Shared primitives</a>
         <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a></nav>
     </header>
     <div className="theme-bar">
@@ -94,6 +94,20 @@ function Showcase() {
           <Field id="showcase-invalid" label="Required title" error="Title is required">{props => <Input {...props} required defaultValue="" />}</Field>
           <Field id="showcase-disabled-select" label="Disabled select">{props => <NativeSelect {...props} disabled><option>Unavailable</option></NativeSelect>}</Field>
           <Field id="showcase-long" label="A longer category label for public documents and collaborative resources">{props => <NativeSelect {...props}><option>Documents and collaborative resources from the local archive</option><option>National archive</option></NativeSelect>}</Field>
+        </div>
+      </section>
+      <section id="primitives"><div className="section-title"><span>08</span><h2>Shared primitives</h2></div>
+        <div className="primitive-grid">
+          <Card>
+            <h3>Public archive</h3>
+            <p>Semantic surfaces keep content and actions caller-owned.</p>
+            <Progress label="Indexing documents" value={62} showValue />
+          </Card>
+          <Card as="section" aria-labelledby="loading-preview-title">
+            <h3 id="loading-preview-title">Loading preview</h3>
+            <Skeleton className="showcase-skeleton" />
+            <VisuallyHidden>Loading document preview</VisuallyHidden>
+          </Card>
         </div>
       </section>
       <ExtendedShowcase />

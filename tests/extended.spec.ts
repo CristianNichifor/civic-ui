@@ -160,6 +160,17 @@ test("filter toolbar exposes fields, result count and actions", async ({ page })
   await expect(toolbar.getByRole("button", { name: "Apply filters" })).toBeVisible();
 });
 
+test("shared primitives expose semantic surfaces and loading contracts", async ({ page }) => {
+  await page.getByRole("link", { name: "Shared primitives", exact: true }).click();
+  const card = page.locator(".civic-card").first();
+  await expect(card).toContainText("Semantic surfaces keep content and actions caller-owned.");
+  await expect(card.getByRole("progressbar", { name: "Indexing documents" })).toHaveAttribute("value", "62");
+  const loadingCard = page.locator("section.civic-card");
+  await expect(loadingCard).toContainText("Loading preview");
+  await expect(page.getByText("Loading document preview")).toHaveCSS("position", "absolute");
+  await expect(page.locator(".showcase-skeleton")).toHaveAttribute("aria-hidden", "true");
+});
+
 test("overlay themes and mobile bounds work offline with reduced motion", async ({
   page,
   context,

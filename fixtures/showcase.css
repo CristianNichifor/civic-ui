@@ -20,6 +20,10 @@ body { margin: 0; }
 .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
 .section-title > span { font-size: 13px; color: var(--civic-muted); }
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; }
+.primitive-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.primitive-grid h3 { margin-top: 0; }
+.primitive-grid p { color: var(--civic-muted); }
+.showcase-skeleton { min-height: 72px; }
 .button-row { min-height: 48px; }
 .example { margin-top: 24px; }
 .example summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
@@ -28,4 +32,4 @@ body { margin: 0; }
 .skip { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--civic-surface); z-index: 2; }
 .skip:focus { top: 12px; }
 .showcase :is(a, summary, pre, input[type=radio]):focus-visible { outline: 3px solid var(--civic-focus); outline-offset: 3px; }
-@media (max-width: 700px) { .showcase header { align-items: start; flex-direction: column; } .field-grid { grid-template-columns: minmax(0, 1fr); } .showcase header, .theme-bar, .showcase main, .showcase footer { padding-left: 20px; padding-right: 20px; } }
+@media (max-width: 700px) { .showcase header { align-items: start; flex-direction: column; } .field-grid, .primitive-grid { grid-template-columns: minmax(0, 1fr); } .showcase header, .theme-bar, .showcase main, .showcase footer { padding-left: 20px; padding-right: 20px; } }

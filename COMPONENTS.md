@@ -1,4 +1,4 @@
-# Component Contracts (0.4.0)
+# Component Contracts (0.5.0)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
@@ -31,6 +31,17 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 - `OperationStatus`: explicit `idle`, `running`, `success` or `error` state with
   caller-provided labels and optional retry action. It does not fetch, retry or
   infer state from a promise; keep operation state and error details in the host.
+- `Progress`: labelled native `<progress>` for determinate or indeterminate work. The
+  caller owns the value and update cadence; values must be between zero and `max`.
+- `Skeleton`: decorative loading placeholder. It is hidden from assistive technology;
+  pair it with a caller-owned loading status or `aria-busy` region.
+
+## Layout and Accessibility
+
+- `Card`: a theme-aware semantic surface. It defaults to `<article>` and accepts
+  `as="div"` or `as="section"`; headings, actions and domain content remain caller-owned.
+- `VisuallyHidden`: visually clips text while keeping it available to assistive
+  technology. Use it for supplemental labels, not as a replacement for visible instructions.
 
 ## Interaction
 

@@ -1,6 +1,19 @@
 # Changelog
 
-## 0.3.0 (Unreleased)
+## 0.4.0 (Unreleased)
+
+- Add `OperationStatus` for explicit idle, running, success and failure states
+  with caller-owned labels and retry actions.
+- Add `FilterToolbar` for compact, accessible filter controls with explicit
+  reset behavior and responsive layout guidance.
+- Document table composition, filtering and status patterns for consumer apps;
+  no data fetching, persistence or domain logic is included.
+- Expand React 18/19 browser coverage for status transitions, filter reset,
+  keyboard interaction and narrow layouts.
+
+## 0.3.0
+
+Published on GitHub Releases.
 
 - Add an opt-in native CSS entry and documented plain HTML contract for fields,
   browser-arrow selects, checkboxes, buttons and accessible table scroll regions.
@@ -10,8 +23,7 @@
   in Chromium, Firefox and WebKit with JavaScript disabled and HTTP(S) blocked;
   enable offline emulation after file navigation for WebKit compatibility.
 
-No React API or dependency changes. Release preparation does not publish assets
-or update consumer pins; publication requires manual review.
+This release added native CSS assets only; no React API or dependency changes.
 
 ## 0.2.0
 

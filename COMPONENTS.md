@@ -1,4 +1,4 @@
-# Component Contracts (0.2.0)
+# Component Contracts (0.4.0)
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
@@ -28,6 +28,9 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 - `StatusBadge`: visible children and optional `tone` (`neutral`, `success`, `warning`, `danger`). Text must identify status without relying on color. Badge tones use host tokens, not independent brand colors.
 - `EmptyState`: required `title`, optional description children and action node. It does not infer loading, permission or error states.
 - `LoadingIndicator`: optional translated `label`, status semantics, decorative icon. Animation stops for reduced-motion preference. The parent owns `aria-busy` and when loading ends.
+- `OperationStatus`: explicit `idle`, `running`, `success` or `error` state with
+  caller-provided labels and optional retry action. It does not fetch, retry or
+  infer state from a promise; keep operation state and error details in the host.
 
 ## Interaction
 
@@ -56,6 +59,11 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 ```
 
 ## Data Presentation
+
+- `FilterToolbar`: labelled region for caller-owned filter controls and optional
+  reset action. It does not own filter values, query data or submit forms; pass
+  controlled inputs and reset them in the host callback. Keep a visible result
+  count or empty state outside the toolbar when users need feedback.
 
 - `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed.
 - `SortableHeader`: header children, `onSort`, optional `direction` (`ascending`/`descending`), `scope` (`col` default, or `row`). Renders `th` with `aria-sort` and a button. Caller sorts records and ensures only the active column has a direction.

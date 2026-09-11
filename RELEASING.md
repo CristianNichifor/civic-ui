@@ -11,7 +11,7 @@ No npm account, registry token or npm publication is used. `private: true` inten
 
 Only the release job has repository write permission. It uses the built-in GitHub token for draft creation, not a stored registry secret. Normal PR CI remains read-only.
 
-## CSS-Only Asset (0.3.0 Preparation)
+## CSS-Only Asset
 
 Release preparation now stages `civic-ui-css-VERSION.tgz` from the same verified
 package bytes. Its exact allowlist is CSS, `NATIVE.md` and `LICENSE`, with a second
@@ -20,27 +20,28 @@ plain-HTML browser fixture loads the extracted archive over `file://`, with
 JavaScript disabled and HTTP(S) requests blocked, in all three engines, then
 checks controls with offline emulation enabled (see the WebKit note in NATIVE.md).
 
-The package and lockfile now prepare version 0.3.0, with an unreleased changelog
-entry. Review and merge this preparation before running the manual release
-workflow. Version 0.3.0 is not published by this change. Do not overwrite the
-published 0.2.0 release; no CSS-only asset exists for that version.
+The package and lockfile are versioned together for each release. The v0.4.0
+preparation adds React components as well as the deterministic CSS-only asset.
+Review and merge the preparation before running the manual release workflow.
+Never claim an archive URL or checksum until the workflow has created the draft
+release and its assets.
 The asset builder uses GNU tar for reproducible archive metadata, as available in
 the Ubuntu release workflow. See [NATIVE.md](NATIVE.md) for the supported markup
 and host-owned behavior.
 
 ## Consume a Published Release
 
-Version 0.2.0 is published on GitHub Releases:
+Version 0.3.0 is the current published GitHub release:
 
 ```bash
-npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.2.0/civic-ui-0.2.0.tgz
+npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.3.0/civic-ui-0.3.0.tgz
 ```
 
 Commit the consumer's package manifest and lockfile together. The manifest pins the versioned HTTPS artifact; npm's lockfile records its integrity. Review the release checksum before adoption. Do not use a moving `latest` URL, a local filesystem path, or install this name from the npm registry.
 
 For an independent checksum check, download the tarball and `SHA256SUMS` from the same release into one directory and run `sha256sum -c SHA256SUMS`. Checksums detect changed bytes; they are not a separate signature or proof of publisher identity.
 
-For 0.2.0, React, React DOM and Lucide are peers; Radix primitives are runtime dependencies. Keep React and React DOM on matching versions. Initial installation needs access to the public release/registry or populated caches. Built local apps do not need a GitHub or npm account at runtime. This does not add a service worker or guarantee server-stopped reloads.
+For 0.3.0 and later, React, React DOM and Lucide are peers; Radix primitives are runtime dependencies. Keep React and React DOM on matching versions. Initial installation needs access to the public release/registry or populated caches. Built local apps do not need a GitHub or npm account at runtime. This does not add a service worker or guarantee server-stopped reloads.
 
 Consumer migrations belong in separate reviewed changes. Preserve each host's theme adapter and rerun its behavior/data parity, responsive UI, keyboard and offline checks. Package changes do not update consuming applications automatically.
 

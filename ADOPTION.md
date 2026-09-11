@@ -1,6 +1,11 @@
 # Consumer Adoption
 
-This guide describes the supported Civic UI 0.3.0 adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
+This guide describes the supported Civic UI adoption paths. Consumers keep their own routing, data, permissions, layout and brand tokens.
+
+The next package release is prepared as v0.4.0 and adds the `OperationStatus`
+and `FilterToolbar` primitives. Until its release workflow is run, v0.3.0 is the
+current published artifact and remains the only version with a downloadable
+archive URL below.
 
 ## Published Artifacts
 

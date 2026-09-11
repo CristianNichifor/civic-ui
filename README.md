@@ -1,23 +1,26 @@
 # Civic UI
 
-For non-React applications, see the [native HTML/CSS contract](NATIVE.md).
-Version 0.6.0 is the current published release; 0.7.0 is in development. Existing v0.6.0, v0.5.0, v0.4.0, v0.3.0 and v0.2.0 assets remain unchanged. See the [adoption guide](ADOPTION.md) for the React and CSS-only archives and verification steps.
-
-Small, MIT-licensed React controls with separate, opt-in themes. [Version 0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0) is available through GitHub Releases. Not an official identity kit.
+Small, MIT-licensed React controls with opt-in neutral and USR-compatible themes. The current release is [v0.7.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.7.0). For non-React projects, use the [native HTML/CSS contract](NATIVE.md).
 
 ## Components
 
-The components below are included in **0.6.0** and the 0.7.0 draft. Consumers remain on their pinned version until a reviewed dependency update is adopted.
-
-- Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`, `RangeSlider`, `SegmentedControl`.
+- Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`, `RangeSlider`, `SegmentedControl`, `Switch`, `Select`.
 - Feedback: `Notice`, `ValidationSummary`, `StatusBadge`, `EmptyState`, `LoadingIndicator`, `Progress`, `Skeleton`.
-- Layout and accessibility: `Card`, `VisuallyHidden`.
-- Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`, `Switch`, `Select`, `Popover`.
-- Data presentation: `Table`, `SortableHeader`, `Pagination`.
+- Layout: `Card`, `VisuallyHidden`.
+- Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`, `Popover`.
+- Data: `Table`, `SortableHeader`, `Pagination`.
 
-Callers own values, validation, IDs, permissions and business logic. Forms retain native HTML controls. Radix handles complex focus and keyboard behavior. React, React DOM and Lucide remain external peers; five pinned Radix primitives are external runtime dependencies. See [component contracts and examples](COMPONENTS.md).
+Components are controlled primitives: the host owns values, validation, permissions, translations, routing, persistence and business logic. Radix supplies focus and keyboard behavior for complex interactions; native HTML remains the default for simple forms.
 
-The package exports ESM JavaScript, TypeScript declarations, base CSS and two independent theme adapters:
+## Install
+
+Install the versioned GitHub Release archive; no npm account is required:
+
+```bash
+npm install --save-exact https://github.com/CristianNichifor/civic-ui/releases/download/v0.7.0/civic-ui-0.7.0.tgz
+```
+
+Load the base stylesheet, one theme, and a scoped host boundary explicitly:
 
 ```tsx
 import { Field, NativeSelect } from '@cristiannichifor/civic-ui';
@@ -31,17 +34,9 @@ import '@cristiannichifor/civic-ui/themes/neutral.css';
 </section>
 ```
 
-Install the versioned tarball from GitHub Releases; see [release and installation instructions](RELEASING.md). No npm account is required. The scoped name is an import identifier, not an npm registry distribution. `private: true` prevents accidental registry publication; it does not restrict the MIT source license.
+Neutral mode supports `data-civic-mode="dark"`. `themes/usr.css` maps existing host `--usr-*` tokens; it does not load fonts, logos or a separate brand palette. JavaScript never loads styles automatically.
 
-Neutral supports `data-civic-mode="dark"`. The optional `themes/usr.css` adapter uses `civic-usr` and maps existing host `--usr-*` tokens without loading fonts, logos or an independent brand palette. Hosts can supply `--civic-*` tokens directly instead. JavaScript never imports a theme or stylesheet automatically.
-
-## Develop and Verify
-
-The interactive [component showcase](https://cristiannichifor.github.io/civic-ui/)
-is deployed from checked `main`. See
-[showcase documentation](https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md) for local preview, examples and limitations.
-
-Use Node from `.nvmrc` and the checked-in npm lockfiles:
+## Develop
 
 ```bash
 npm ci --ignore-scripts
@@ -51,20 +46,8 @@ npm test
 npm run preview
 ```
 
-Fixture preview: http://127.0.0.1:5221/. Showcase: http://127.0.0.1:5221/showcase.html. Fixture query options: `?theme=usr`, `?theme=neutral&mode=dark`, or `?edge=1` for control-state fixtures.
+The [component showcase](https://cristiannichifor.github.io/civic-ui/) and [showcase guide](SHOWCASE.md) provide interactive examples. `verify` builds the package, checks its allowlist and licenses, and validates React 18 and React 19 consumers. `test` covers Chromium, Firefox and WebKit, keyboard behavior, responsive layouts, themes, offline interactions and control states.
 
-`verify` builds and packs the package, checks its exact file allowlist and license notices, then creates independent React 18.3.1 and React 19.1.1 consumers. Each consumer installs its checked-in dependency lockfile before installing the newly packed artifact without saving a local-path dependency. Both undergo strict type checks and production builds. No parent repository, aliases or sibling dependencies are required.
+## Scope
 
-`test` covers Chromium, Firefox and WebKit against both production consumers. Checks exercise field associations, validation, select padding, keyboard focus, disabled controls, dialogs, menus, tooltips, tabs, sorting, pagination, reduced motion, offline interactions and responsive layouts in neutral light/dark and the USR host-token adapter. Showcase checks include clipboard success/failure handling and downloaded source. Clipboard outcomes are stubbed; actual permission prompts remain browser-dependent. Screenshots and machine-readable package results stay in ignored `artifacts/`. Build fixtures first with `verify`.
-
-CI runs browser tests in the official `mcr.microsoft.com/playwright:v1.63.0-noble` image with bundled browsers and system dependencies. Keep that image version in both workflows aligned with `@playwright/test`. Package builds and release commands run on the host using `.nvmrc`. Local browser execution requires supported system libraries; installing browser binaries alone may not suffice on unsupported Linux distributions.
-
-For cached offline verification, use `CIVIC_OFFLINE=1 npm run verify`. Initial installation needs network access or populated caches. `DEMO_CHROMIUM=/path/to/chromium npm test` overrides only Chromium. To run only its projects, append `-- --project=react18-chromium --project=react19-chromium`. Bundled consumers work offline while their local server remains reachable; there is no service worker or server-stopped reload guarantee.
-
-## Scope and Release Gates
-
-Only controls and themes are included. No app fixtures, personal records, credentials, fonts, logos or domain engines are shipped. Radix implementations are installed as dependencies, not bundled into the library archive. [MIT license](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) apply; trademarks and third-party assets are not licensed by this project.
-
-Before release: review source/archive contents, run hosted CI, and approve a versioned GitHub release. Browser checks are not a complete accessibility audit. WebKit coverage is not Safari or iOS device certification. Native CSS nesting remains in output. SSR/RSC and screen-reader behavior are not certified. Normal CI never publishes; the separate manual release workflow creates drafts only and never merges PRs.
-
-Existing consuming apps are not migrated by this repository. Adopt each approved release in separate reviewed changes using the [consumer acceptance checklist](COMPONENTS.md#consumer-acceptance-checklist). Comboboxes, date pickers, domain cards, authentication and application navigation remain outside the package.
+This package ships controls and themes only. It does not provide authentication, permissions, routing, data fetching, charts, maps, date pickers, domain cards or application content. See [component contracts](COMPONENTS.md), the [adoption guide](ADOPTION.md), and [release instructions](RELEASING.md).

@@ -17,10 +17,13 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpDown,
+  CircleCheck,
+  CircleX,
   ChevronLeft,
   ChevronRight,
   Info,
   LoaderCircle,
+  TriangleAlert,
   X,
 } from "lucide-react";
 import { Button, IconButton } from "./components";
@@ -399,6 +402,49 @@ export function LoadingIndicator({ label = "Loading" }: { label?: string }) {
       <LoaderCircle aria-hidden="true" />
       {label}
     </span>
+  );
+}
+
+export function OperationStatus({
+  state,
+  label,
+  detail,
+  progress,
+  retry,
+}: {
+  state: "idle" | "loading" | "success" | "warning" | "error";
+  label: string;
+  detail?: ReactNode;
+  progress?: number;
+  retry?: ReactNode;
+}) {
+  const Icon =
+    state === "success"
+      ? CircleCheck
+      : state === "warning"
+        ? TriangleAlert
+        : state === "error"
+          ? CircleX
+          : state === "loading"
+            ? LoaderCircle
+            : Info;
+  return (
+    <div
+      className="civic-operation-status"
+      data-state={state}
+      role="status"
+      aria-live={state === "error" ? "assertive" : "polite"}
+    >
+      <Icon className={state === "loading" ? "civic-operation-status__spinner" : undefined} aria-hidden="true" />
+      <div className="civic-operation-status__body">
+        <strong>{label}</strong>
+        {detail && <div className="civic-operation-status__detail">{detail}</div>}
+        {progress !== undefined && state === "loading" && (
+          <progress max={100} value={Math.max(0, Math.min(100, progress))} aria-label={label} />
+        )}
+        {retry}
+      </div>
+    </div>
   );
 }
 export const Table = forwardRef<

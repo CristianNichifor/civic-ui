@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 (unreleased)
+
+- Add reusable `Card`, `Progress`, `Skeleton` and `VisuallyHidden` primitives based on
+  repeated consumer patterns across the civic demos and simulators.
+- Keep data loading, progress state, card content and domain layouts caller-owned.
+- Expand the showcase and browser contract coverage for these primitives.
+
 ## 0.4.0
 
 Published on GitHub Releases.

@@ -1,6 +1,7 @@
 import {
   forwardRef,
   useId,
+  createElement,
   type ReactNode,
   type ReactElement,
   type TextareaHTMLAttributes,
@@ -29,6 +30,12 @@ import {
 import { Button, IconButton } from "./components";
 import { createPortal } from "react-dom";
 
+// Keep public HTML props consumable by both React 18 and React 19 type packages.
+type CivicHTMLAttributes<T extends HTMLElement> = Omit<
+  HTMLAttributes<T>,
+  "onChange" | "onChangeCapture" | "onSubmit" | "onSubmitCapture"
+>;
+
 function OverlayHost({
   children,
   container,
@@ -46,6 +53,71 @@ export const Textarea = forwardRef<
   <textarea ref={ref} className={`civic-textarea ${className}`} {...props} />
 ));
 Textarea.displayName = "Textarea";
+
+export function Card({
+  as = "article",
+  className = "",
+  ...props
+}: CivicHTMLAttributes<HTMLElement> & {
+  as?: "div" | "article" | "section";
+}) {
+  return createElement(as, {
+    ...props,
+    className: `civic-card ${className}`.trim(),
+  });
+}
+
+export function Progress({
+  label,
+  value,
+  max = 100,
+  showValue = false,
+  className = "",
+  ...props
+}: Omit<CivicHTMLAttributes<HTMLDivElement>, "children"> & {
+  label: string;
+  value?: number;
+  max?: number;
+  showValue?: boolean;
+}) {
+  if (!Number.isFinite(max) || max <= 0) {
+    throw new RangeError("Progress requires a finite max greater than zero");
+  }
+  if (value !== undefined && (!Number.isFinite(value) || value < 0 || value > max)) {
+    throw new RangeError("Progress value must be between zero and max");
+  }
+  return (
+    <div {...props} className={`civic-progress ${className}`.trim()}>
+      <div className="civic-progress__header">
+        <span>{label}</span>
+        {showValue && value !== undefined && (
+          <span className="civic-progress__value">{Math.round((value / max) * 100)}%</span>
+        )}
+      </div>
+      <progress aria-label={label} value={value} max={max} />
+    </div>
+  );
+}
+
+export function Skeleton({
+  className = "",
+  ...props
+}: CivicHTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      {...props}
+      className={`civic-skeleton ${className}`.trim()}
+      aria-hidden="true"
+    />
+  );
+}
+
+export function VisuallyHidden({
+  className = "",
+  ...props
+}: CivicHTMLAttributes<HTMLSpanElement>) {
+  return <span {...props} className={`civic-visually-hidden ${className}`.trim()} />;
+}
 
 export const Checkbox = forwardRef<
   HTMLInputElement,
@@ -114,7 +186,7 @@ export function Notice({
   children,
   tone = "info",
   ...props
-}: HTMLAttributes<HTMLDivElement> & {
+}: CivicHTMLAttributes<HTMLDivElement> & {
   title: string;
   tone?: "info" | "success" | "warning" | "danger";
 }) {

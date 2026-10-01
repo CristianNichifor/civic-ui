@@ -1,4 +1,8 @@
-# Standalone Verification
+# Standalone Verification (historical)
+
+For current commands and the complete three-engine React/native and release gate,
+see [CONTRIBUTING.md](CONTRIBUTING.md). Counts and pending steps below describe the
+original prerelease only, not the current repository.
 
 Pre-publication snapshot from 2026-09-09, local prerelease `0.0.0-pilot.5`. At the time of these checks, no commit, remote repository, package publication or app migration had been performed. This report records that local run; current hosted results are available from the repository's Actions tab after publication.
 

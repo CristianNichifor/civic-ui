@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  verify:
+  package-checks:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -35,6 +35,17 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           path: artifacts/showcase-site
+  verify:
+    name: verify
+    if: ${{ always() }}
+    needs: [package-checks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every correctness job to succeed
+        env:
+          CHECK_RESULT: ${{ needs.package-checks.result }}
+        run: test "$CHECK_RESULT" = success
   deploy-showcase:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: verify

@@ -38,6 +38,9 @@ Neutral mode supports `data-civic-mode="dark"`. `themes/usr.css` maps existing h
 
 ## Develop
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete local/CI verification, including
+release regression tests and the browser-container alternative.
+
 ```bash
 npm ci --ignore-scripts
 npx --no-install playwright install chromium firefox webkit

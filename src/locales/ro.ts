@@ -10,6 +10,12 @@ export const roLabels: CivicLabels = {
   FilterToolbar: { label: "Filtre" },
   Pagination: { label: "Paginare", previousLabel: "Pagina anterioară", nextLabel: "Pagina următoare" },
   StatusMessage: { retryLabel: "Reîncercați" },
+  SiteShell: { skipLabel: "Salt la conținut" },
+  FamilyBar: { languageLabel: "Limbă" },
+  SiteFooter: { label: "Informații despre site" },
+  StatTile: { increaseLabel: "Creștere", decreaseLabel: "Scădere", noChangeLabel: "Fără modificare", asOfLabel: "Actualizat la" },
+  ChartFrame: { showTableLabel: "Afișează ca tabel", demoLabel: "Date demonstrative", asOfLabel: "Actualizat la" },
+  SourceCitation: { sourceLabel: "Sursa", licenceLabel: "Licență", dateLabel: "Preluat la", methodLabel: "Metodologie" },
 };
 
 export type { CivicLabels };

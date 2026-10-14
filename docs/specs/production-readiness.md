@@ -88,7 +88,7 @@ Tests: `tests/table-density.spec.ts`; `TABLES.md` updated.
 
 ## Theme C: release notes and upgrades
 
-### CU-3 Per-version release notes — todo
+### CU-3 Per-version release notes — done (workflow change needs-human)
 
 - Given `CHANGELOG.md` and a version, when `scripts/changelog-section.mjs`
   runs, then it prints only that version's section body.
@@ -98,7 +98,7 @@ Tests: `tests/table-density.spec.ts`; `TABLES.md` updated.
 
 Tests: `tests/release.test.mjs`.
 
-### CU-3b Upgrade guide — todo
+### CU-3b Upgrade guide — done
 
 `docs/UPGRADING.md` covers 0.3, 0.4, 0.5 and 0.6 to 0.8 for vendored-CSS and
 npm-tarball consumers. Reviewed by reading; no automated test.
@@ -107,6 +107,6 @@ npm-tarball consumers. Reviewed by reading; no automated test.
 
 `.github/dependabot.yml` is delivered as a diff for the maintainer.
 
-### CHANGELOG — todo
+### CHANGELOG — done
 
 `## Unreleased` lists the 0.8.0 changes; the release PR renames it to `## 0.8.0`.

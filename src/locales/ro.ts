@@ -9,6 +9,7 @@ export const roLabels: CivicLabels = {
   LoadingIndicator: { label: "Se încarcă" },
   FilterToolbar: { label: "Filtre" },
   Pagination: { label: "Paginare", previousLabel: "Pagina anterioară", nextLabel: "Pagina următoare" },
+  StatusMessage: { retryLabel: "Reîncercați" },
 };
 
 export type { CivicLabels };

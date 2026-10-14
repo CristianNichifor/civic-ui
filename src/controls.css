@@ -479,6 +479,31 @@
   .civic-operation-status__detail { color: var(--civic-muted); }
   .civic-operation-status progress { width: min(100%, 28rem); accent-color: var(--civic-action); }
   .civic-operation-status__spinner { animation: civic-spin 1s linear infinite; }
+  .civic-status-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--civic-border);
+    border-left-width: 3px;
+    background: var(--civic-raised);
+    color: var(--civic-text);
+    overflow-wrap: anywhere;
+  }
+  .civic-status-message > svg {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .civic-status-message[data-tone="success"] { border-left-color: var(--civic-action); }
+  .civic-status-message[data-tone="warning"],
+  .civic-status-message[data-tone="error"] { border-left-color: var(--civic-accent); }
+  .civic-status-message[data-tone="error"] { border-left-style: double; border-left-width: 4px; }
+  .civic-status-message__body {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
   .civic-pagination {
     justify-content: center;
   }

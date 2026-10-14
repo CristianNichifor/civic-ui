@@ -725,6 +725,40 @@ export function OperationStatus({
     </div>
   );
 }
+export function StatusMessage({
+  tone,
+  title,
+  children,
+  onRetry,
+  retryLabel = enLabels.StatusMessage.retryLabel,
+}: {
+  tone: "success" | "warning" | "error";
+  title: string;
+  children?: ReactNode;
+  onRetry?: () => void;
+  retryLabel?: string;
+}) {
+  const Icon = tone === "success" ? CircleCheck : tone === "warning" ? TriangleAlert : CircleX;
+  return (
+    <div
+      className="civic-status-message"
+      data-tone={tone}
+      // Errors interrupt; success and warnings wait for the screen reader to finish.
+      role={tone === "error" ? "alert" : "status"}
+    >
+      <Icon aria-hidden="true" />
+      <div className="civic-status-message__body">
+        <strong>{title}</strong>
+        {children && <div>{children}</div>}
+        {onRetry && (
+          <div>
+            <Button onClick={onRetry}>{retryLabel}</Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 export const Table = forwardRef<
   HTMLTableElement,
   TableHTMLAttributes<HTMLTableElement> & { label: string }

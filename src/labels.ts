@@ -10,6 +10,7 @@ export type CivicLabels = {
   LoadingIndicator: { label: string };
   FilterToolbar: { label: string };
   Pagination: { label: string; previousLabel: string; nextLabel: string };
+  StatusMessage: { retryLabel: string };
 };
 
 /** The English defaults the components use when a prop is omitted. */
@@ -21,4 +22,5 @@ export const enLabels: CivicLabels = {
   LoadingIndicator: { label: "Loading" },
   FilterToolbar: { label: "Filters" },
   Pagination: { label: "Pagination", previousLabel: "Previous page", nextLabel: "Next page" },
+  StatusMessage: { retryLabel: "Retry" },
 };

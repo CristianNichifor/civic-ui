@@ -338,3 +338,30 @@ export function missingCivicTokens(element: Element): string[] {
   const style = getComputedStyle(element);
   return civicHostTokens.filter((name) => !style.getPropertyValue(name).trim());
 }
+
+const civicPaletteTokens = [
+  ...Array.from({ length: 8 }, (_, i) => `--civic-viz-${i + 1}`),
+  ...Array.from({ length: 7 }, (_, i) => `--civic-viz-seq-${i + 1}`),
+  ...["n3", "n2", "n1", "mid", "p1", "p2", "p3"].map((step) => `--civic-viz-div-${step}`),
+];
+
+/**
+ * Development check: `--civic-viz-*` tokens on `element` that differ from what its
+ * theme classes and mode give on a fresh scope, i.e. host overrides of the palette.
+ */
+export function civicPaletteOverrides(element: Element): string[] {
+  const scope = element.closest(".civic-scope") ?? element;
+  const probe = document.body.appendChild(document.createElement("div"));
+  probe.className = scope.className;
+  const mode = scope.getAttribute("data-civic-mode");
+  if (mode) probe.setAttribute("data-civic-mode", mode);
+  try {
+    const actual = getComputedStyle(element);
+    const expected = getComputedStyle(probe);
+    return civicPaletteTokens.filter(
+      (name) => actual.getPropertyValue(name).trim() !== expected.getPropertyValue(name).trim(),
+    );
+  } finally {
+    probe.remove();
+  }
+}

@@ -6,6 +6,8 @@
   disables itself; focus moves to the opposite button.
 - Add `civicHostTokens` and `missingCivicTokens(element)`, a development check that
   lists host tokens a theme or host failed to supply.
+- Add `civicPaletteOverrides(element)`, a development check that names host overrides
+  of the `--civic-viz-*` palette.
 
 ## 0.8.0 — 2026-10-14
 

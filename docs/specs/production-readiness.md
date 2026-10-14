@@ -200,3 +200,31 @@ Tests: `tests/chart-frame.spec.ts`.
 given), licence, retrieval or as-of date, and an optional method link.
 
 Tests: `tests/chart-frame.spec.ts` (inside the frame) and the showcase.
+
+## Theme F: overlays and release 0.8.0 (fleet round 2)
+
+### CU-16 Select portal container
+
+`Select` takes an optional `portalContainer` (an `HTMLElement`), like `Dialog`,
+`AlertDialog`, `Tooltip` and `DropdownMenu`. When given, the options list is
+portalled into it, so a container inside `.civic-scope` keeps the scoped
+styles; without it, behaviour is unchanged (portal to `document.body`).
+
+Tests: `tests/extended.spec.ts` ("select options render inside an explicit
+portal container").
+
+### CU-17 source-map-js advisory
+
+Resolve the high-severity Dependabot alert for `source-map-js` with a lockfile
+update only; the full gate stays green.
+
+Tests: `npm audit` reports no high-severity finding; the full gate.
+
+### CU-18 Release prep 0.8.0
+
+`CHANGELOG.md` "Unreleased" becomes "0.8.0 — <date>", `package.json` and the
+lockfile move to 0.8.0, and the showcase reports it. No tag and no release:
+the account owner releases from `main`.
+
+Tests: `npm run test:release` (changelog section and version agree) and
+`tests/showcase.spec.ts`.

@@ -157,6 +157,7 @@ export function ExtendedShowcase({ labels }: { labels: CivicLabels }) {
             <Select
               {...labels.Select}
               label="Review format"
+              portalContainer={portalContainer}
               value={format}
               onValueChange={setFormat}
               options={[

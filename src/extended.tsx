@@ -294,6 +294,7 @@ export function Select({
   options,
   placeholder = enLabels.Select.placeholder,
   disabled,
+  portalContainer,
 }: {
   label: string;
   value?: string;
@@ -302,6 +303,7 @@ export function Select({
   options: { value: string; label: string; disabled?: boolean }[];
   placeholder?: string;
   disabled?: boolean;
+  portalContainer?: HTMLElement;
 }) {
   return (
     <div className="civic-select-field">
@@ -316,7 +318,7 @@ export function Select({
           <S.Value placeholder={placeholder} />
           <ChevronDown aria-hidden="true" />
         </S.Trigger>
-        <S.Portal>
+        <S.Portal container={portalContainer}>
           <S.Content className="civic-select-content" position="popper" sideOffset={4}>
             <S.Viewport>
               {options.map((option) => (

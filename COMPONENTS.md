@@ -122,7 +122,7 @@ Radix supplies focus management, Escape behavior and keyboard navigation. Trigge
 
 ### Overlay Placement
 
-Dialogs, tooltips and menus render within the caller's scope by default, inheriting its theme. If an ancestor clips content, establishes a stacking context or uses a transform, pass `portalContainer` to an element outside that ancestor. The destination must itself have, or be inside, `.civic-scope` with the intended theme, host variables and mode. Passing bare `document.body` without a themed scope loses scoped styles. Keep the container stable while open.
+Dialogs, tooltips and menus render within the caller's scope by default, inheriting its theme. If an ancestor clips content, establishes a stacking context or uses a transform, pass `portalContainer` to an element outside that ancestor. The destination must itself have, or be inside, `.civic-scope` with the intended theme, host variables and mode. Passing bare `document.body` without a themed scope loses scoped styles. Keep the container stable while open. `Select` also takes `portalContainer`; without it, its options still portal to `document.body`, outside any `.civic-scope`.
 
 ```tsx
 // Set the destination from a mounted element/ref, not during server rendering.

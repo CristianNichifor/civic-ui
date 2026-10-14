@@ -53,7 +53,7 @@ it. That predates this work; giving `Select` a `portalContainer` is **needs-huma
 
 ## Theme B: roadmap "Next"
 
-### CU-6 StatusMessage — todo
+### CU-6 StatusMessage — done
 
 - Given `tone="success"` or `"warning"`, then the message has `role="status"`;
   given `tone="error"`, then `role="alert"`.
@@ -64,7 +64,7 @@ it. That predates this work; giving `Select` a `portalContainer` is **needs-huma
 
 Tests: `tests/status.spec.ts`; showcase "Feedback" section.
 
-### CU-7 Filter toolbar composition — todo
+### CU-7 Filter toolbar composition — done
 
 - Given the showcase toolbar at 390 px, then the page has no horizontal
   overflow, every field fits inside the toolbar and the fields wrap onto more
@@ -75,13 +75,13 @@ Tests: `tests/status.spec.ts`; showcase "Feedback" section.
 
 Tests: `tests/filter-toolbar.spec.ts`; showcase "Tabs and tables" section.
 
-### CU-8 Table density contract — todo
+### CU-8 Table density contract — done
 
 - Given `<Table density="compact">`, then the table has
   `data-density="compact"` and cell padding is smaller than the default.
 - Given `<Table mobileLayout="cards">` at 390 px, then rows render as cards,
-  each cell shows its `data-label`, the header row is visually hidden and the
-  page has no horizontal overflow; at 1440 px the canonical table is shown.
+  each cell shows its `data-label`, header cells stay visible as one wrapping
+  row (so sort buttons remain reachable) and the page has no horizontal overflow; at 1440 px the canonical table is shown.
 - The showcase "View density" control drives the archive table density.
 
 Tests: `tests/table-density.spec.ts`; `TABLES.md` updated.

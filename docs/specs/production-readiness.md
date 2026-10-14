@@ -287,3 +287,10 @@ code accepts (`idle`, `loading`, `success`, `warning`, `error`), not the stale
 Tests: `tests/status.spec.ts` ("feedback components render the documented
 semantics") pins the table: `Notice` has no role, `OperationStatus` is a polite
 `status`, `LoadingIndicator` is a `status`.
+
+### CU-24 Roadmap reflects shipped work — done
+
+`ROADMAP.md` says items 1 to 3 shipped in 0.8.0 and records the unreleased
+slices of former "Later" items 4 to 6 (CU-20 to CU-23).
+
+Tests: reviewed by reading; no automated test.

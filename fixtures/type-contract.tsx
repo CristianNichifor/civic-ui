@@ -34,3 +34,13 @@ import { Textarea, Checkbox, RadioGroup, Dialog, AlertDialog, Table, Pagination,
 <Table />;
 // @ts-expect-error Pagination does not accept string page numbers.
 <Pagination page="1" pageCount={2} onPageChange={() => undefined} />;
+
+import { Select, enLabels, type CivicLabels } from '@cristiannichifor/civic-ui';
+import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
+const presets: CivicLabels[] = [enLabels, roLabels];
+<Pagination {...roLabels.Pagination} page={1} pageCount={presets.length} onPageChange={() => undefined} />;
+<Select {...roLabels.Select} label="Format" options={[]} />;
+// @ts-expect-error Presets only expose the labels a component accepts.
+roLabels.Pagination.unknownLabel;
+// @ts-expect-error A preset must cover every component's labels.
+const incomplete: CivicLabels = { Pagination: enLabels.Pagination };

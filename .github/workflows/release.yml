@@ -32,9 +32,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
+          node scripts/changelog-section.mjs "$VERSION" > artifacts/release/NOTES.md
           gh release create "v${VERSION}" \
             "artifacts/release/civic-ui-${VERSION}.tgz" \
             "artifacts/release/civic-ui-css-${VERSION}.tgz" \
             artifacts/release/SHA256SUMS \
             --target "$GITHUB_SHA" --title "Civic UI v${VERSION}" \
-            --notes-file CHANGELOG.md --draft
+            --notes-file artifacts/release/NOTES.md --draft

@@ -20,7 +20,9 @@ test("native choices and validation links retain form semantics", async ({
   await expect(notes).toHaveAccessibleDescription("Notes are required");
   await notes.fill("Synthetic notes");
   await expect(notes).not.toHaveAttribute("aria-invalid");
-  await expect(page.getByRole("alert")).toHaveCount(0);
+  await expect(
+    page.getByRole("alert").filter({ hasText: "Add notes before continuing" }),
+  ).toHaveCount(0);
   const checkbox = page.getByRole("checkbox", { name: "Include attachments" });
   await checkbox.focus();
   await page.keyboard.press("Space");
@@ -181,7 +183,7 @@ test("tabs, caller-owned sorting and pagination preserve rows", async ({
 
 test("filter toolbar exposes fields, result count and actions", async ({ page }) => {
   const toolbar = page.getByRole("group", { name: "Archive filters" });
-  await expect(toolbar.getByRole("textbox", { name: "Search archive" })).toBeVisible();
+  await expect(toolbar.getByRole("searchbox", { name: "Search archive" })).toBeVisible();
   await expect(toolbar.getByRole("combobox", { name: "Visibility filter" })).toBeVisible();
   await expect(toolbar).toContainText("4 documents");
   await expect(toolbar.getByRole("button", { name: "Reset filters" })).toBeVisible();

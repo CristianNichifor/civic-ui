@@ -1,7 +1,7 @@
-import { useState, version } from 'react';
+import { useEffect, useRef, useState, version, type RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bookmark, Check, Copy, Download, ExternalLink } from 'lucide-react';
-import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden, enLabels } from '@cristiannichifor/civic-ui';
+import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden, enLabels, missingCivicTokens } from '@cristiannichifor/civic-ui';
 import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
 import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
@@ -60,6 +60,23 @@ function Example({ name, source }: { name: string; source: string }) {
   </details>;
 }
 
+// Development diagnostics demo: the themed scope and a detached, unthemed one.
+function TokenReport({ scope, deps }: { scope: RefObject<HTMLDivElement | null>; deps: string }) {
+  const [missing, setMissing] = useState<string[]>([]);
+  const [unthemed, setUnthemed] = useState<string[]>([]);
+  useEffect(() => {
+    if (scope.current) setMissing(missingCivicTokens(scope.current));
+    const probe = document.body.appendChild(document.createElement('div'));
+    probe.className = 'civic-scope';
+    setUnthemed(missingCivicTokens(probe));
+    probe.remove();
+  }, [scope, deps]);
+  return <>
+    <span data-testid="token-report">Missing host tokens: {missing.join(', ') || 'none'}</span>
+    <span data-testid="unthemed-token-report" hidden>{unthemed.join(', ')}</span>
+  </>;
+}
+
 function Showcase() {
   const [theme, setTheme] = useState('neutral');
   const [mode, setMode] = useState('light');
@@ -68,7 +85,8 @@ function Showcase() {
   const [saved, setSaved] = useState(false);
   const [reviews, setReviews] = useState(0);
   const [language, setLanguage] = useState<'en' | 'ro'>('en');
-  return <div className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'} lang={language}>
+  const scope = useRef<HTMLDivElement>(null);
+  return <div ref={scope} className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'} lang={language}>
     <a className="skip" href="#controls">Skip to controls</a>
     <header>
       <div><h1>Civic UI</h1><span className="version">v{__CIVIC_VERSION__} / React {version}</span></div>
@@ -118,7 +136,7 @@ function Showcase() {
       </section>
       <ExtendedShowcase labels={language === 'ro' ? roLabels : enLabels} />
     </main>
-    <footer><span>MIT / Synthetic examples</span><a href="https://github.com/CristianNichifor/civic-ui">Source</a><a href="https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0">GitHub release</a></footer>
+    <footer><span>MIT / Synthetic examples</span><TokenReport scope={scope} deps={`${theme} ${mode}`} /><a href="https://github.com/CristianNichifor/civic-ui">Source</a><a href="https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0">GitHub release</a></footer>
   </div>;
 }
 createRoot(document.getElementById('root')!).render(<Showcase />);

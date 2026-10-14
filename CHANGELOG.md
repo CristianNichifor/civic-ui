@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add `civicHostTokens` and `missingCivicTokens(element)`, a development check that
+  lists host tokens a theme or host failed to supply.
+
 ## 0.8.0 — 2026-10-14
 
 - Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable

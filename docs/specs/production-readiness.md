@@ -251,7 +251,7 @@ The README and the showcase link to it.
 Tests: reviewed by reading; no automated test. Romanian strings in the guideline:
 **needs human review**.
 
-### CU-20 Theme token diagnostics
+### CU-20 Theme token diagnostics — done (first slice)
 
 ROADMAP "Later" #6, first slice: missing host tokens. The package exports
 `civicHostTokens`, the custom properties a theme or host must supply (fonts,

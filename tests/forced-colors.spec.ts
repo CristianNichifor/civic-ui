@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 const system = (page: Page, color: string) => page.evaluate(value => {
   const probe = document.createElement('span');
   probe.style.color = value;
+  probe.style.forcedColorAdjust = 'none';
   document.querySelector('.showcase')!.append(probe);
   const resolved = getComputedStyle(probe).color;
   probe.remove();

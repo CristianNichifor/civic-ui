@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+Prepared for 0.8.0. Rename this heading to `## 0.8.0` in the release-preparation PR.
+
+- Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable
+  retry button; errors use `role="alert"`, the others `role="status"`.
+- Add `Table` `density` (`comfortable`, `compact`) and `mobileLayout` (`scroll`, `cards`)
+  props; the card layout stacks rows below 560 px using host-supplied `data-label`s.
+- Announce the whole `FilterToolbar` result count (`aria-atomic`) and document its
+  responsive composition with labelled fields.
+- Add `enLabels` and the `CivicLabels` type, and an opt-in Romanian preset at
+  `@cristiannichifor/civic-ui/locales/ro`. English defaults are unchanged.
+- Keep checked, selected and highlighted states visible in forced colors, and stop the
+  `OperationStatus` spinner and `Switch` transition for reduced motion.
+- Add `scripts/changelog-section.mjs` so a release body holds only its own version.
+- Add [docs/UPGRADING.md](docs/UPGRADING.md) for 0.3 to 0.6 consumers.
+
 ## 0.7.0
 
 Published on GitHub Releases.

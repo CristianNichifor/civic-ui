@@ -314,3 +314,15 @@ test("select options render inside an explicit portal container", async ({ page 
   await expect(host.getByRole("listbox")).toHaveCount(0);
   await expect(page.getByRole("combobox", { name: "Review format" })).toHaveText(/Private/);
 });
+
+test("pagination keeps focus at page boundaries", async ({ page }) => {
+  const previous = page.getByRole("button", { name: "Previous page" });
+  const next = page.getByRole("button", { name: "Next page" });
+  await next.focus();
+  await page.keyboard.press("Enter");
+  await expect(next).toBeDisabled();
+  await expect(previous).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(previous).toBeDisabled();
+  await expect(next).toBeFocused();
+});

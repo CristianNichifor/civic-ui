@@ -669,7 +669,11 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .civic-scope .civic-loading svg {
+  .civic-scope .civic-loading svg,
+  .civic-scope .civic-operation-status__spinner {
     animation: none;
+  }
+  .civic-scope .civic-switch__thumb {
+    transition: none;
   }
 }

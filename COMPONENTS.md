@@ -83,8 +83,6 @@ as that calendar day in local time.
 
 ## Feedback
 
-- `Notice`: required `title`, optional children, `tone` (`info`, `success`, `warning`, `danger`), native div attributes. Static by default. Add `role="status"` or `role="alert"` only when an update warrants announcement.
-- `ValidationSummary`: `errors: { id, message }[]` and optional `title`. Renders nothing for no errors. Error IDs must identify focusable controls; links focus them. Announced as an alert. Avoid creating an alert on each keystroke in production forms; show after validation/submission.
 Feedback semantics at a glance:
 
 | Component | Renders | Announcement | Focus | Choose it for |
@@ -95,6 +93,8 @@ Feedback semantics at a glance:
 | `OperationStatus` | `role="status"` | Polite, assertive in the `error` state | Not moved | One region whose state changes while an operation runs |
 | `LoadingIndicator` | `role="status"` | Polite | Not moved; the parent owns `aria-busy` | A short wait with no progress value |
 
+- `Notice`: required `title`, optional children, `tone` (`info`, `success`, `warning`, `danger`), native div attributes. Static by default. Add `role="status"` or `role="alert"` only when an update warrants announcement.
+- `ValidationSummary`: `errors: { id, message }[]` and optional `title`. Renders nothing for no errors. Error IDs must identify focusable controls; links focus them. Announced as an alert. Avoid creating an alert on each keystroke in production forms; show after validation/submission.
 - `StatusBadge`: visible children and optional `tone` (`neutral`, `success`, `warning`, `danger`). Text must identify status without relying on color. Badge tones use host tokens, not independent brand colors.
 - `EmptyState`: required `title`, optional description children and action node. It does not infer loading, permission or error states.
 - `LoadingIndicator`: optional translated `label`, status semantics, decorative icon. Animation stops for reduced-motion preference. The parent owns `aria-busy` and when loading ends.

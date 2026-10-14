@@ -228,3 +228,25 @@ the account owner releases from `main`.
 
 Tests: `npm run test:release` (changelog section and version agree) and
 `tests/showcase.spec.ts`.
+
+## Theme G: fleet UX guideline (fleet round 2)
+
+### CU-19 Fleet UX guidelines — done
+
+`docs/ux-guidelines.md` is the base every app guideline extends: page anatomy,
+content, data-viz, states, mobile and accessibility, status vocabulary and a
+conformance checklist, each expressed with Civic UI tokens and components and a
+code snippet; a naming registry (hub title RO/EN, app H1, slug, repo, target H1)
+for every app; and `docs/ux-guidelines.template.md` for per-repo guidelines.
+The README and the showcase link to it.
+
+- Given the guideline, then every section 2–8 of the fleet brief has a numbered
+  section, and every component it names (`SiteShell`, `StatTile`, `ChartFrame`,
+  `SourceCitation`, `StatusMessage`, `formatRON`, `formatDateRO`, `roLabels`)
+  is exported by 0.8.
+- Given the naming registry, then every hub catalogue entry on
+  digital-public-administration-lab `dev` has a row.
+- Given the documents, then no cedilla diacritic (U+015F, U+0163) appears.
+
+Tests: reviewed by reading; no automated test. Romanian strings in the guideline:
+**needs human review**.

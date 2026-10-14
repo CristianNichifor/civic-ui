@@ -117,7 +117,7 @@ Added after the first three themes, from a fleet UX review: consumer apps diverg
 because Civic UI lacks shared tokens and data-presentation pieces. Everything is
 opt-in; no existing class, default or computed style changes.
 
-### CU-9 Token layer v1 — todo
+### CU-9 Token layer v1 — done
 
 - Given any `.civic-scope`, then `--civic-success`, `--civic-warning`,
   `--civic-info` and their `--civic-on-*` pairs (plus `--civic-on-danger`) are
@@ -141,7 +141,7 @@ Tests: `tests/tokens.test.mjs` (contrast, monotonic ramps, grey midpoint, token
 presence); `tests/tokens.spec.ts` (tokens resolve in the browser for each theme;
 existing control sizes unchanged).
 
-### CU-10 Romanian formatters — todo
+### CU-10 Romanian formatters — done
 
 - `formatRON(value, options?)` formats with `Intl.NumberFormat('ro-RO',
   { style: 'currency', currency: 'RON' })`; options override.
@@ -154,7 +154,7 @@ existing control sizes unchanged).
 Tests: `tests/locale.spec.ts` (output matches the engine's `ro-RO` Intl, with
 `.` thousands and `,` decimals).
 
-### CU-11 Showcase fixes — todo
+### CU-11 Showcase fixes — done
 
 - The header shows the installed package version, not "v0.5.0 preview".
 - Sections are numbered in document order, and the top navigation links every

@@ -12,6 +12,12 @@
   `@cristiannichifor/civic-ui/locales/ro`. English defaults are unchanged.
 - Keep checked, selected and highlighted states visible in forced colors, and stop the
   `OperationStatus` spinner and `Switch` transition for reduced motion.
+- Add status (`--civic-success`, `--civic-warning`, `--civic-info` and on-colours),
+  space, type-scale and weight tokens, and colour-blind-safe categorical, sequential
+  and diverging data-visualisation palettes for light and dark modes.
+- Add `formatRON`, `formatNumberRO` and `formatDateRO` to the `locales/ro` entry.
+- Showcase: report the installed version, number and link every section, add an EN/RO
+  toggle and props tables.
 - Add `scripts/changelog-section.mjs` so a release body holds only its own version.
 - Add [docs/UPGRADING.md](docs/UPGRADING.md) for 0.3 to 0.6 consumers.
 

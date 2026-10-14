@@ -25,8 +25,15 @@ the change, not to point at an archive URL or checksum.
 - A `forced-colors: active` block in `controls.css`, and reduced-motion rules that now
   also stop the `OperationStatus` spinner and the `Switch` thumb transition.
 - `aria-atomic="true"` on the `FilterToolbar` result count.
+- Status, space, type and data-visualisation tokens on `.civic-scope` (see
+  [COMPONENTS.md](../COMPONENTS.md#tokens)), and `formatRON`, `formatNumberRO` and
+  `formatDateRO` in `locales/ro`. Existing controls keep their sizes and colours.
 
 Behaviour to recheck after upgrading to 0.8:
+
+- A host theme or adapter that already defines a custom property with one of the new
+  token names (`--civic-success`, `--civic-space-1`, `--civic-viz-1` and so on) on
+  `.civic-scope` keeps its value only if it loads after `styles.css`.
 
 - In Windows High Contrast, checked switches, segmented options, the active tab and
   highlighted select and menu items now use system `Highlight` colours. Hosts that

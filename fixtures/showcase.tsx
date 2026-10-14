@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, version, type RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bookmark, Check, Copy, Download, ExternalLink } from 'lucide-react';
-import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden, enLabels, missingCivicTokens } from '@cristiannichifor/civic-ui';
+import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden, enLabels, missingCivicTokens, civicPaletteOverrides } from '@cristiannichifor/civic-ui';
 import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
 import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
@@ -64,8 +64,12 @@ function Example({ name, source }: { name: string; source: string }) {
 function TokenReport({ scope, deps }: { scope: RefObject<HTMLDivElement | null>; deps: string }) {
   const [missing, setMissing] = useState<string[]>([]);
   const [unthemed, setUnthemed] = useState<string[]>([]);
+  const [overrides, setOverrides] = useState<string[]>([]);
   useEffect(() => {
-    if (scope.current) setMissing(missingCivicTokens(scope.current));
+    if (scope.current) {
+      setMissing(missingCivicTokens(scope.current));
+      setOverrides(civicPaletteOverrides(scope.current));
+    }
     const probe = document.body.appendChild(document.createElement('div'));
     probe.className = 'civic-scope';
     setUnthemed(missingCivicTokens(probe));
@@ -73,6 +77,7 @@ function TokenReport({ scope, deps }: { scope: RefObject<HTMLDivElement | null>;
   }, [scope, deps]);
   return <>
     <span data-testid="token-report">Missing host tokens: {missing.join(', ') || 'none'}</span>
+    <span data-testid="palette-report">Palette overrides: {overrides.join(', ') || 'none'}</span>
     <span data-testid="unthemed-token-report" hidden>{unthemed.join(', ')}</span>
   </>;
 }

@@ -261,7 +261,7 @@ contract.
 
 Tests: `tests/extended.spec.ts` ("pagination keeps focus at page boundaries").
 
-### CU-21 Theme token diagnostics — done (first slice)
+### CU-21 Theme token diagnostics — done (palette overrides in CU-23)
 
 ROADMAP "Later" #6, first slice: missing host tokens. The package exports
 `civicHostTokens`, the custom properties a theme or host must supply (fonts,
@@ -287,6 +287,18 @@ code accepts (`idle`, `loading`, `success`, `warning`, `error`), not the stale
 Tests: `tests/status.spec.ts` ("feedback components render the documented
 semantics") pins the table: `Notice` has no role, `OperationStatus` is a polite
 `status`, `LoadingIndicator` is a `status`.
+
+### CU-23 Palette override diagnostics — done
+
+ROADMAP "Later" #6, second slice. `civicPaletteOverrides(element)` returns the
+data-visualisation tokens (`--civic-viz-*`) whose value on `element` differs
+from what the same theme classes and `data-civic-mode` give on a fresh
+`.civic-scope`. A host that restyles one categorical slot by accident breaks the
+colour-vision-checked order; this names it. Like `missingCivicTokens`, it is
+for development only.
+
+Tests: `tests/tokens.spec.ts` ("palette override diagnostics"): the showcase
+reports no override, then reports `--civic-viz-2` after an inline override.
 
 ### CU-24 Roadmap reflects shipped work — done
 

@@ -33,6 +33,11 @@ props so a host value wins.
 `styles.css` defines these on every `.civic-scope`; themes may override any of them.
 The neutral dark mode redefines the colours.
 
+A theme or host must supply the host tokens in `civicHostTokens` (font, surfaces, text,
+border, action, focus, accent, danger). In development, `missingCivicTokens(element)`
+returns the ones that resolve to nothing on a themed element; an empty array means the
+theme is complete. Do not call it in production code paths.
+
 - Status: `--civic-success`, `--civic-warning`, `--civic-info` with `--civic-on-success`,
   `--civic-on-warning`, `--civic-on-info` and `--civic-on-danger` (4.5:1 or more on
   their fill). Status colour never carries meaning alone: pair it with text and an icon.

@@ -27,5 +27,35 @@
   --civic-focus: #b5e8dc;
   --civic-accent: #b5e8dc;
   --civic-danger: #ffb9c5;
+  --civic-on-danger: #2a0a10;
+  --civic-success: #7fd69a;
+  --civic-on-success: #10241a;
+  --civic-warning: #f5c451;
+  --civic-on-warning: #241a00;
+  --civic-info: #9cc7f5;
+  --civic-on-info: #0e2238;
+  --civic-viz-1: #3987e5;
+  --civic-viz-2: #d95926;
+  --civic-viz-3: #199e70;
+  --civic-viz-4: #c98500;
+  --civic-viz-5: #d55181;
+  --civic-viz-6: #008300;
+  --civic-viz-7: #9085e9;
+  --civic-viz-8: #e66767;
+  /* Sequential and diverging steps nearest the dark surface come first. */
+  --civic-viz-seq-1: #184f95;
+  --civic-viz-seq-2: #1c5cab;
+  --civic-viz-seq-3: #256abf;
+  --civic-viz-seq-4: #3987e5;
+  --civic-viz-seq-5: #6da7ec;
+  --civic-viz-seq-6: #9ec5f4;
+  --civic-viz-seq-7: #cde2fb;
+  --civic-viz-div-n1: #184f95;
+  --civic-viz-div-n2: #3987e5;
+  --civic-viz-div-n3: #9ec5f4;
+  --civic-viz-div-mid: #383835;
+  --civic-viz-div-p1: #7a2524;
+  --civic-viz-div-p2: #e34948;
+  --civic-viz-div-p3: #f5b8b7;
   color-scheme: dark;
 }

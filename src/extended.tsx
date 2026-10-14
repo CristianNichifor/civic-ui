@@ -32,6 +32,7 @@ import {
   X,
 } from "lucide-react";
 import { Button, IconButton } from "./components";
+import { enLabels } from "./labels";
 import { createPortal } from "react-dom";
 
 // Keep public HTML props consumable by both React 18 and React 19 type packages.
@@ -291,7 +292,7 @@ export function Select({
   defaultValue,
   onValueChange,
   options,
-  placeholder = "Select an option",
+  placeholder = enLabels.Select.placeholder,
   disabled,
 }: {
   label: string;
@@ -384,7 +385,7 @@ export function Notice({
 
 export function ValidationSummary({
   errors,
-  title = "Please check the following fields",
+  title = enLabels.ValidationSummary.title,
 }: {
   errors: { id: string; message: string }[];
   title?: string;
@@ -433,7 +434,7 @@ export function Dialog({
   open,
   onOpenChange,
   portalContainer,
-  closeLabel = "Close dialog",
+  closeLabel = enLabels.Dialog.closeLabel,
 }: DialogProps) {
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
@@ -462,8 +463,8 @@ export function AlertDialog({
   open,
   onOpenChange,
   onConfirm,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel = enLabels.AlertDialog.confirmLabel,
+  cancelLabel = enLabels.AlertDialog.cancelLabel,
   portalContainer,
 }: Omit<DialogProps, "children" | "closeLabel"> & {
   onConfirm: () => void;
@@ -645,7 +646,7 @@ export function EmptyState({
     </div>
   );
 }
-export function LoadingIndicator({ label = "Loading" }: { label?: string }) {
+export function LoadingIndicator({ label = enLabels.LoadingIndicator.label }: { label?: string }) {
   return (
     <span className="civic-loading" role="status">
       <LoaderCircle aria-hidden="true" />
@@ -658,7 +659,7 @@ export function FilterToolbar({
   children,
   actions,
   resultCount,
-  label = "Filters",
+  label = enLabels.FilterToolbar.label,
 }: {
   children: ReactNode;
   actions?: ReactNode;
@@ -768,9 +769,9 @@ export function Pagination({
   page,
   pageCount,
   onPageChange,
-  label = "Pagination",
-  previousLabel = "Previous page",
-  nextLabel = "Next page",
+  label = enLabels.Pagination.label,
+  previousLabel = enLabels.Pagination.previousLabel,
+  nextLabel = enLabels.Pagination.nextLabel,
 }: {
   page: number;
   pageCount: number;

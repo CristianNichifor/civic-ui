@@ -23,6 +23,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./locales/ro": {
+      "types": "./dist/locales/ro.d.ts",
+      "import": "./dist/locales/ro.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./native.css": "./dist/native.css",
     "./themes/usr.css": "./dist/themes/usr.css",

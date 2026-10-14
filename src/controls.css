@@ -495,9 +495,9 @@
     width: 20px;
     height: 20px;
   }
-  .civic-status-message[data-tone="success"] { border-left-color: var(--civic-action); }
-  .civic-status-message[data-tone="warning"],
-  .civic-status-message[data-tone="error"] { border-left-color: var(--civic-accent); }
+  .civic-status-message[data-tone="success"] { border-left-color: var(--civic-success, var(--civic-action)); }
+  .civic-status-message[data-tone="warning"] { border-left-color: var(--civic-warning, var(--civic-accent)); }
+  .civic-status-message[data-tone="error"] { border-left-color: var(--civic-danger, var(--civic-accent)); }
   .civic-status-message[data-tone="error"] { border-left-style: double; border-left-width: 4px; }
   .civic-status-message__body {
     display: grid;

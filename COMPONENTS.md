@@ -149,6 +149,38 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 - `SortableHeader`: header children, `onSort`, optional `direction` (`ascending`/`descending`), `scope` (`col` default, or `row`). Renders `th` with `aria-sort` and a button. Caller sorts records and ensures only the active column has a direction.
 - `Pagination`: controlled integer `page`, `pageCount`, `onPageChange`. Requires `1 <= page <= pageCount`; invalid inputs throw RangeError. Do not render for zero-result states. Previous/next buttons disable at boundaries. Optional `label`, `previousLabel`, `nextLabel` support translation. Caller slices data and resets/clamps page when filters or totals change.
 
+## Site and Data
+
+These render host content only. The host draws charts, owns links and URLs, and passes
+dates as text (an ISO `YYYY-MM-DD` string renders in a `<time>` element).
+
+- `SiteShell`: `familyBar`, optional `footer`, children, translated `skipLabel`. Renders a
+  skip link, `FamilyBar` (banner), `main` (focus target of the skip link) and `SiteFooter`
+  (contentinfo). Use it once per page, outside other landmarks.
+- `FamilyBar`: `homeHref` and `homeLabel` for the back link to the family hub (for
+  example "CN Lab"), `toolName`, optional `status` (such as a `StatusBadge`) and
+  `languages: { code, label, href, current? }[]` rendered as a `nav` named by
+  `languageLabel`. The current language gets `aria-current="true"`. Each link carries
+  `hreflang` and `lang`. Switching language is a navigation the host owns.
+- `SiteFooter`: `method`, `privacy`, `source` and `contact` slots (usually links) in a
+  `nav` named by `label`, plus free children.
+- `StatTile`: `label`, `value` (numbers are formatted with
+  `Intl.NumberFormat(locale, format)`, `locale` defaults to `en`), optional `unit`,
+  `delta: { value, unit?, positive? }` and `asOf`. The delta's direction is given as
+  visually hidden text ("Increase", "Decrease", "No change") and an arrow icon.
+  `positive: "good" | "bad"` sets `data-sentiment`, which colours the icon with the
+  status tokens. Colour never carries the meaning alone.
+- `StatGrid`: a labelled list that wraps tiles into as many columns as fit, down to one
+  at narrow widths.
+- `ChartFrame`: a `figure` named by its `title`, with an optional `question`, a `demo`
+  badge, `source` and `asOf` in the figcaption, and the host chart as children. Given
+  `table`, a "Show as table" button (`aria-pressed`) swaps the chart for the table, which
+  covers charts whose colours fall below 3:1. `state="empty" | "error"` renders the
+  `empty` or `error` slot instead and hides the toggle. Pair the error slot with a
+  `StatusMessage`.
+- `SourceCitation`: one provenance line: `source` (linked with `href`), `licence`
+  (linked with `rel="license"` via `licenceHref`), `date` and a `methodHref` link.
+
 ## Adoption Gates
 
 1. Use a reviewed, published GitHub release. Version 0.2.0 is available; a new release is needed only for package changes, not for adopting existing components.

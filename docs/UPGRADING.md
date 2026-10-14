@@ -28,6 +28,10 @@ the change, not to point at an archive URL or checksum.
 - Status, space, type and data-visualisation tokens on `.civic-scope` (see
   [COMPONENTS.md](../COMPONENTS.md#tokens)), and `formatRON`, `formatNumberRO` and
   `formatDateRO` in `locales/ro`. Existing controls keep their sizes and colours.
+- `SiteShell`, `FamilyBar`, `SiteFooter`, `StatTile`, `StatGrid`, `ChartFrame` and
+  `SourceCitation`, with matching classes (`.civic-family-bar`, `.civic-stat-tile`,
+  `.civic-chart-frame`, `.civic-source` and so on) that CSS-only hosts can use with
+  the markup in [COMPONENTS.md](../COMPONENTS.md#site-and-data).
 
 Behaviour to recheck after upgrading to 0.8:
 

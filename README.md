@@ -8,7 +8,8 @@ Small, MIT-licensed React controls with opt-in neutral and USR-compatible themes
 - Feedback: `Notice`, `ValidationSummary`, `StatusMessage`, `OperationStatus`, `StatusBadge`, `EmptyState`, `LoadingIndicator`, `Progress`, `Skeleton`.
 - Layout: `Card`, `VisuallyHidden`.
 - Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`, `Popover`.
-- Data: `FilterToolbar`, `Table`, `SortableHeader`, `Pagination`.
+- Data: `FilterToolbar`, `Table`, `SortableHeader`, `Pagination`, `StatTile`, `StatGrid`, `ChartFrame`, `SourceCitation`.
+- Site: `SiteShell`, `FamilyBar`, `SiteFooter`.
 
 Components are controlled primitives: the host owns values, validation, permissions, translations, routing, persistence and business logic. Radix supplies focus and keyboard behavior for complex interactions; native HTML remains the default for simple forms.
 

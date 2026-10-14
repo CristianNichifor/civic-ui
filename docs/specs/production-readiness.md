@@ -166,17 +166,17 @@ Tests: `tests/showcase.spec.ts`.
 
 ## Theme E: site and data presentation (fleet UX review)
 
-### CU-12 SiteShell — todo
+### CU-12 SiteShell — done
 
 `SiteShell` renders a `FamilyBar` (back link to the family hub, tool name,
 optional status badge, optional language switch) and a `SiteFooter` with
 method, privacy, source and contact slots. Landmarks: `banner`, `main` and
 `contentinfo`; the language switch is a labelled group of links marking the
-current language with `aria-current`.
+current language with `aria-current="true"`. It is a `nav` named by `languageLabel`. A skip link moves focus to `main`.
 
 Tests: `tests/site-shell.spec.ts`.
 
-### CU-13 StatTile and StatGrid — todo
+### CU-13 StatTile and StatGrid — done
 
 `StatTile` shows value, label, optional unit, delta and as-of date. Numbers are
 formatted with `Intl.NumberFormat(locale, format)`. The delta's direction is
@@ -185,7 +185,7 @@ that wraps to one column at 390 px.
 
 Tests: `tests/stat-tile.spec.ts`.
 
-### CU-14 ChartFrame — todo
+### CU-14 ChartFrame — done
 
 `ChartFrame` is a `figure` with title, question, source and licence, an as-of
 date, an optional demo-data badge, and a "show as table" toggle (a button with
@@ -194,7 +194,7 @@ empty and error slots. The host renders the chart.
 
 Tests: `tests/chart-frame.spec.ts`.
 
-### CU-15 SourceCitation — todo
+### CU-15 SourceCitation — done
 
 `SourceCitation` renders one provenance line: source name (linked when a URL is
 given), licence, retrieval or as-of date, and an optional method link.

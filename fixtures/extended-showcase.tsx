@@ -30,9 +30,43 @@ import {
   Field,
   Button,
   IconButton,
+  type CivicLabels,
 } from "@cristiannichifor/civic-ui";
 
-export function ExtendedShowcase() {
+type PropRow = [name: string, type: string, fallback: string, description: string];
+
+// A collapsed reference table; plain markup so it never competes with the demo tables.
+function PropsTable({ component, rows }: { component: string; rows: PropRow[] }) {
+  return (
+    <details className="props">
+      <summary>{component} props</summary>
+      <div className="props-scroll">
+        <table className="props-table" aria-label={`${component} props`}>
+          <thead>
+            <tr>
+              <th scope="col">Prop</th>
+              <th scope="col">Type</th>
+              <th scope="col">Default</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(([name, type, fallback, description]) => (
+              <tr key={name}>
+                <th scope="row"><code>{name}</code></th>
+                <td><code>{type}</code></td>
+                <td>{fallback}</td>
+                <td>{description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
+  );
+}
+
+export function ExtendedShowcase({ labels }: { labels: CivicLabels }) {
   const [overlayRoot, setOverlayRoot] = useState<HTMLDivElement | null>(null);
   const portalContainer = new URLSearchParams(location.search).has("portal")
     ? (overlayRoot ?? undefined)
@@ -62,7 +96,7 @@ export function ExtendedShowcase() {
     <>
       <section id="forms">
         <div className="section-title">
-          <span>04</span>
+          <span>05</span>
           <h2>Form choices</h2>
         </div>
         <div className="field-grid">
@@ -117,6 +151,7 @@ export function ExtendedShowcase() {
               onCheckedChange={setNotifications}
             />
             <Select
+              {...labels.Select}
               label="Review format"
               value={format}
               onValueChange={setFormat}
@@ -134,6 +169,7 @@ export function ExtendedShowcase() {
           </div>
         </div>
         <ValidationSummary
+          {...labels.ValidationSummary}
           errors={
             notes
               ? []
@@ -143,7 +179,7 @@ export function ExtendedShowcase() {
       </section>
       <section id="feedback">
         <div className="section-title">
-          <span>05</span>
+          <span>06</span>
           <h2>Feedback</h2>
         </div>
         <Notice title="Archive available" tone="success">
@@ -161,6 +197,7 @@ export function ExtendedShowcase() {
           </StatusMessage>
           <StatusMessage tone="warning" title="Two documents need review" />
           <StatusMessage
+            {...labels.StatusMessage}
             tone="error"
             title="Archive could not be refreshed"
             onRetry={() => setRetries((n) => n + 1)}
@@ -168,12 +205,22 @@ export function ExtendedShowcase() {
             The synthetic source did not respond. Retries: {retries}
           </StatusMessage>
         </div>
+        <PropsTable
+          component="StatusMessage"
+          rows={[
+            ["tone", '"success" | "warning" | "error"', "required", "Error renders role=alert; the others role=status."],
+            ["title", "string", "required", "Short outcome statement."],
+            ["children", "ReactNode", "none", "Supporting detail."],
+            ["onRetry", "() => void", "none", "Renders a native retry button when given."],
+            ["retryLabel", "string", '"Retry"', "Translated button text; see roLabels.StatusMessage."],
+          ]}
+        />
         <div className="button-row">
           <StatusBadge>Draft</StatusBadge>
           <StatusBadge tone="success">Published</StatusBadge>
           <StatusBadge tone="warning">Pending review</StatusBadge>
           <StatusBadge tone="danger">Unavailable</StatusBadge>
-          <LoadingIndicator label="Loading documents" />
+          <LoadingIndicator {...labels.LoadingIndicator} label="Loading documents" />
         </div>
         <EmptyState
           title="No saved documents"
@@ -188,11 +235,12 @@ export function ExtendedShowcase() {
       </section>
       <section id="overlays">
         <div className="section-title">
-          <span>06</span>
+          <span>07</span>
           <h2>Dialogs and menus</h2>
         </div>
         <div className="button-row">
           <Dialog
+            {...labels.Dialog}
             portalContainer={portalContainer}
             trigger={
               <Button>
@@ -208,6 +256,7 @@ export function ExtendedShowcase() {
             </Field>
           </Dialog>
           <AlertDialog
+            {...labels.AlertDialog}
             portalContainer={portalContainer}
             trigger={<Button>Archive document</Button>}
             title="Archive document?"
@@ -255,10 +304,11 @@ export function ExtendedShowcase() {
       </section>
       <section id="data">
         <div className="section-title">
-          <span>07</span>
+          <span>08</span>
           <h2>Tabs and tables</h2>
         </div>
         <FilterToolbar
+          {...labels.FilterToolbar}
           label="Archive filters"
           resultCount={`${records.length} ${records.length === 1 ? "document" : "documents"}`}
           actions={
@@ -303,6 +353,23 @@ export function ExtendedShowcase() {
             )}
           </Field>
         </FilterToolbar>
+        <PropsTable
+          component="FilterToolbar"
+          rows={[
+            ["children", "ReactNode", "required", "Caller-owned, labelled filter controls."],
+            ["actions", "ReactNode", "none", "Reset or apply buttons."],
+            ["resultCount", "ReactNode", "none", "Rendered in a polite, atomic live region."],
+            ["label", "string", '"Filters"', "Group name; see roLabels.FilterToolbar."],
+          ]}
+        />
+        <PropsTable
+          component="Table"
+          rows={[
+            ["label", "string", "required", "Name of the scrollable region."],
+            ["density", '"comfortable" | "compact"', '"comfortable"', "Sets data-density."],
+            ["mobileLayout", '"scroll" | "cards"', '"scroll"', "Cards below 560 px; cells need data-label."],
+          ]}
+        />
         <Tabs
           label="Archive views"
           items={[
@@ -343,6 +410,7 @@ export function ExtendedShowcase() {
                     </tbody>
                   </Table>
                   <Pagination
+                    {...labels.Pagination}
                     page={page}
                     pageCount={pageCount}
                     onPageChange={setPage}

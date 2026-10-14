@@ -34,3 +34,8 @@ body { margin: 0; }
 .skip:focus { top: 12px; }
 .showcase :is(a, summary, pre, input[type=radio]):focus-visible { outline: 3px solid var(--civic-focus); outline-offset: 3px; }
 @media (max-width: 700px) { .showcase header { align-items: start; flex-direction: column; } .field-grid, .primitive-grid { grid-template-columns: minmax(0, 1fr); } .showcase header, .theme-bar, .showcase main, .showcase footer { padding-left: 20px; padding-right: 20px; } }
+.props { margin: 16px 0; }
+.props summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
+.props-scroll { max-width: 100%; overflow-x: auto; }
+.props-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.props-table th, .props-table td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--civic-border); overflow-wrap: anywhere; }

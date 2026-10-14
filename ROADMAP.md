@@ -4,9 +4,9 @@ This backlog is ordered by reuse evidence from the merged consumer applications.
 
 ## Next
 
-1. **Status and progress patterns**: standardize loading, success, warning, error and retry states used by data-heavy simulators.
-2. **Filter toolbar primitives**: provide a responsive composition for search, select filters, reset and result counts.
-3. **Table density and responsive overflow**: document compact, comfortable and mobile-card presentation contracts without owning table data.
+Items 1 to 3 are implemented for 0.8.0: `StatusMessage` for success, warning, error and
+retry; the `FilterToolbar` composition with a live result count; and the `Table` density
+and mobile card contract. Remaining work moves up from "Later".
 
 ## Later
 

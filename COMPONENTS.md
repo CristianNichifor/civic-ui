@@ -62,6 +62,13 @@ props so a host value wins.
 - `OperationStatus`: explicit `idle`, `running`, `success` or `error` state with
   caller-provided labels and optional retry action. It does not fetch, retry or
   infer state from a promise; keep operation state and error details in the host.
+- `StatusMessage`: required `tone` (`success`, `warning`, `error`) and `title`, optional
+  children, `onRetry` and translated `retryLabel`. Errors render with `role="alert"`,
+  success and warnings with `role="status"`. With `onRetry` it renders a native button,
+  so Enter and Space both retry; the host owns the retried operation and when to remove
+  the message. Mount it with its content: changing the tone of a mounted message is
+  announced inconsistently across screen readers. Use `OperationStatus` when a loading
+  state with progress precedes the outcome.
 - `Progress`: labelled native `<progress>` for determinate or indeterminate work. The
   caller owns the value and update cadence; values must be between zero and `max`.
 - `Skeleton`: decorative loading placeholder. It is hidden from assistive technology;
@@ -104,10 +111,12 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 
 - `FilterToolbar`: labelled region for caller-owned filter controls and optional
   reset action. It does not own filter values, query data or submit forms; pass
-  controlled inputs and reset them in the host callback. Keep a visible result
-  count or empty state outside the toolbar when users need feedback.
+  controlled inputs and reset them in the host callback. `resultCount` renders in a
+  polite, atomic live region, so the whole count is read when it changes; keep it short
+  ("12 documents"). Wrap each control in `Field` for a visible label. Below 560 px each
+  field takes a full row, so the toolbar fits a 390 px viewport without scrolling.
 
-- `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed.
+- `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed. Optional `density` (`comfortable` default, `compact`) and `mobileLayout` (`scroll` default, `cards`) set `data-density` and `data-mobile-layout`; see [TABLES.md](TABLES.md).
 - `SortableHeader`: header children, `onSort`, optional `direction` (`ascending`/`descending`), `scope` (`col` default, or `row`). Renders `th` with `aria-sort` and a button. Caller sorts records and ensures only the active column has a direction.
 - `Pagination`: controlled integer `page`, `pageCount`, `onPageChange`. Requires `1 <= page <= pageCount`; invalid inputs throw RangeError. Do not render for zero-result states. Previous/next buttons disable at boundaries. Optional `label`, `previousLabel`, `nextLabel` support translation. Caller slices data and resets/clamps page when filters or totals change.
 

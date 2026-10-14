@@ -251,6 +251,30 @@ The README and the showcase link to it.
 Tests: reviewed by reading; no automated test. Romanian strings in the guideline:
 **needs human review**.
 
+### CU-20 Pagination keeps keyboard focus — done
+
+ROADMAP "Later" #5. When previous or next moves to a boundary page, that button
+becomes disabled and the browser drops focus to `body`. Instead, focus moves to
+the opposite button when the activated button had focus, so a keyboard user
+stays inside the pagination. Caller-driven page changes do not move focus. `COMPONENTS.md` states the
+contract.
+
+Tests: `tests/extended.spec.ts` ("pagination keeps focus at page boundaries").
+
+### CU-21 Theme token diagnostics — done (first slice)
+
+ROADMAP "Later" #6, first slice: missing host tokens. The package exports
+`civicHostTokens`, the custom properties a theme or host must supply (fonts,
+surfaces, text, border, action, focus, accent, danger), and
+`missingCivicTokens(element)`, which returns the host tokens that resolve to an
+empty value on `element`. It is pure and side-effect free, so a host calls it
+in development only and production bundles tree-shake it. Detecting accidental
+palette overrides is left for a later slice.
+
+Tests: `tests/tokens.spec.ts` ("host token diagnostics"): the showcase's report
+lists no missing token in Neutral light, Neutral dark and USR, and lists every
+host token for an unthemed `.civic-scope` probe.
+
 ### CU-22 Feedback semantics in one place — done
 
 ROADMAP "Later" #4, documentation slice. `COMPONENTS.md` gains one table that

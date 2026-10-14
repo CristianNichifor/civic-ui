@@ -315,3 +315,26 @@ export function ChartFrame({
     </figure>
   );
 }
+
+/** Custom properties a theme or host must supply; the library defines the rest. */
+export const civicHostTokens = [
+  "--civic-font-sans",
+  "--civic-bg",
+  "--civic-surface",
+  "--civic-raised",
+  "--civic-text",
+  "--civic-muted",
+  "--civic-border",
+  "--civic-action",
+  "--civic-action-hover",
+  "--civic-on-action",
+  "--civic-focus",
+  "--civic-accent",
+  "--civic-danger",
+] as const;
+
+/** Development check: host tokens that resolve to nothing on `element`. */
+export function missingCivicTokens(element: Element): string[] {
+  const style = getComputedStyle(element);
+  return civicHostTokens.filter((name) => !style.getPropertyValue(name).trim());
+}

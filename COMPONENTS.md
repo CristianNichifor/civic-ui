@@ -33,6 +33,11 @@ props so a host value wins.
 `styles.css` defines these on every `.civic-scope`; themes may override any of them.
 The neutral dark mode redefines the colours.
 
+A theme or host must supply the host tokens in `civicHostTokens` (font, surfaces, text,
+border, action, focus, accent, danger). In development, `missingCivicTokens(element)`
+returns the ones that resolve to nothing on a themed element; an empty array means the
+theme is complete. Do not call it in production code paths.
+
 - Status: `--civic-success`, `--civic-warning`, `--civic-info` with `--civic-on-success`,
   `--civic-on-warning`, `--civic-on-info` and `--civic-on-danger` (4.5:1 or more on
   their fill). Status colour never carries meaning alone: pair it with text and an icon.
@@ -157,7 +162,7 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 
 - `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed. Optional `density` (`comfortable` default, `compact`) and `mobileLayout` (`scroll` default, `cards`) set `data-density` and `data-mobile-layout`; see [TABLES.md](TABLES.md).
 - `SortableHeader`: header children, `onSort`, optional `direction` (`ascending`/`descending`), `scope` (`col` default, or `row`). Renders `th` with `aria-sort` and a button. Caller sorts records and ensures only the active column has a direction.
-- `Pagination`: controlled integer `page`, `pageCount`, `onPageChange`. Requires `1 <= page <= pageCount`; invalid inputs throw RangeError. Do not render for zero-result states. Previous/next buttons disable at boundaries. Optional `label`, `previousLabel`, `nextLabel` support translation. Caller slices data and resets/clamps page when filters or totals change.
+- `Pagination`: controlled integer `page`, `pageCount`, `onPageChange`. Requires `1 <= page <= pageCount`; invalid inputs throw RangeError. Do not render for zero-result states. Previous/next buttons disable at boundaries; when the focused one does, focus moves to the other button. Optional `label`, `previousLabel`, `nextLabel` support translation. Caller slices data and resets/clamps page when filters or totals change.
 
 ## Site and Data
 

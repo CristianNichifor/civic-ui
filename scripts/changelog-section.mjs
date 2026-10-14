@@ -6,7 +6,11 @@ import { fileURLToPath } from 'node:url';
 
 export function changelogSection(text, version) {
   const lines = text.split('\n');
-  const start = lines.findIndex(line => line.trim() === `## ${version}`);
+  // A heading may carry a date: "## 0.8.0 — 2026-10-14".
+  const start = lines.findIndex(line => {
+    const heading = line.trim();
+    return heading === `## ${version}` || heading.startsWith(`## ${version} — `);
+  });
   if (start === -1) throw new Error(`CHANGELOG.md has no "## ${version}" section`);
   const next = lines.findIndex((line, index) => index > start && line.startsWith('## '));
   const body = lines.slice(start + 1, next === -1 ? undefined : next).join('\n').trim();

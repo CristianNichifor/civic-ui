@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.8.0 — 2026-10-14
 
 - Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable
   retry button; errors use `role="alert"`, the others `role="status"`.

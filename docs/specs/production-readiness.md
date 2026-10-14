@@ -220,7 +220,7 @@ update only; the full gate stays green.
 
 Tests: `npm audit` reports no high-severity finding; the full gate.
 
-### CU-18 Release prep 0.8.0
+### CU-18 Release prep 0.8.0 — done
 
 `CHANGELOG.md` "Unreleased" becomes "0.8.0 — <date>", `package.json` and the
 lockfile move to 0.8.0, and the showcase reports it. No tag and no release:

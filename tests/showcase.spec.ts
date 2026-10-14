@@ -110,10 +110,20 @@ test('language toggle applies the Romanian preset', async ({ page }) => {
 
 test('new components document their props', async ({ page }) => {
   await page.goto('/showcase.html');
-  for (const name of ['StatusMessage', 'FilterToolbar', 'Table']) {
+  for (const name of ['StatusMessage', 'FilterToolbar', 'Table', 'SiteShell', 'StatTile', 'ChartFrame', 'SourceCitation']) {
     await page.getByText(`${name} props`, { exact: true }).click();
     const table = page.getByRole('table', { name: `${name} props` });
     await expect(table.getByRole('columnheader')).toHaveText(['Prop', 'Type', 'Default', 'Description']);
     await expect(table.locator('tbody tr').first()).toBeVisible();
   }
+});
+
+test('site and data section shows tiles, a framed chart and the shell example', async ({ page }) => {
+  await page.goto('/showcase.html');
+  const section = page.locator('#site-data');
+  await expect(section.getByRole('list', { name: 'Archive figures' }).getByRole('listitem')).toHaveCount(3);
+  await expect(section.getByRole('figure', { name: 'Documents by status' })).toBeVisible();
+  await expect(section.getByRole('link', { name: 'Open the site shell example' })).toHaveAttribute('href', 'site.html');
+  await page.getByRole('group', { name: 'Language' }).getByLabel('Română').check();
+  await expect(section.getByRole('button', { name: 'Afișează ca tabel' })).toBeVisible();
 });

@@ -7,7 +7,7 @@ Translations written for this work are marked **needs human review**.
 
 ## Theme A: localisation and system modes
 
-### CU-1 Romanian label preset — todo
+### CU-1 Romanian label preset — done
 
 Components keep English defaults; hosts that want Romanian opt in through a
 separate entry, `@cristiannichifor/civic-ui/locales/ro`, which exports `roLabels`.
@@ -30,7 +30,7 @@ incomplete at compile time if a key is missing.
 Tests: `tests/locale.spec.ts`, `fixtures/type-contract.tsx`, `verify.mjs`.
 Romanian strings: **needs human review**.
 
-### CU-2 Forced colors and reduced motion — todo
+### CU-2 Forced colors and reduced motion — done
 
 - Given `forced-colors: active`, when a `Switch` is checked, then its track uses
   `Highlight` and its thumb stays visible; unchecked, the track has a
@@ -46,6 +46,10 @@ Romanian strings: **needs human review**.
 
 Tests: `tests/forced-colors.spec.ts` (`emulateMedia({ forcedColors: 'active' })`,
 skipped in engines that cannot emulate it), reduced-motion case in the same file.
+The highlighted-option check runs on the scoped `DropdownMenu` (`?portal=1`): `Select`
+content portals to `document.body`, outside `.civic-scope`, so no scoped rule reaches
+it. That predates this work; giving `Select` a `portalContainer` is **needs-human**
+(API decision).
 
 ## Theme B: roadmap "Next"
 

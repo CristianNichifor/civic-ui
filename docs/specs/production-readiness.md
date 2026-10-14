@@ -250,3 +250,16 @@ The README and the showcase link to it.
 
 Tests: reviewed by reading; no automated test. Romanian strings in the guideline:
 **needs human review**.
+
+### CU-21 Feedback semantics in one place
+
+ROADMAP "Later" #4, documentation slice. `COMPONENTS.md` gains one table that
+states, for `Notice`, `ValidationSummary`, `StatusMessage`, `OperationStatus`
+and `LoadingIndicator`, the role, live politeness and focus behaviour each one
+renders, and when to choose it. The `OperationStatus` entry lists the states the
+code accepts (`idle`, `loading`, `success`, `warning`, `error`), not the stale
+`running`. No runtime change.
+
+Tests: `tests/status.spec.ts` ("feedback components render the documented
+semantics") pins the table: `Notice` has no role, `OperationStatus` is a polite
+`status`, `LoadingIndicator` is a `status`.

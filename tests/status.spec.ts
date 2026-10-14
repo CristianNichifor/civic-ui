@@ -41,3 +41,12 @@ test('status messages fit a 320 px viewport in every theme', async ({ page }) =>
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
   }
 });
+
+test('feedback components render the documented semantics', async ({ page }) => {
+  const notice = page.locator('.civic-notice').filter({ hasText: 'Archive available' });
+  await expect(notice).not.toHaveAttribute('role');
+  const operation = page.locator('.civic-operation-status').filter({ hasText: 'Updating archive' });
+  await expect(operation).toHaveAttribute('role', 'status');
+  await expect(operation).toHaveAttribute('aria-live', 'polite');
+  await expect(page.getByRole('status').filter({ hasText: 'Loading documents' })).toHaveCount(1);
+});

@@ -25,6 +25,8 @@
 - Add `ChartFrame` (title, question, demo badge, show-as-table toggle, empty and error
   slots) and `SourceCitation`; the host still renders the chart.
 - Add `scripts/changelog-section.mjs` so a release body holds only its own version.
+- Add `Select` `portalContainer` so its options can render inside a themed `.civic-scope`
+  container, like `Dialog`; the default `document.body` portal is unchanged.
 - Add [docs/UPGRADING.md](docs/UPGRADING.md) for 0.3 to 0.6 consumers.
 
 ## 0.7.0

@@ -300,3 +300,17 @@ test("explicit portals escape transformed containers and retain their host theme
     page.getByRole("button", { name: "Document actions" }),
   ).toBeFocused();
 });
+
+test("select options render inside an explicit portal container", async ({ page }) => {
+  await page.goto("/showcase.html?portal=1");
+  const host = page.locator("#overlay-host");
+  await page.getByRole("combobox", { name: "Review format" }).click();
+  const listbox = host.getByRole("listbox");
+  await expect(listbox).toBeVisible();
+  await expect(host.getByRole("option", { name: "Private" })).toBeVisible();
+  // Inside .civic-scope the scoped content styles apply, so the border is set.
+  await expect(host.locator(".civic-select-content")).toHaveCSS("border-top-width", "1px");
+  await host.getByRole("option", { name: "Private" }).click();
+  await expect(host.getByRole("listbox")).toHaveCount(0);
+  await expect(page.getByRole("combobox", { name: "Review format" })).toHaveText(/Private/);
+});

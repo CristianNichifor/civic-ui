@@ -274,3 +274,15 @@ palette overrides is left for a later slice.
 Tests: `tests/tokens.spec.ts` ("host token diagnostics"): the showcase's report
 lists no missing token in Neutral light, Neutral dark and USR, and lists every
 host token for an unthemed `.civic-scope` probe.
+
+### CU-23 Palette override diagnostics
+
+ROADMAP "Later" #6, second slice. `civicPaletteOverrides(element)` returns the
+data-visualisation tokens (`--civic-viz-*`) whose value on `element` differs
+from what the same theme classes and `data-civic-mode` give on a fresh
+`.civic-scope`. A host that restyles one categorical slot by accident breaks the
+colour-vision-checked order; this names it. Like `missingCivicTokens`, it is
+for development only.
+
+Tests: `tests/tokens.spec.ts` ("palette override diagnostics"): the showcase
+reports no override, then reports `--civic-viz-2` after an inline override.

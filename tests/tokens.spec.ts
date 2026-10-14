@@ -29,3 +29,13 @@ test('host token diagnostics', async ({ page }) => {
   await expect(page.getByTestId('unthemed-token-report')).toContainText('--civic-surface');
   await expect(page.getByTestId('unthemed-token-report')).toContainText('--civic-action');
 });
+
+test('palette override diagnostics', async ({ page }) => {
+  await page.goto('/showcase.html');
+  const report = page.getByTestId('palette-report');
+  await expect(report).toHaveText('Palette overrides: none');
+  await page.locator('.showcase').evaluate(el => (el as HTMLElement).style.setProperty('--civic-viz-2', '#ff0000'));
+  // The report recomputes when the mode changes; inline styles survive the re-render.
+  await page.getByLabel('Dark', { exact: true }).check();
+  await expect(report).toHaveText('Palette overrides: --civic-viz-2');
+});

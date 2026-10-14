@@ -274,3 +274,16 @@ palette overrides is left for a later slice.
 Tests: `tests/tokens.spec.ts` ("host token diagnostics"): the showcase's report
 lists no missing token in Neutral light, Neutral dark and USR, and lists every
 host token for an unthemed `.civic-scope` probe.
+
+### CU-22 Feedback semantics in one place — done
+
+ROADMAP "Later" #4, documentation slice. `COMPONENTS.md` gains one table that
+states, for `Notice`, `ValidationSummary`, `StatusMessage`, `OperationStatus`
+and `LoadingIndicator`, the role, live politeness and focus behaviour each one
+renders, and when to choose it. The `OperationStatus` entry lists the states the
+code accepts (`idle`, `loading`, `success`, `warning`, `error`), not the stale
+`running`. No runtime change.
+
+Tests: `tests/status.spec.ts` ("feedback components render the documented
+semantics") pins the table: `Notice` has no role, `OperationStatus` is a polite
+`status`, `LoadingIndicator` is a `status`.

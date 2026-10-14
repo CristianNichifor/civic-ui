@@ -88,12 +88,22 @@ as that calendar day in local time.
 
 ## Feedback
 
+Feedback semantics at a glance:
+
+| Component | Renders | Announcement | Focus | Choose it for |
+|---|---|---|---|---|
+| `Notice` | `div`, no role | None unless the host adds `role="status"` or `role="alert"` | Not moved | Static context present when the page loads |
+| `ValidationSummary` | `Notice` with `role="alert"` | Assertive, once when it mounts | Links move focus to each invalid control | Errors after a submit or validation pass |
+| `StatusMessage` | `role="alert"` for errors, `role="status"` otherwise | Assertive for errors, polite otherwise | Not moved; optional native retry button | The outcome of an action, mounted with its content |
+| `OperationStatus` | `role="status"` | Polite, assertive in the `error` state | Not moved | One region whose state changes while an operation runs |
+| `LoadingIndicator` | `role="status"` | Polite | Not moved; the parent owns `aria-busy` | A short wait with no progress value |
+
 - `Notice`: required `title`, optional children, `tone` (`info`, `success`, `warning`, `danger`), native div attributes. Static by default. Add `role="status"` or `role="alert"` only when an update warrants announcement.
 - `ValidationSummary`: `errors: { id, message }[]` and optional `title`. Renders nothing for no errors. Error IDs must identify focusable controls; links focus them. Announced as an alert. Avoid creating an alert on each keystroke in production forms; show after validation/submission.
 - `StatusBadge`: visible children and optional `tone` (`neutral`, `success`, `warning`, `danger`). Text must identify status without relying on color. Badge tones use host tokens, not independent brand colors.
 - `EmptyState`: required `title`, optional description children and action node. It does not infer loading, permission or error states.
 - `LoadingIndicator`: optional translated `label`, status semantics, decorative icon. Animation stops for reduced-motion preference. The parent owns `aria-busy` and when loading ends.
-- `OperationStatus`: explicit `idle`, `running`, `success` or `error` state with
+- `OperationStatus`: explicit `idle`, `loading`, `success`, `warning` or `error` state with
   caller-provided labels and optional retry action. It does not fetch, retry or
   infer state from a promise; keep operation state and error details in the host.
 - `StatusMessage`: required `tone` (`success`, `warning`, `error`) and `title`, optional

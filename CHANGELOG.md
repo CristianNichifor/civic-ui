@@ -2,8 +2,6 @@
 
 ## Unreleased
 
-Prepared for 0.8.0. Rename this heading to `## 0.8.0` in the release-preparation PR.
-
 - Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable
   retry button; errors use `role="alert"`, the others `role="status"`.
 - Add `Table` `density` (`comfortable`, `compact`) and `mobileLayout` (`scroll`, `cards`)

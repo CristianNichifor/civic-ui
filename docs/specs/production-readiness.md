@@ -251,7 +251,7 @@ The README and the showcase link to it.
 Tests: reviewed by reading; no automated test. Romanian strings in the guideline:
 **needs human review**.
 
-### CU-21 Feedback semantics in one place — done
+### CU-22 Feedback semantics in one place — done
 
 ROADMAP "Later" #4, documentation slice. `COMPONENTS.md` gains one table that
 states, for `Notice`, `ValidationSummary`, `StatusMessage`, `OperationStatus`

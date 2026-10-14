@@ -103,6 +103,10 @@ test('changelog section returns only the requested version body', () => {
   assert.equal(changelogSection(changelog, '0.1.0'), '- First entry.\n');
   assert.equal(changelogSection(changelog, 'Unreleased'), '- Pending entry.\n');
 });
+test('changelog section accepts a dated heading', () => {
+  assert.equal(changelogSection('## 1.1.0 — 2026-10-14\n\n- Dated.\n\n## 1.0.0\n- x\n', '1.1.0'), '- Dated.\n');
+  assert.throws(() => changelogSection('## 1.1.0-rc.1 — 2026-10-14\n- x\n', '1.1.0'), /1\.1\.0/);
+});
 test('changelog section rejects a missing or empty version', () => {
   assert.throws(() => changelogSection(changelog, '0.3.0'), /0\.3\.0/);
   assert.throws(() => changelogSection('## 1.0.0\n\n## 0.9.0\n- x\n', '1.0.0'), /empty/);

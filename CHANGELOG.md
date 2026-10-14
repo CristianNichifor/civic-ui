@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Keep keyboard focus in `Pagination` when previous or next reaches a boundary page and
+  disables itself; focus moves to the opposite button.
+
 ## 0.8.0 — 2026-10-14
 
 - Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable

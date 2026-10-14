@@ -37,6 +37,8 @@ A theme or host must supply the host tokens in `civicHostTokens` (font, surfaces
 border, action, focus, accent, danger). In development, `missingCivicTokens(element)`
 returns the ones that resolve to nothing on a themed element; an empty array means the
 theme is complete. Do not call it in production code paths.
+`civicPaletteOverrides(element)` lists the `--civic-viz-*` tokens a host changed on that
+element compared with its theme and mode; an override breaks the checked palette order.
 
 - Status: `--civic-success`, `--civic-warning`, `--civic-info` with `--civic-on-success`,
   `--civic-on-warning`, `--civic-on-info` and `--civic-on-danger` (4.5:1 or more on

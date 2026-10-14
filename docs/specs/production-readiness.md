@@ -275,7 +275,7 @@ Tests: `tests/tokens.spec.ts` ("host token diagnostics"): the showcase's report
 lists no missing token in Neutral light, Neutral dark and USR, and lists every
 host token for an unthemed `.civic-scope` probe.
 
-### CU-23 Palette override diagnostics
+### CU-23 Palette override diagnostics — done
 
 ROADMAP "Later" #6, second slice. `civicPaletteOverrides(element)` returns the
 data-visualisation tokens (`--civic-viz-*`) whose value on `element` differs

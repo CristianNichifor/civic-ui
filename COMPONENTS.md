@@ -2,6 +2,32 @@
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
+## Labels and Locales
+
+Every built-in string is an optional prop with an English default. The main entry exports
+`enLabels`, the defaults grouped by component and keyed by prop, and the `CivicLabels` type.
+A Romanian preset ships as a separate entry so hosts that do not use it never load it:
+
+```tsx
+import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
+
+<Pagination {...roLabels.Pagination} page={page} pageCount={pages} onPageChange={setPage} />
+<Select {...roLabels.Select} label="Format" options={options} />
+```
+
+Without a preset nothing changes. Hosts still own every label they pass themselves, and can
+build their own `CivicLabels` object for another language. Spread the preset before host
+props so a host value wins.
+
+## System Modes
+
+- Forced colors (Windows High Contrast): checked switches, checked segmented options,
+  the active tab and highlighted select and menu options use `Highlight`/`HighlightText`;
+  the switch track keeps a `CanvasText` border; `RangeSlider` and `Progress` keep a
+  system-colour outline. Focus rings stay solid outlines.
+- Reduced motion: the `LoadingIndicator` and `OperationStatus` spinners stop and the
+  `Switch` thumb no longer transitions.
+
 ## Forms
 
 - In 0.2.0, `Input` and `NativeSelect` require a `.civic-field` ancestor for their full base styles. Prefer the `Field` API shown below for that wrapper and accessible label associations. A `.civic-scope` ancestor alone is not sufficient: the select's native-arrow removal and reserved chevron padding are field-scoped. Replacing an existing select inside a plain label without adding `Field` can display both native and custom arrows.

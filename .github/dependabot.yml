@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: weekly
+    groups:
+      radix:
+        patterns: ["@radix-ui/*"]
+      tooling:
+        patterns: ["typescript", "vite", "@types/*"]
+    ignore:
+      # Pinned together with the mcr.microsoft.com/playwright image tag in the workflows.
+      - dependency-name: "@playwright/test"
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: weekly

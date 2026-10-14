@@ -74,3 +74,43 @@ test('missing native stylesheet is rejected even when the package digest matches
   await save();
   await assert.rejects(prepareAssets(root), /native.css/);
 });
+
+import { changelogSection } from '../scripts/changelog-section.mjs';
+const changelog = `# Changelog
+
+## Unreleased
+
+- Pending entry.
+
+## 0.2.0
+
+Published on GitHub Releases.
+
+- Second entry.
+  Wrapped line.
+
+### Notes
+
+Nested heading stays.
+
+## 0.1.0
+
+- First entry.
+`;
+test('changelog section returns only the requested version body', () => {
+  assert.equal(changelogSection(changelog, '0.2.0'),
+    'Published on GitHub Releases.\n\n- Second entry.\n  Wrapped line.\n\n### Notes\n\nNested heading stays.\n');
+  assert.equal(changelogSection(changelog, '0.1.0'), '- First entry.\n');
+  assert.equal(changelogSection(changelog, 'Unreleased'), '- Pending entry.\n');
+});
+test('changelog section rejects a missing or empty version', () => {
+  assert.throws(() => changelogSection(changelog, '0.3.0'), /0\.3\.0/);
+  assert.throws(() => changelogSection('## 1.0.0\n\n## 0.9.0\n- x\n', '1.0.0'), /empty/);
+  assert.throws(() => changelogSection(changelog, '0.2'), /0\.2\b/);
+});
+test('changelog section command prints the body for the release workflow', () => {
+  const output = execFileSync(process.execPath, ['scripts/changelog-section.mjs', '0.7.0'], { encoding: 'utf8' });
+  assert.match(output, /Switch/);
+  assert.doesNotMatch(output, /^## /m);
+  assert.throws(() => execFileSync(process.execPath, ['scripts/changelog-section.mjs', '9.9.9'], { stdio: 'pipe' }));
+});

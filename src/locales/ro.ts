@@ -13,3 +13,24 @@ export const roLabels: CivicLabels = {
 };
 
 export type { CivicLabels };
+
+/** Formats an amount in lei: `formatRON(1234.5)` → "1.234,50 RON". Options override the defaults. */
+export function formatRON(value: number, options: Intl.NumberFormatOptions = {}) {
+  return new Intl.NumberFormat("ro-RO", { style: "currency", currency: "RON", ...options }).format(value);
+}
+
+/** Formats a number with Romanian separators: `formatNumberRO(98765.4)` → "98.765,4". */
+export function formatNumberRO(value: number, options: Intl.NumberFormatOptions = {}) {
+  return new Intl.NumberFormat("ro-RO", options).format(value);
+}
+
+/**
+ * Formats a date as "14 octombrie 2026". A `YYYY-MM-DD` string is read as that calendar
+ * day in local time, so it never shifts by a day across time zones.
+ */
+export function formatDateRO(date: Date | string, options: Intl.DateTimeFormatOptions = {}) {
+  const day = typeof date === "string" ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(date) : null;
+  const value = day ? new Date(Number(day[1]), Number(day[2]) - 1, Number(day[3])) : new Date(date);
+  if (Number.isNaN(value.getTime())) throw new RangeError(`Invalid date: ${String(date)}`);
+  return new Intl.DateTimeFormat("ro-RO", { day: "numeric", month: "long", year: "numeric", ...options }).format(value);
+}

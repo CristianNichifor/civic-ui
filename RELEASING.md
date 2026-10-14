@@ -4,7 +4,7 @@ No npm account, registry token or npm publication is used. `private: true` inten
 
 ## Review and Publish
 
-1. Merge the reviewed release-preparation PR manually. Keep the package version, root lockfile and changelog consistent.
+1. Merge the reviewed release-preparation PR manually. Keep the package version, root lockfile and changelog consistent: rename `## Unreleased` to `## VERSION`. `node scripts/changelog-section.mjs VERSION` must print that section, since it becomes the release body.
 2. Run **Prepare GitHub release** from the Actions tab on `main`. The workflow is manual-only and rejects other branch refs. It rebuilds, checks the archive and licenses, tests both React consumers, runs browser and release-asset tests, and prepares assets from the verified bytes.
 3. Review the resulting draft release, its target commit, CI results, tarball and `SHA256SUMS`. Publish the draft manually. No workflow automatically publishes or merges anything.
 4. Never replace published assets or reuse a version. Corrections require a new version and release. Creating a draft for an already existing release fails rather than overwriting it.

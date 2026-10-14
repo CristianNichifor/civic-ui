@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased
+
+- Add `StatusMessage` for success, warning and error outcomes with a keyboard-operable
+  retry button; errors use `role="alert"`, the others `role="status"`.
+- Add `Table` `density` (`comfortable`, `compact`) and `mobileLayout` (`scroll`, `cards`)
+  props; the card layout stacks rows below 560 px using host-supplied `data-label`s.
+- Announce the whole `FilterToolbar` result count (`aria-atomic`) and document its
+  responsive composition with labelled fields.
+- Add `enLabels` and the `CivicLabels` type, and an opt-in Romanian preset at
+  `@cristiannichifor/civic-ui/locales/ro`. English defaults are unchanged.
+- Keep checked, selected and highlighted states visible in forced colors, and stop the
+  `OperationStatus` spinner and `Switch` transition for reduced motion.
+- Add status (`--civic-success`, `--civic-warning`, `--civic-info` and on-colours),
+  space, type-scale and weight tokens, and colour-blind-safe categorical, sequential
+  and diverging data-visualisation palettes for light and dark modes.
+- Add `formatRON`, `formatNumberRO` and `formatDateRO` to the `locales/ro` entry.
+- Showcase: report the installed version, number and link every section, add an EN/RO
+  toggle and props tables.
+- Add `SiteShell`, `FamilyBar` and `SiteFooter` for the shared family bar (back link,
+  tool name, status, language links) and footer slots (method, privacy, source, contact).
+- Add `StatTile` and `StatGrid` with locale-aware numbers, deltas stated in text, and
+  as-of dates.
+- Add `ChartFrame` (title, question, demo badge, show-as-table toggle, empty and error
+  slots) and `SourceCitation`; the host still renders the chart.
+- Add `scripts/changelog-section.mjs` so a release body holds only its own version.
+- Add [docs/UPGRADING.md](docs/UPGRADING.md) for 0.3 to 0.6 consumers.
+
 ## 0.7.0
 
 Published on GitHub Releases.

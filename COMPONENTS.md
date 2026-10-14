@@ -2,6 +2,61 @@
 
 All components require `styles.css` and a `.civic-scope` ancestor with neutral, USR host-token or custom tokens. Components make no network requests and have no persistence. App state, translations, permissions, data and validation rules remain caller-owned.
 
+## Labels and Locales
+
+Every built-in string is an optional prop with an English default. The main entry exports
+`enLabels`, the defaults grouped by component and keyed by prop, and the `CivicLabels` type.
+A Romanian preset ships as a separate entry so hosts that do not use it never load it:
+
+```tsx
+import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
+
+<Pagination {...roLabels.Pagination} page={page} pageCount={pages} onPageChange={setPage} />
+<Select {...roLabels.Select} label="Format" options={options} />
+```
+
+Without a preset nothing changes. Hosts still own every label they pass themselves, and can
+build their own `CivicLabels` object for another language. Spread the preset before host
+props so a host value wins.
+
+## System Modes
+
+- Forced colors (Windows High Contrast): checked switches, checked segmented options,
+  the active tab and highlighted select and menu options use `Highlight`/`HighlightText`;
+  the switch track keeps a `CanvasText` border; `RangeSlider` and `Progress` keep a
+  system-colour outline. Focus rings stay solid outlines.
+- Reduced motion: the `LoadingIndicator` and `OperationStatus` spinners stop and the
+  `Switch` thumb no longer transitions.
+
+## Tokens
+
+`styles.css` defines these on every `.civic-scope`; themes may override any of them.
+The neutral dark mode redefines the colours.
+
+- Status: `--civic-success`, `--civic-warning`, `--civic-info` with `--civic-on-success`,
+  `--civic-on-warning`, `--civic-on-info` and `--civic-on-danger` (4.5:1 or more on
+  their fill). Status colour never carries meaning alone: pair it with text and an icon.
+- Space: `--civic-space-1` to `--civic-space-8` (0.25rem to 4rem).
+- Type: `--civic-text-xs` (0.8125rem) to `--civic-text-3xl` (1.875rem), and
+  `--civic-weight-regular`, `--civic-weight-heading`, `--civic-weight-strong`. Existing
+  controls keep their literal pixel sizes in 0.8 so hosts with a non-16px root size
+  do not change.
+- Data visualisation: categorical `--civic-viz-1` to `--civic-viz-8`, assigned in order
+  and never cycled. The order keeps adjacent slots apart under protanopia and
+  deuteranopia (worst adjacent OKLab ΔE 9.1 light, 8.4 dark). Slots 3, 4 and 5 in light
+  mode and slot 6 in dark mode are below 3:1 against the surface, so charts that use them
+  need visible labels or a table view. With more than three series in a scatter or
+  map, fold the rest into "Other". Sequential `--civic-viz-seq-1` to `-7`: one hue,
+  starting nearest the surface. Start ordinal marks at `-seq-3`. Diverging
+  `--civic-viz-div-n3` to `-n1`, `--civic-viz-div-mid` (grey) and `-p1` to `-p3`.
+
+## Formatters
+
+`@cristiannichifor/civic-ui/locales/ro` also exports `formatRON`, `formatNumberRO` and
+`formatDateRO`, which wrap `Intl` with `ro-RO` defaults: "1.234,50 RON", "98.765,4",
+"14 octombrie 2026". Options override the defaults. A `YYYY-MM-DD` string is formatted
+as that calendar day in local time.
+
 ## Forms
 
 - In 0.2.0, `Input` and `NativeSelect` require a `.civic-field` ancestor for their full base styles. Prefer the `Field` API shown below for that wrapper and accessible label associations. A `.civic-scope` ancestor alone is not sufficient: the select's native-arrow removal and reserved chevron padding are field-scoped. Replacing an existing select inside a plain label without adding `Field` can display both native and custom arrows.
@@ -36,6 +91,13 @@ All components require `styles.css` and a `.civic-scope` ancestor with neutral, 
 - `OperationStatus`: explicit `idle`, `running`, `success` or `error` state with
   caller-provided labels and optional retry action. It does not fetch, retry or
   infer state from a promise; keep operation state and error details in the host.
+- `StatusMessage`: required `tone` (`success`, `warning`, `error`) and `title`, optional
+  children, `onRetry` and translated `retryLabel`. Errors render with `role="alert"`,
+  success and warnings with `role="status"`. With `onRetry` it renders a native button,
+  so Enter and Space both retry; the host owns the retried operation and when to remove
+  the message. Mount it with its content: changing the tone of a mounted message is
+  announced inconsistently across screen readers. Use `OperationStatus` when a loading
+  state with progress precedes the outcome.
 - `Progress`: labelled native `<progress>` for determinate or indeterminate work. The
   caller owns the value and update cadence; values must be between zero and `max`.
 - `Skeleton`: decorative loading placeholder. It is hidden from assistive technology;
@@ -78,12 +140,46 @@ Dialogs, tooltips and menus render within the caller's scope by default, inherit
 
 - `FilterToolbar`: labelled region for caller-owned filter controls and optional
   reset action. It does not own filter values, query data or submit forms; pass
-  controlled inputs and reset them in the host callback. Keep a visible result
-  count or empty state outside the toolbar when users need feedback.
+  controlled inputs and reset them in the host callback. `resultCount` renders in a
+  polite, atomic live region, so the whole count is read when it changes; keep it short
+  ("12 documents"). Wrap each control in `Field` for a visible label. Below 560 px each
+  field takes a full row, so the toolbar fits a 390 px viewport without scrolling.
 
-- `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed.
+- `Table`: required region `label`, native table attributes/ref and children. Supply a meaningful `caption`, `thead`, `tbody`, and correctly scoped headers. Horizontal overflow is contained in a keyboard-focusable region. No sorting/filtering or virtualized rendering is performed. Optional `density` (`comfortable` default, `compact`) and `mobileLayout` (`scroll` default, `cards`) set `data-density` and `data-mobile-layout`; see [TABLES.md](TABLES.md).
 - `SortableHeader`: header children, `onSort`, optional `direction` (`ascending`/`descending`), `scope` (`col` default, or `row`). Renders `th` with `aria-sort` and a button. Caller sorts records and ensures only the active column has a direction.
 - `Pagination`: controlled integer `page`, `pageCount`, `onPageChange`. Requires `1 <= page <= pageCount`; invalid inputs throw RangeError. Do not render for zero-result states. Previous/next buttons disable at boundaries. Optional `label`, `previousLabel`, `nextLabel` support translation. Caller slices data and resets/clamps page when filters or totals change.
+
+## Site and Data
+
+These render host content only. The host draws charts, owns links and URLs, and passes
+dates as text (an ISO `YYYY-MM-DD` string renders in a `<time>` element).
+
+- `SiteShell`: `familyBar`, optional `footer`, children, translated `skipLabel`. Renders a
+  skip link, `FamilyBar` (banner), `main` (focus target of the skip link) and `SiteFooter`
+  (contentinfo). Use it once per page, outside other landmarks.
+- `FamilyBar`: `homeHref` and `homeLabel` for the back link to the family hub (for
+  example "CN Lab"), `toolName`, optional `status` (such as a `StatusBadge`) and
+  `languages: { code, label, href, current? }[]` rendered as a `nav` named by
+  `languageLabel`. The current language gets `aria-current="true"`. Each link carries
+  `hreflang` and `lang`. Switching language is a navigation the host owns.
+- `SiteFooter`: `method`, `privacy`, `source` and `contact` slots (usually links) in a
+  `nav` named by `label`, plus free children.
+- `StatTile`: `label`, `value` (numbers are formatted with
+  `Intl.NumberFormat(locale, format)`, `locale` defaults to `en`), optional `unit`,
+  `delta: { value, unit?, positive? }` and `asOf`. The delta's direction is given as
+  visually hidden text ("Increase", "Decrease", "No change") and an arrow icon.
+  `positive: "good" | "bad"` sets `data-sentiment`, which colours the icon with the
+  status tokens. Colour never carries the meaning alone.
+- `StatGrid`: a labelled list that wraps tiles into as many columns as fit, down to one
+  at narrow widths.
+- `ChartFrame`: a `figure` named by its `title`, with an optional `question`, a `demo`
+  badge, `source` and `asOf` in the figcaption, and the host chart as children. Given
+  `table`, a "Show as table" button (`aria-pressed`) swaps the chart for the table, which
+  covers charts whose colours fall below 3:1. `state="empty" | "error"` renders the
+  `empty` or `error` slot instead and hides the toggle. Pair the error slot with a
+  `StatusMessage`.
+- `SourceCitation`: one provenance line: `source` (linked with `href`), `licence`
+  (linked with `rel="license"` via `licenceHref`), `date` and a `methodHref` link.
 
 ## Adoption Gates
 

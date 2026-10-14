@@ -1,5 +1,53 @@
 .civic-scope {
+  --civic-space-1: 0.25rem;
   --civic-space-2: 0.5rem;
+  --civic-space-3: 0.75rem;
+  --civic-space-4: 1rem;
+  --civic-space-5: 1.5rem;
+  --civic-space-6: 2rem;
+  --civic-space-7: 3rem;
+  --civic-space-8: 4rem;
+  --civic-text-xs: 0.8125rem;
+  --civic-text-sm: 0.875rem;
+  --civic-text-md: 1rem;
+  --civic-text-lg: 1.125rem;
+  --civic-text-xl: 1.25rem;
+  --civic-text-2xl: 1.5rem;
+  --civic-text-3xl: 1.875rem;
+  --civic-weight-regular: 400;
+  --civic-weight-heading: 600;
+  --civic-weight-strong: 700;
   --civic-radius: 6px;
   --civic-control-height: 44px;
+  /* Status fills with on-colours at 4.5:1 or more; themes may override both. */
+  --civic-success: #146c2e;
+  --civic-on-success: #ffffff;
+  --civic-warning: #f2b300;
+  --civic-on-warning: #1f1600;
+  --civic-info: #1f5fa8;
+  --civic-on-info: #ffffff;
+  --civic-on-danger: #ffffff;
+  /* Data visualisation: categorical order validated for colour-vision deficiency. */
+  --civic-viz-1: #2a78d6;
+  --civic-viz-2: #eb6834;
+  --civic-viz-3: #1baf7a;
+  --civic-viz-4: #eda100;
+  --civic-viz-5: #e87ba4;
+  --civic-viz-6: #008300;
+  --civic-viz-7: #4a3aa7;
+  --civic-viz-8: #e34948;
+  --civic-viz-seq-1: #cde2fb;
+  --civic-viz-seq-2: #9ec5f4;
+  --civic-viz-seq-3: #6da7ec;
+  --civic-viz-seq-4: #3987e5;
+  --civic-viz-seq-5: #256abf;
+  --civic-viz-seq-6: #184f95;
+  --civic-viz-seq-7: #0d366b;
+  --civic-viz-div-n3: #184f95;
+  --civic-viz-div-n2: #3987e5;
+  --civic-viz-div-n1: #9ec5f4;
+  --civic-viz-div-mid: #f0efec;
+  --civic-viz-div-p1: #f5b8b7;
+  --civic-viz-div-p2: #e34948;
+  --civic-viz-div-p3: #a32625;
 }

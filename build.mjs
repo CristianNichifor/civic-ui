@@ -11,14 +11,14 @@ await build({
   root,
   build: {
     outDir: 'dist',
-    lib: { entry: resolve(source, 'index.ts'), formats: ['es'], fileName: () => 'index.js' },
+    lib: { entry: { index: resolve(source, 'index.ts'), 'locales/ro': resolve(source, 'locales/ro.ts') }, formats: ['es'], fileName: (_, name) => `${name}.js` },
     rollupOptions: { external: id => /^(react|react-dom|lucide-react|@radix-ui\/[^/]+)(\/|$)/.test(id) },
     minify: false,
   },
   esbuild: { jsx: 'automatic' },
 });
 execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc'),
-  resolve(source, 'index.ts'), '--declaration', '--emitDeclarationOnly',
+  resolve(source, 'index.ts'), resolve(source, 'locales/ro.ts'), '--declaration', '--emitDeclarationOnly',
   '--strict', '--jsx', 'react-jsx', '--module', 'ESNext', '--moduleResolution', 'Bundler',
   '--target', 'ES2022', '--rootDir', source, '--outDir', resolve(root, 'dist'),
 ], { stdio: 'inherit' });

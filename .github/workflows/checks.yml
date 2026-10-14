@@ -31,7 +31,7 @@ jobs:
         run: |
           cp -r artifacts/react19/dist artifacts/showcase-site
           cp artifacts/showcase-site/showcase.html artifacts/showcase-site/index.html
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           path: artifacts/showcase-site

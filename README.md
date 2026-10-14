@@ -50,7 +50,7 @@ npm test
 npm run preview
 ```
 
-The [component showcase](https://cristiannichifor.github.io/civic-ui/) and [showcase guide](SHOWCASE.md) provide interactive examples. `verify` builds the package, checks its allowlist and licenses, and validates React 18 and React 19 consumers. `test` covers Chromium, Firefox and WebKit, keyboard behavior, responsive layouts, themes, offline interactions and control states.
+The [component showcase](https://cristiannichifor.github.io/civic-ui/) and [showcase guide](SHOWCASE.md) provide interactive examples. The [fleet UX guidelines](docs/ux-guidelines.md) say how the family of civic apps uses these components (page anatomy, Romanian content rules, charts, states, naming registry) and ship a [per-app template](docs/ux-guidelines.template.md). `verify` builds the package, checks its allowlist and licenses, and validates React 18 and React 19 consumers. `test` covers Chromium, Firefox and WebKit, keyboard behavior, responsive layouts, themes, offline interactions and control states.
 
 ## Scope
 

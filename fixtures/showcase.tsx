@@ -73,7 +73,8 @@ function Showcase() {
     <header>
       <div><h1>Civic UI</h1><span className="version">v{__CIVIC_VERSION__} / React {version}</span></div>
       <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a><a href="#primitives">Shared primitives</a><a href="#forms">Form choices</a><a href="#feedback">Feedback</a><a href="#overlays">Dialogs and menus</a><a href="#data">Tabs and tables</a><a href="#site-data">Site and data</a>
-        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a></nav>
+        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a>
+        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/docs/ux-guidelines.md">UX guidelines <ExternalLink size={14} aria-hidden="true" /></a></nav>
     </header>
     <div className="theme-bar">
       <fieldset><legend>Theme</legend>{['neutral', 'usr'].map(value => <label key={value}><input type="radio" name="theme" value={value} checked={theme === value} onChange={() => setTheme(value)} />{value === 'usr' ? 'USR host tokens' : 'Neutral'}</label>)}</fieldset>

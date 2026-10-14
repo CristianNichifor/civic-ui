@@ -5,7 +5,8 @@ reviewed `main` after its checks pass. A PR preview is local, not a deployed sit
 
 Run `npm ci --ignore-scripts`, `npm run verify`, then `npm run preview` and open
 http://127.0.0.1:5221/showcase.html. The page uses the freshly packed package,
-not a source alias. Both React 18.3.1 and 19.1.1 consumers build and type-check it.
+not a source alias. Its header links the [fleet UX guidelines](docs/ux-guidelines.md),
+which say how the civic apps compose these components into pages. Both React 18.3.1 and 19.1.1 consumers build and type-check it.
 The public deployment uses the React 19 build.
 
 ## Examples and Themes

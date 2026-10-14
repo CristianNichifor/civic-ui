@@ -28,6 +28,35 @@ props so a host value wins.
 - Reduced motion: the `LoadingIndicator` and `OperationStatus` spinners stop and the
   `Switch` thumb no longer transitions.
 
+## Tokens
+
+`styles.css` defines these on every `.civic-scope`; themes may override any of them.
+The neutral dark mode redefines the colours.
+
+- Status: `--civic-success`, `--civic-warning`, `--civic-info` with `--civic-on-success`,
+  `--civic-on-warning`, `--civic-on-info` and `--civic-on-danger` (4.5:1 or more on
+  their fill). Status colour never carries meaning alone: pair it with text and an icon.
+- Space: `--civic-space-1` to `--civic-space-8` (0.25rem to 4rem).
+- Type: `--civic-text-xs` (0.8125rem) to `--civic-text-3xl` (1.875rem), and
+  `--civic-weight-regular`, `--civic-weight-heading`, `--civic-weight-strong`. Existing
+  controls keep their literal pixel sizes in 0.8 so hosts with a non-16px root size
+  do not change.
+- Data visualisation: categorical `--civic-viz-1` to `--civic-viz-8`, assigned in order
+  and never cycled. The order keeps adjacent slots apart under protanopia and
+  deuteranopia (worst adjacent OKLab ΔE 9.1 light, 8.4 dark). Slots 3, 4 and 5 in light
+  mode and slot 6 in dark mode are below 3:1 against the surface, so charts that use them
+  need visible labels or a table view. With more than three series in a scatter or
+  map, fold the rest into "Other". Sequential `--civic-viz-seq-1` to `-7`: one hue,
+  starting nearest the surface. Start ordinal marks at `-seq-3`. Diverging
+  `--civic-viz-div-n3` to `-n1`, `--civic-viz-div-mid` (grey) and `-p1` to `-p3`.
+
+## Formatters
+
+`@cristiannichifor/civic-ui/locales/ro` also exports `formatRON`, `formatNumberRO` and
+`formatDateRO`, which wrap `Intl` with `ro-RO` defaults: "1.234,50 RON", "98.765,4",
+"14 octombrie 2026". Options override the defaults. A `YYYY-MM-DD` string is formatted
+as that calendar day in local time.
+
 ## Forms
 
 - In 0.2.0, `Input` and `NativeSelect` require a `.civic-field` ancestor for their full base styles. Prefer the `Field` API shown below for that wrapper and accessible label associations. A `.civic-scope` ancestor alone is not sufficient: the select's native-arrow removal and reserved chevron padding are field-scoped. Replacing an existing select inside a plain label without adding `Field` can display both native and custom arrows.

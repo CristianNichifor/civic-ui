@@ -111,6 +111,7 @@ test('language toggle applies the Romanian preset', async ({ page }) => {
 test('new components document their props', async ({ page }) => {
   await page.goto('/showcase.html');
   for (const name of ['StatusMessage', 'FilterToolbar', 'Table']) {
+    await page.getByText(`${name} props`, { exact: true }).click();
     const table = page.getByRole('table', { name: `${name} props` });
     await expect(table.getByRole('columnheader')).toHaveText(['Prop', 'Type', 'Default', 'Description']);
     await expect(table.locator('tbody tr').first()).toBeVisible();

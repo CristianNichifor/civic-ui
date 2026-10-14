@@ -677,3 +677,45 @@
     transition: none;
   }
 }
+/* Forced colors drop backgrounds, so state that relies on them is redrawn with system colours. */
+@media (forced-colors: active) {
+  .civic-scope {
+    .civic-switch__control {
+      forced-color-adjust: none;
+      border-color: CanvasText;
+      background: Canvas;
+    }
+    .civic-switch__control[data-state="checked"] {
+      border-color: Highlight;
+      background: Highlight;
+    }
+    .civic-switch__thumb {
+      background: CanvasText;
+    }
+    .civic-switch__thumb[data-state="checked"] {
+      background: HighlightText;
+    }
+    .civic-switch__control:disabled {
+      border-color: GrayText;
+    }
+    .civic-switch__control:disabled .civic-switch__thumb {
+      background: GrayText;
+    }
+    .civic-segmented__option:has(input:checked),
+    .civic-tabs [data-state="active"],
+    .civic-select-item[data-highlighted],
+    .civic-menu-item[data-highlighted] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+    .civic-range input[type="range"],
+    .civic-progress progress {
+      outline: 1px solid CanvasText;
+      outline-offset: 2px;
+    }
+    .civic-skeleton {
+      border: 1px solid GrayText;
+    }
+  }
+}

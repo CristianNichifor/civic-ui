@@ -23,6 +23,7 @@ import {
   Input,
   NativeSelect,
   OperationStatus,
+  StatusMessage,
   Table,
   SortableHeader,
   Pagination,
@@ -46,9 +47,17 @@ export function ExtendedShowcase() {
   const [page, setPage] = useState(1);
   const [ascending, setAscending] = useState(true);
   const [notes, setNotes] = useState("");
-  const records = ["Archive", "Budget", "Consultation", "Documents"].sort(
-    (a, b) => (ascending ? a.localeCompare(b) : b.localeCompare(a)),
-  );
+  const [query, setQuery] = useState("");
+  const [visibility, setVisibility] = useState("all");
+  const [retries, setRetries] = useState(0);
+  const records = ["Archive", "Budget", "Consultation", "Documents"]
+    .filter(
+      (record) =>
+        (visibility === "all" || visibility === "public") &&
+        record.toLowerCase().includes(query.trim().toLowerCase()),
+    )
+    .sort((a, b) => (ascending ? a.localeCompare(b) : b.localeCompare(a)));
+  const pageCount = Math.max(1, Math.ceil(records.length / 2));
   return (
     <>
       <section id="forms">
@@ -146,6 +155,19 @@ export function ExtendedShowcase() {
           detail="Downloading the verified release."
           progress={62}
         />
+        <div className="status-stack">
+          <StatusMessage tone="success" title="Archive saved">
+            Four synthetic documents were stored.
+          </StatusMessage>
+          <StatusMessage tone="warning" title="Two documents need review" />
+          <StatusMessage
+            tone="error"
+            title="Archive could not be refreshed"
+            onRetry={() => setRetries((n) => n + 1)}
+          >
+            The synthetic source did not respond. Retries: {retries}
+          </StatusMessage>
+        </div>
         <div className="button-row">
           <StatusBadge>Draft</StatusBadge>
           <StatusBadge tone="success">Published</StatusBadge>
@@ -238,15 +260,48 @@ export function ExtendedShowcase() {
         </div>
         <FilterToolbar
           label="Archive filters"
-          resultCount="4 documents"
-          actions={<Button>Apply filters</Button>}
+          resultCount={`${records.length} ${records.length === 1 ? "document" : "documents"}`}
+          actions={
+            <Button
+              onClick={() => {
+                setQuery("");
+                setVisibility("all");
+                setPage(1);
+              }}
+            >
+              Reset filters
+            </Button>
+          }
         >
-          <Input aria-label="Search archive" placeholder="Search archive" />
-          <NativeSelect aria-label="Visibility filter" defaultValue="all">
-            <option value="all">All visibility</option>
-            <option value="public">Public</option>
-            <option value="draft">Draft</option>
-          </NativeSelect>
+          <Field id="archive-search" label="Search archive">
+            {(props) => (
+              <Input
+                {...props}
+                type="search"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setPage(1);
+                }}
+              />
+            )}
+          </Field>
+          <Field id="archive-visibility" label="Visibility filter">
+            {(props) => (
+              <NativeSelect
+                {...props}
+                value={visibility}
+                onChange={(event) => {
+                  setVisibility(event.target.value);
+                  setPage(1);
+                }}
+              >
+                <option value="all">All visibility</option>
+                <option value="public">Public</option>
+                <option value="draft">Draft</option>
+              </NativeSelect>
+            )}
+          </Field>
         </FilterToolbar>
         <Tabs
           label="Archive views"
@@ -256,7 +311,11 @@ export function ExtendedShowcase() {
               label: "Documents",
               content: (
                 <>
-                  <Table label="Archive documents">
+                  <Table
+                    label="Archive documents"
+                    density={density === "compact" ? "compact" : "comfortable"}
+                    mobileLayout="cards"
+                  >
                     <caption>Public archive</caption>
                     <thead>
                       <tr>
@@ -275,8 +334,8 @@ export function ExtendedShowcase() {
                     <tbody>
                       {records.slice((page - 1) * 2, page * 2).map((record) => (
                         <tr key={record}>
-                          <td>{record}</td>
-                          <td>
+                          <td data-label="Document">{record}</td>
+                          <td data-label="Status">
                             <StatusBadge>Public</StatusBadge>
                           </td>
                         </tr>
@@ -285,7 +344,7 @@ export function ExtendedShowcase() {
                   </Table>
                   <Pagination
                     page={page}
-                    pageCount={2}
+                    pageCount={pageCount}
                     onPageChange={setPage}
                   />
                 </>

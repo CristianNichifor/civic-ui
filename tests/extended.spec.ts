@@ -184,7 +184,7 @@ test("filter toolbar exposes fields, result count and actions", async ({ page })
   await expect(toolbar.getByRole("textbox", { name: "Search archive" })).toBeVisible();
   await expect(toolbar.getByRole("combobox", { name: "Visibility filter" })).toBeVisible();
   await expect(toolbar).toContainText("4 documents");
-  await expect(toolbar.getByRole("button", { name: "Apply filters" })).toBeVisible();
+  await expect(toolbar.getByRole("button", { name: "Reset filters" })).toBeVisible();
 });
 
 test("shared primitives expose semantic surfaces and loading contracts", async ({ page }) => {

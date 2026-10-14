@@ -25,6 +25,7 @@ body { margin: 0; }
 .primitive-grid p { color: var(--civic-muted); }
 .showcase-skeleton { min-height: 72px; }
 .button-row { min-height: 48px; }
+.status-stack { display: grid; gap: 12px; margin: 16px 0; }
 .example { margin-top: 24px; }
 .example summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
 .example-actions { margin: 8px 0; min-height: 44px; }

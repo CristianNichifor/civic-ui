@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import {
-  AlertDialog, Button, Dialog, FilterToolbar, LoadingIndicator, Pagination, Select, ValidationSummary,
+  AlertDialog, Button, Dialog, FilterToolbar, LoadingIndicator, Pagination, Select, StatusMessage, ValidationSummary,
   enLabels, type CivicLabels,
 } from '@cristiannichifor/civic-ui';
 import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
@@ -17,6 +17,7 @@ function Defaults() {
     <LoadingIndicator />
     <FilterToolbar><span /></FilterToolbar>
     <ValidationSummary errors={[{ id: 'x', message: 'Missing' }]} />
+    <StatusMessage tone="warning" title="Stale" onRetry={() => undefined} />
   </>;
 }
 
@@ -29,6 +30,7 @@ function Preset({ labels }: { labels: CivicLabels }) {
     <LoadingIndicator {...labels.LoadingIndicator} />
     <FilterToolbar {...labels.FilterToolbar}><span /></FilterToolbar>
     <ValidationSummary {...labels.ValidationSummary} errors={[{ id: 'x', message: 'Missing' }]} />
+    <StatusMessage {...labels.StatusMessage} tone="warning" title="Stale" onRetry={() => undefined} />
   </>;
 }
 

@@ -4,12 +4,12 @@ import { readFile } from 'node:fs/promises';
 const english = {
   pagination: 'Pagination', previous: 'Previous page', next: 'Next page', placeholder: 'Select an option',
   close: 'Close dialog', confirm: 'Confirm', cancel: 'Cancel', loading: 'Loading', filters: 'Filters',
-  summary: 'Please check the following fields',
+  summary: 'Please check the following fields', retry: 'Retry',
 };
 const romanian = {
   pagination: 'Paginare', previous: 'Pagina anterioară', next: 'Pagina următoare', placeholder: 'Selectați o opțiune',
   close: 'Închideți dialogul', confirm: 'Confirmați', cancel: 'Anulați', loading: 'Se încarcă', filters: 'Filtre',
-  summary: 'Verificați următoarele câmpuri',
+  summary: 'Verificați următoarele câmpuri', retry: 'Reîncercați',
 };
 
 async function expectLabels(page: Page, labels: typeof english) {
@@ -20,6 +20,7 @@ async function expectLabels(page: Page, labels: typeof english) {
   await expect(page.getByRole('status').filter({ hasText: labels.loading })).toHaveText(labels.loading);
   await expect(page.getByRole('group', { name: labels.filters, exact: true })).toBeVisible();
   await expect(page.getByRole('alert')).toContainText(labels.summary);
+  await expect(page.getByRole('button', { name: labels.retry, exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Open dialog' }).click();
   await expect(page.getByRole('dialog').getByRole('button', { name: labels.close, exact: true })).toBeVisible();
   await page.keyboard.press('Escape');

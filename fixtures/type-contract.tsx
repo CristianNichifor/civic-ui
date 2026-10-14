@@ -44,3 +44,11 @@ const presets: CivicLabels[] = [enLabels, roLabels];
 roLabels.Pagination.unknownLabel;
 // @ts-expect-error A preset must cover every component's labels.
 const incomplete: CivicLabels = { Pagination: enLabels.Pagination };
+
+import { StatusMessage } from '@cristiannichifor/civic-ui';
+<StatusMessage tone="error" title="Failed" onRetry={() => undefined} {...roLabels.StatusMessage} />;
+<Table label="Compact" density="compact" mobileLayout="cards"><tbody /></Table>;
+// @ts-expect-error Status messages only have success, warning and error tones.
+<StatusMessage tone="info" title="Note" />;
+// @ts-expect-error Table density is a closed set.
+<Table label="Dense" density="dense"><tbody /></Table>;

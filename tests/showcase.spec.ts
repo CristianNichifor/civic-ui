@@ -77,3 +77,53 @@ test('examples copy or report clipboard failure and download the displayed sourc
   await page.setViewportSize({ width: 320, height: 1000 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
+
+test('showcase header, numbering and navigation match the package', async ({ page }) => {
+  const { version } = JSON.parse(await readFile('package.json', 'utf8'));
+  await page.goto('/showcase.html');
+  await expect(page.locator('.version')).toContainText(`v${version}`);
+  await expect(page.locator('.version')).not.toContainText('preview');
+  const numbers = await page.locator('.section-title > span').allTextContents();
+  expect(numbers).toEqual(numbers.map((_, i) => String(i + 1).padStart(2, '0')));
+  const ids = await page.locator('main > section[id], main section[id]').evaluateAll(sections =>
+    sections.filter(section => section.querySelector(':scope > .section-title')).map(section => section.id));
+  const nav = page.getByRole('navigation', { name: 'Reference' });
+  for (const id of ids) await expect(nav.locator(`a[href="#${id}"]`)).toHaveCount(1);
+  await page.setViewportSize({ width: 320, height: 900 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+});
+
+test('language toggle applies the Romanian preset', async ({ page }) => {
+  await page.goto('/showcase.html');
+  await expect(page.getByRole('button', { name: 'Previous page', exact: true })).toBeVisible();
+  await page.getByRole('group', { name: 'Language' }).getByLabel('Română').check();
+  await expect(page.locator('.showcase')).toHaveAttribute('lang', 'ro');
+  await expect(page.getByRole('button', { name: 'Pagina anterioară', exact: true })).toBeVisible();
+  await expect(page.getByRole('group', { name: 'Archive filters' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Reîncercați', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Edit document', exact: true }).click();
+  await expect(page.getByRole('dialog').getByRole('button', { name: 'Închideți dialogul' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('group', { name: 'Language' }).getByLabel('English').check();
+  await expect(page.getByRole('button', { name: 'Previous page', exact: true })).toBeVisible();
+});
+
+test('new components document their props', async ({ page }) => {
+  await page.goto('/showcase.html');
+  for (const name of ['StatusMessage', 'FilterToolbar', 'Table', 'SiteShell', 'StatTile', 'ChartFrame', 'SourceCitation']) {
+    await page.getByText(`${name} props`, { exact: true }).click();
+    const table = page.getByRole('table', { name: `${name} props` });
+    await expect(table.getByRole('columnheader')).toHaveText(['Prop', 'Type', 'Default', 'Description']);
+    await expect(table.locator('tbody tr').first()).toBeVisible();
+  }
+});
+
+test('site and data section shows tiles, a framed chart and the shell example', async ({ page }) => {
+  await page.goto('/showcase.html');
+  const section = page.locator('#site-data');
+  await expect(section.getByRole('list', { name: 'Archive figures' }).getByRole('listitem')).toHaveCount(3);
+  await expect(section.getByRole('figure', { name: 'Documents by status' })).toBeVisible();
+  await expect(section.getByRole('link', { name: 'Open the site shell example' })).toHaveAttribute('href', 'site.html');
+  await page.getByRole('group', { name: 'Language' }).getByLabel('Română').check();
+  await expect(section.getByRole('button', { name: 'Afișează ca tabel' })).toBeVisible();
+});

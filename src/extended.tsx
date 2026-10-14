@@ -1,6 +1,8 @@
 import {
   forwardRef,
+  useEffect,
   useId,
+  useRef,
   createElement,
   type ReactNode,
   type ReactElement,
@@ -32,6 +34,7 @@ import {
   X,
 } from "lucide-react";
 import { Button, IconButton } from "./components";
+import { enLabels } from "./labels";
 import { createPortal } from "react-dom";
 
 // Keep public HTML props consumable by both React 18 and React 19 type packages.
@@ -291,8 +294,9 @@ export function Select({
   defaultValue,
   onValueChange,
   options,
-  placeholder = "Select an option",
+  placeholder = enLabels.Select.placeholder,
   disabled,
+  portalContainer,
 }: {
   label: string;
   value?: string;
@@ -301,6 +305,7 @@ export function Select({
   options: { value: string; label: string; disabled?: boolean }[];
   placeholder?: string;
   disabled?: boolean;
+  portalContainer?: HTMLElement;
 }) {
   return (
     <div className="civic-select-field">
@@ -315,7 +320,7 @@ export function Select({
           <S.Value placeholder={placeholder} />
           <ChevronDown aria-hidden="true" />
         </S.Trigger>
-        <S.Portal>
+        <S.Portal container={portalContainer}>
           <S.Content className="civic-select-content" position="popper" sideOffset={4}>
             <S.Viewport>
               {options.map((option) => (
@@ -384,7 +389,7 @@ export function Notice({
 
 export function ValidationSummary({
   errors,
-  title = "Please check the following fields",
+  title = enLabels.ValidationSummary.title,
 }: {
   errors: { id: string; message: string }[];
   title?: string;
@@ -433,7 +438,7 @@ export function Dialog({
   open,
   onOpenChange,
   portalContainer,
-  closeLabel = "Close dialog",
+  closeLabel = enLabels.Dialog.closeLabel,
 }: DialogProps) {
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
@@ -462,8 +467,8 @@ export function AlertDialog({
   open,
   onOpenChange,
   onConfirm,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel = enLabels.AlertDialog.confirmLabel,
+  cancelLabel = enLabels.AlertDialog.cancelLabel,
   portalContainer,
 }: Omit<DialogProps, "children" | "closeLabel"> & {
   onConfirm: () => void;
@@ -645,7 +650,7 @@ export function EmptyState({
     </div>
   );
 }
-export function LoadingIndicator({ label = "Loading" }: { label?: string }) {
+export function LoadingIndicator({ label = enLabels.LoadingIndicator.label }: { label?: string }) {
   return (
     <span className="civic-loading" role="status">
       <LoaderCircle aria-hidden="true" />
@@ -658,7 +663,7 @@ export function FilterToolbar({
   children,
   actions,
   resultCount,
-  label = "Filters",
+  label = enLabels.FilterToolbar.label,
 }: {
   children: ReactNode;
   actions?: ReactNode;
@@ -671,7 +676,7 @@ export function FilterToolbar({
       {(actions || resultCount !== undefined) && (
         <div className="civic-filter-toolbar__meta">
           {resultCount !== undefined && (
-            <span className="civic-filter-toolbar__count" aria-live="polite">
+            <span className="civic-filter-toolbar__count" aria-live="polite" aria-atomic="true">
               {resultCount}
             </span>
           )}
@@ -724,17 +729,63 @@ export function OperationStatus({
     </div>
   );
 }
+export function StatusMessage({
+  tone,
+  title,
+  children,
+  onRetry,
+  retryLabel = enLabels.StatusMessage.retryLabel,
+}: {
+  tone: "success" | "warning" | "error";
+  title: string;
+  children?: ReactNode;
+  onRetry?: () => void;
+  retryLabel?: string;
+}) {
+  const Icon = tone === "success" ? CircleCheck : tone === "warning" ? TriangleAlert : CircleX;
+  return (
+    <div
+      className="civic-status-message"
+      data-tone={tone}
+      // Errors interrupt; success and warnings wait for the screen reader to finish.
+      role={tone === "error" ? "alert" : "status"}
+    >
+      <Icon aria-hidden="true" />
+      <div className="civic-status-message__body">
+        <strong>{title}</strong>
+        {children && <div>{children}</div>}
+        {onRetry && (
+          <div>
+            <Button onClick={onRetry}>{retryLabel}</Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 export const Table = forwardRef<
   HTMLTableElement,
-  TableHTMLAttributes<HTMLTableElement> & { label: string }
->(({ label, className = "", ...props }, ref) => (
+  TableHTMLAttributes<HTMLTableElement> & {
+    label: string;
+    /** Row spacing; `compact` suits operational tables scanned at 100% zoom. */
+    density?: "comfortable" | "compact";
+    /** `cards` stacks rows below 560 px; give every cell a `data-label`. */
+    mobileLayout?: "scroll" | "cards";
+  }
+>(({ label, density = "comfortable", mobileLayout = "scroll", className = "", ...props }, ref) => (
   <div
     className="civic-table-scroll"
     role="region"
     aria-label={label}
     tabIndex={0}
   >
-    <table {...props} ref={ref} className={`civic-table ${className}`} />
+    <table
+      {...props}
+      ref={ref}
+      className={`civic-table ${className}`}
+      data-density={density}
+      data-mobile-layout={mobileLayout}
+    />
   </div>
 ));
 Table.displayName = "Table";
@@ -768,9 +819,9 @@ export function Pagination({
   page,
   pageCount,
   onPageChange,
-  label = "Pagination",
-  previousLabel = "Previous page",
-  nextLabel = "Next page",
+  label = enLabels.Pagination.label,
+  previousLabel = enLabels.Pagination.previousLabel,
+  nextLabel = enLabels.Pagination.nextLabel,
 }: {
   page: number;
   pageCount: number;
@@ -789,12 +840,26 @@ export function Pagination({
     throw new RangeError(
       "Pagination requires 1 <= page <= pageCount, with integer values",
     );
+  const previousRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const refocus = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    // A button disabled at a boundary drops focus to body; keep it in the nav.
+    refocus.current?.focus();
+    refocus.current = null;
+  }, [page]);
+  const go = (target: number, from: HTMLButtonElement) => {
+    if (document.activeElement === from && (target === 1 || target === pageCount))
+      refocus.current = from === nextRef.current ? previousRef.current : nextRef.current;
+    onPageChange(target);
+  };
   return (
     <nav className="civic-pagination" aria-label={label}>
       <IconButton
+        ref={previousRef}
         label={previousLabel}
         disabled={page === 1}
-        onClick={() => onPageChange(page - 1)}
+        onClick={(event) => go(page - 1, event.currentTarget)}
       >
         <ChevronLeft aria-hidden="true" />
       </IconButton>
@@ -802,9 +867,10 @@ export function Pagination({
         {page} / {pageCount}
       </span>
       <IconButton
+        ref={nextRef}
         label={nextLabel}
         disabled={page === pageCount}
-        onClick={() => onPageChange(page + 1)}
+        onClick={(event) => go(page + 1, event.currentTarget)}
       >
         <ChevronRight aria-hidden="true" />
       </IconButton>

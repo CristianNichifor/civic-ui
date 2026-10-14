@@ -1,12 +1,15 @@
-import { useState, version } from 'react';
+import { useEffect, useRef, useState, version, type RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bookmark, Check, Copy, Download, ExternalLink } from 'lucide-react';
-import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden } from '@cristiannichifor/civic-ui';
+import { Button, IconButton, Field, Input, NativeSelect, Card, Progress, Skeleton, VisuallyHidden, enLabels, missingCivicTokens, civicPaletteOverrides } from '@cristiannichifor/civic-ui';
+import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
 import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
 import '@cristiannichifor/civic-ui/themes/usr.css';
 import './showcase.css';
 import { ExtendedShowcase } from './extended-showcase';
+
+declare const __CIVIC_VERSION__: string;
 
 const examples = {
   fields: `import { Field, Input, NativeSelect } from '@cristiannichifor/civic-ui';
@@ -57,6 +60,28 @@ function Example({ name, source }: { name: string; source: string }) {
   </details>;
 }
 
+// Development diagnostics demo: the themed scope and a detached, unthemed one.
+function TokenReport({ scope, deps }: { scope: RefObject<HTMLDivElement | null>; deps: string }) {
+  const [missing, setMissing] = useState<string[]>([]);
+  const [unthemed, setUnthemed] = useState<string[]>([]);
+  const [overrides, setOverrides] = useState<string[]>([]);
+  useEffect(() => {
+    if (scope.current) {
+      setMissing(missingCivicTokens(scope.current));
+      setOverrides(civicPaletteOverrides(scope.current));
+    }
+    const probe = document.body.appendChild(document.createElement('div'));
+    probe.className = 'civic-scope';
+    setUnthemed(missingCivicTokens(probe));
+    probe.remove();
+  }, [scope, deps]);
+  return <>
+    <span data-testid="token-report">Missing host tokens: {missing.join(', ') || 'none'}</span>
+    <span data-testid="palette-report">Palette overrides: {overrides.join(', ') || 'none'}</span>
+    <span data-testid="unthemed-token-report" hidden>{unthemed.join(', ')}</span>
+  </>;
+}
+
 function Showcase() {
   const [theme, setTheme] = useState('neutral');
   const [mode, setMode] = useState('light');
@@ -64,16 +89,20 @@ function Showcase() {
   const [category, setCategory] = useState('');
   const [saved, setSaved] = useState(false);
   const [reviews, setReviews] = useState(0);
-  return <div className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'}>
+  const [language, setLanguage] = useState<'en' | 'ro'>('en');
+  const scope = useRef<HTMLDivElement>(null);
+  return <div ref={scope} className={`showcase civic-scope civic-${theme}`} data-civic-mode={theme === 'neutral' ? mode : 'light'} lang={language}>
     <a className="skip" href="#controls">Skip to controls</a>
     <header>
-      <div><h1>Civic UI</h1><span className="version">v0.5.0 preview / React {version}</span></div>
-      <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a><a href="#primitives">Shared primitives</a>
-        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a></nav>
+      <div><h1>Civic UI</h1><span className="version">v{__CIVIC_VERSION__} / React {version}</span></div>
+      <nav aria-label="Reference"><a href="#fields">Fields</a><a href="#buttons">Buttons</a><a href="#states">States</a><a href="#primitives">Shared primitives</a><a href="#forms">Form choices</a><a href="#feedback">Feedback</a><a href="#overlays">Dialogs and menus</a><a href="#data">Tabs and tables</a><a href="#site-data">Site and data</a>
+        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/SHOWCASE.md">Documentation <ExternalLink size={14} aria-hidden="true" /></a>
+        <a href="https://github.com/CristianNichifor/civic-ui/blob/main/docs/ux-guidelines.md">UX guidelines <ExternalLink size={14} aria-hidden="true" /></a></nav>
     </header>
     <div className="theme-bar">
       <fieldset><legend>Theme</legend>{['neutral', 'usr'].map(value => <label key={value}><input type="radio" name="theme" value={value} checked={theme === value} onChange={() => setTheme(value)} />{value === 'usr' ? 'USR host tokens' : 'Neutral'}</label>)}</fieldset>
       <fieldset disabled={theme === 'usr'}><legend>Neutral mode</legend>{['light', 'dark'].map(value => <label key={value}><input type="radio" name="mode" value={value} checked={(theme === 'usr' ? 'light' : mode) === value} onChange={() => setMode(value)} />{value === 'light' ? 'Light' : 'Dark'}</label>)}</fieldset>
+      <fieldset><legend>Language</legend>{(['en', 'ro'] as const).map(value => <label key={value}><input type="radio" name="language" value={value} checked={language === value} onChange={() => setLanguage(value)} />{value === 'en' ? 'English' : <span lang="ro">Română</span>}</label>)}</fieldset>
     </div>
     <main id="controls" tabIndex={-1}>
       <section id="fields"><div className="section-title"><span>01</span><h2>Fields</h2></div>
@@ -96,7 +125,7 @@ function Showcase() {
           <Field id="showcase-long" label="A longer category label for public documents and collaborative resources">{props => <NativeSelect {...props}><option>Documents and collaborative resources from the local archive</option><option>National archive</option></NativeSelect>}</Field>
         </div>
       </section>
-      <section id="primitives"><div className="section-title"><span>08</span><h2>Shared primitives</h2></div>
+      <section id="primitives"><div className="section-title"><span>04</span><h2>Shared primitives</h2></div>
         <div className="primitive-grid">
           <Card>
             <h3>Public archive</h3>
@@ -110,9 +139,9 @@ function Showcase() {
           </Card>
         </div>
       </section>
-      <ExtendedShowcase />
+      <ExtendedShowcase labels={language === 'ro' ? roLabels : enLabels} />
     </main>
-    <footer><span>MIT / Synthetic examples</span><a href="https://github.com/CristianNichifor/civic-ui">Source</a><a href="https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0">GitHub release</a></footer>
+    <footer><span>MIT / Synthetic examples</span><TokenReport scope={scope} deps={`${theme} ${mode}`} /><a href="https://github.com/CristianNichifor/civic-ui">Source</a><a href="https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0">GitHub release</a></footer>
   </div>;
 }
 createRoot(document.getElementById('root')!).render(<Showcase />);

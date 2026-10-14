@@ -20,7 +20,9 @@ test("native choices and validation links retain form semantics", async ({
   await expect(notes).toHaveAccessibleDescription("Notes are required");
   await notes.fill("Synthetic notes");
   await expect(notes).not.toHaveAttribute("aria-invalid");
-  await expect(page.getByRole("alert")).toHaveCount(0);
+  await expect(
+    page.getByRole("alert").filter({ hasText: "Add notes before continuing" }),
+  ).toHaveCount(0);
   const checkbox = page.getByRole("checkbox", { name: "Include attachments" });
   await checkbox.focus();
   await page.keyboard.press("Space");
@@ -181,10 +183,10 @@ test("tabs, caller-owned sorting and pagination preserve rows", async ({
 
 test("filter toolbar exposes fields, result count and actions", async ({ page }) => {
   const toolbar = page.getByRole("group", { name: "Archive filters" });
-  await expect(toolbar.getByRole("textbox", { name: "Search archive" })).toBeVisible();
+  await expect(toolbar.getByRole("searchbox", { name: "Search archive" })).toBeVisible();
   await expect(toolbar.getByRole("combobox", { name: "Visibility filter" })).toBeVisible();
   await expect(toolbar).toContainText("4 documents");
-  await expect(toolbar.getByRole("button", { name: "Apply filters" })).toBeVisible();
+  await expect(toolbar.getByRole("button", { name: "Reset filters" })).toBeVisible();
 });
 
 test("shared primitives expose semantic surfaces and loading contracts", async ({ page }) => {
@@ -297,4 +299,30 @@ test("explicit portals escape transformed containers and retain their host theme
   await expect(
     page.getByRole("button", { name: "Document actions" }),
   ).toBeFocused();
+});
+
+test("select options render inside an explicit portal container", async ({ page }) => {
+  await page.goto("/showcase.html?portal=1");
+  const host = page.locator("#overlay-host");
+  await page.getByRole("combobox", { name: "Review format" }).click();
+  const listbox = host.getByRole("listbox");
+  await expect(listbox).toBeVisible();
+  await expect(host.getByRole("option", { name: "Private" })).toBeVisible();
+  // Inside .civic-scope the scoped content styles apply, so the border is set.
+  await expect(host.locator(".civic-select-content")).toHaveCSS("border-top-width", "1px");
+  await host.getByRole("option", { name: "Private" }).click();
+  await expect(host.getByRole("listbox")).toHaveCount(0);
+  await expect(page.getByRole("combobox", { name: "Review format" })).toHaveText(/Private/);
+});
+
+test("pagination keeps focus at page boundaries", async ({ page }) => {
+  const previous = page.getByRole("button", { name: "Previous page" });
+  const next = page.getByRole("button", { name: "Next page" });
+  await next.focus();
+  await page.keyboard.press("Enter");
+  await expect(next).toBeDisabled();
+  await expect(previous).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(previous).toBeDisabled();
+  await expect(next).toBeFocused();
 });

@@ -5,10 +5,11 @@ Small, MIT-licensed React controls with opt-in neutral and USR-compatible themes
 ## Components
 
 - Forms: `Button`, `IconButton`, `Field`, `Input`, `NativeSelect`, `Textarea`, `Checkbox`, `RadioGroup`, `RangeSlider`, `SegmentedControl`, `Switch`, `Select`.
-- Feedback: `Notice`, `ValidationSummary`, `StatusBadge`, `EmptyState`, `LoadingIndicator`, `Progress`, `Skeleton`.
+- Feedback: `Notice`, `ValidationSummary`, `StatusMessage`, `OperationStatus`, `StatusBadge`, `EmptyState`, `LoadingIndicator`, `Progress`, `Skeleton`.
 - Layout: `Card`, `VisuallyHidden`.
 - Interaction: `Dialog`, `AlertDialog`, `Tabs`, `Tooltip`, `DropdownMenu`, `Popover`.
-- Data: `Table`, `SortableHeader`, `Pagination`.
+- Data: `FilterToolbar`, `Table`, `SortableHeader`, `Pagination`, `StatTile`, `StatGrid`, `ChartFrame`, `SourceCitation`.
+- Site: `SiteShell`, `FamilyBar`, `SiteFooter`.
 
 Components are controlled primitives: the host owns values, validation, permissions, translations, routing, persistence and business logic. Radix supplies focus and keyboard behavior for complex interactions; native HTML remains the default for simple forms.
 
@@ -38,6 +39,9 @@ Neutral mode supports `data-civic-mode="dark"`. `themes/usr.css` maps existing h
 
 ## Develop
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete local/CI verification, including
+release regression tests and the browser-container alternative.
+
 ```bash
 npm ci --ignore-scripts
 npx --no-install playwright install chromium firefox webkit
@@ -46,7 +50,7 @@ npm test
 npm run preview
 ```
 
-The [component showcase](https://cristiannichifor.github.io/civic-ui/) and [showcase guide](SHOWCASE.md) provide interactive examples. `verify` builds the package, checks its allowlist and licenses, and validates React 18 and React 19 consumers. `test` covers Chromium, Firefox and WebKit, keyboard behavior, responsive layouts, themes, offline interactions and control states.
+The [component showcase](https://cristiannichifor.github.io/civic-ui/) and [showcase guide](SHOWCASE.md) provide interactive examples. The [fleet UX guidelines](docs/ux-guidelines.md) say how the family of civic apps uses these components (page anatomy, Romanian content rules, charts, states, naming registry) and ship a [per-app template](docs/ux-guidelines.template.md). `verify` builds the package, checks its allowlist and licenses, and validates React 18 and React 19 consumers. `test` covers Chromium, Firefox and WebKit, keyboard behavior, responsive layouts, themes, offline interactions and control states.
 
 ## Scope
 

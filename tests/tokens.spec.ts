@@ -15,3 +15,17 @@ test('tokens resolve in every theme and existing control sizes are unchanged', a
   await expect(page.locator('.civic-field label').first()).toHaveCSS('font-size', '14px');
   await expect(page.locator('.civic-badge').first()).toHaveCSS('font-size', '13px');
 });
+
+test('host token diagnostics', async ({ page }) => {
+  await page.goto('/showcase.html');
+  const report = page.getByTestId('token-report');
+  for (const theme of ['Neutral', 'USR host tokens']) {
+    await page.getByLabel(theme, { exact: true }).check();
+    await expect(report).toHaveText('Missing host tokens: none');
+  }
+  await page.getByLabel('Neutral', { exact: true }).check();
+  await page.getByLabel('Dark', { exact: true }).check();
+  await expect(report).toHaveText('Missing host tokens: none');
+  await expect(page.getByTestId('unthemed-token-report')).toContainText('--civic-surface');
+  await expect(page.getByTestId('unthemed-token-report')).toContainText('--civic-action');
+});

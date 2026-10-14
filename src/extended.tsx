@@ -1,6 +1,8 @@
 import {
   forwardRef,
+  useEffect,
   useId,
+  useRef,
   createElement,
   type ReactNode,
   type ReactElement,
@@ -838,12 +840,26 @@ export function Pagination({
     throw new RangeError(
       "Pagination requires 1 <= page <= pageCount, with integer values",
     );
+  const previousRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const refocus = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    // A button disabled at a boundary drops focus to body; keep it in the nav.
+    refocus.current?.focus();
+    refocus.current = null;
+  }, [page]);
+  const go = (target: number, from: HTMLButtonElement) => {
+    if (document.activeElement === from && (target === 1 || target === pageCount))
+      refocus.current = from === nextRef.current ? previousRef.current : nextRef.current;
+    onPageChange(target);
+  };
   return (
     <nav className="civic-pagination" aria-label={label}>
       <IconButton
+        ref={previousRef}
         label={previousLabel}
         disabled={page === 1}
-        onClick={() => onPageChange(page - 1)}
+        onClick={(event) => go(page - 1, event.currentTarget)}
       >
         <ChevronLeft aria-hidden="true" />
       </IconButton>
@@ -851,9 +867,10 @@ export function Pagination({
         {page} / {pageCount}
       </span>
       <IconButton
+        ref={nextRef}
         label={nextLabel}
         disabled={page === pageCount}
-        onClick={() => onPageChange(page + 1)}
+        onClick={(event) => go(page + 1, event.currentTarget)}
       >
         <ChevronRight aria-hidden="true" />
       </IconButton>

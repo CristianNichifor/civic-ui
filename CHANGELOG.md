@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Keep keyboard focus in `Pagination` when previous or next reaches a boundary page and
+  disables itself; focus moves to the opposite button.
 - Add `civicHostTokens` and `missingCivicTokens(element)`, a development check that
   lists host tokens a theme or host failed to supply.
 

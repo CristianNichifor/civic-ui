@@ -31,6 +31,10 @@ import {
   Button,
   IconButton,
   type CivicLabels,
+  StatGrid,
+  StatTile,
+  ChartFrame,
+  SourceCitation,
 } from "@cristiannichifor/civic-ui";
 
 type PropRow = [name: string, type: string, fallback: string, description: string];
@@ -429,6 +433,83 @@ export function ExtendedShowcase({ labels }: { labels: CivicLabels }) {
               disabled: true,
               content: null,
             },
+          ]}
+        />
+      </section>
+      <section id="site-data">
+        <div className="section-title">
+          <span>09</span>
+          <h2>Site and data</h2>
+        </div>
+        <p>
+          <a href="site.html">Open the site shell example</a>
+        </p>
+        <StatGrid label="Archive figures">
+          <StatTile {...labels.StatTile} label="Documents" value={4} delta={{ value: 1, positive: "good" }} asOf="2026-10-01" />
+          <StatTile {...labels.StatTile} label="Storage" value={1536.5} unit="MB" format={{ maximumFractionDigits: 1 }} />
+          <StatTile {...labels.StatTile} label="Open requests" value={2} delta={{ value: -1, positive: "bad" }} />
+        </StatGrid>
+        <ChartFrame
+          {...labels.ChartFrame}
+          title="Documents by status"
+          question="How many archive documents are public?"
+          demo
+          table={
+            <table>
+              <thead>
+                <tr><th scope="col">Status</th><th scope="col">Documents</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Public</th><td>3</td></tr>
+                <tr><th scope="row">Draft</th><td>1</td></tr>
+              </tbody>
+            </table>
+          }
+          source={<SourceCitation {...labels.SourceCitation} source="Synthetic archive" licence="CC0 1.0" date="2026-10-01" />}
+        >
+          <svg role="img" aria-label="Bar chart: 3 public, 1 draft" viewBox="0 0 200 60" width="100%">
+            <rect x="0" y="8" width="150" height="18" rx="4" fill="var(--civic-viz-1)" />
+            <rect x="0" y="34" width="50" height="18" rx="4" fill="var(--civic-viz-2)" />
+          </svg>
+        </ChartFrame>
+        <PropsTable
+          component="SiteShell"
+          rows={[
+            ["familyBar", "FamilyBarProps", "required", "homeHref, homeLabel, toolName, status, languages, languageLabel."],
+            ["footer", "SiteFooterProps", "none", "method, privacy, source and contact slots, plus children."],
+            ["skipLabel", "string", '"Skip to content"', "Skip link text; see roLabels.SiteShell."],
+          ]}
+        />
+        <PropsTable
+          component="StatTile"
+          rows={[
+            ["label", "ReactNode", "required", "What the number counts."],
+            ["value", "number | ReactNode", "required", "Numbers are formatted with Intl.NumberFormat(locale, format)."],
+            ["unit", "ReactNode", "none", "Shown after the value."],
+            ["delta", "{ value, unit?, positive? }", "none", "Direction is stated in text and an icon; positive marks a rise good or bad."],
+            ["asOf", "ReactNode", "none", "An ISO string renders in a time element."],
+            ["locale", "string", '"en"', "Locale for value and delta."],
+          ]}
+        />
+        <PropsTable
+          component="ChartFrame"
+          rows={[
+            ["title", "string", "required", "Names the figure."],
+            ["question", "ReactNode", "none", "The question the chart answers."],
+            ["children", "ReactNode", "required", "The host-rendered chart."],
+            ["table", "ReactNode", "none", "Same data as a table; enables the Show as table toggle."],
+            ["state", '"ready" | "empty" | "error"', '"ready"', "Empty and error render their slots instead of the chart."],
+            ["demo", "boolean", "false", "Shows the demo-data badge."],
+            ["source / asOf", "ReactNode", "none", "Rendered in the figcaption."],
+          ]}
+        />
+        <PropsTable
+          component="SourceCitation"
+          rows={[
+            ["source", "ReactNode", "required", "Linked when href is given."],
+            ["licence", "ReactNode", "none", "Linked with rel=license when licenceHref is given."],
+            ["date", "ReactNode", "none", "Retrieval or as-of date."],
+            ["methodHref", "string", "none", "Adds a Method link."],
           ]}
         />
       </section>

@@ -672,7 +672,7 @@ export function FilterToolbar({
       {(actions || resultCount !== undefined) && (
         <div className="civic-filter-toolbar__meta">
           {resultCount !== undefined && (
-            <span className="civic-filter-toolbar__count" aria-live="polite">
+            <span className="civic-filter-toolbar__count" aria-live="polite" aria-atomic="true">
               {resultCount}
             </span>
           )}

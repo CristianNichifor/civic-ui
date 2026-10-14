@@ -203,7 +203,7 @@ Tests: `tests/chart-frame.spec.ts` (inside the frame) and the showcase.
 
 ## Theme F: overlays and release 0.8.0 (fleet round 2)
 
-### CU-16 Select portal container
+### CU-16 Select portal container — done
 
 `Select` takes an optional `portalContainer` (an `HTMLElement`), like `Dialog`,
 `AlertDialog`, `Tooltip` and `DropdownMenu`. When given, the options list is
@@ -213,7 +213,7 @@ styles; without it, behaviour is unchanged (portal to `document.body`).
 Tests: `tests/extended.spec.ts` ("select options render inside an explicit
 portal container").
 
-### CU-17 source-map-js advisory
+### CU-17 source-map-js advisory — done
 
 Resolve the high-severity Dependabot alert for `source-map-js` with a lockfile
 update only; the full gate stays green.

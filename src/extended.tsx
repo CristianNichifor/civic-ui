@@ -761,15 +761,27 @@ export function StatusMessage({
 }
 export const Table = forwardRef<
   HTMLTableElement,
-  TableHTMLAttributes<HTMLTableElement> & { label: string }
->(({ label, className = "", ...props }, ref) => (
+  TableHTMLAttributes<HTMLTableElement> & {
+    label: string;
+    /** Row spacing; `compact` suits operational tables scanned at 100% zoom. */
+    density?: "comfortable" | "compact";
+    /** `cards` stacks rows below 560 px; give every cell a `data-label`. */
+    mobileLayout?: "scroll" | "cards";
+  }
+>(({ label, density = "comfortable", mobileLayout = "scroll", className = "", ...props }, ref) => (
   <div
     className="civic-table-scroll"
     role="region"
     aria-label={label}
     tabIndex={0}
   >
-    <table {...props} ref={ref} className={`civic-table ${className}`} />
+    <table
+      {...props}
+      ref={ref}
+      className={`civic-table ${className}`}
+      data-density={density}
+      data-mobile-layout={mobileLayout}
+    />
   </div>
 ));
 Table.displayName = "Table";

@@ -540,6 +540,51 @@
   .civic-table tbody tr:hover {
     background: var(--civic-raised);
   }
+  .civic-table[data-density="compact"] th,
+  .civic-table[data-density="compact"] td {
+    padding: 4px 8px;
+  }
+  .civic-table[data-density="compact"] th .civic-button {
+    min-height: 36px;
+    padding-block: 0.25rem;
+  }
+  @media (max-width: 560px) {
+    .civic-table[data-mobile-layout="cards"],
+    .civic-table[data-mobile-layout="cards"] :is(caption, thead, tbody, tr, td) {
+      display: block;
+    }
+    /* Headers stay visible as one wrapping row so sort buttons remain reachable. */
+    .civic-table[data-mobile-layout="cards"] thead tr {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 8px;
+    }
+    .civic-table[data-mobile-layout="cards"] th {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+    .civic-table[data-mobile-layout="cards"] tbody tr {
+      margin-bottom: 8px;
+      border: 1px solid var(--civic-border);
+      border-radius: var(--civic-radius);
+      background: var(--civic-surface);
+    }
+    .civic-table[data-mobile-layout="cards"] td {
+      display: grid;
+      grid-template-columns: minmax(6rem, 40%) minmax(0, 1fr);
+      gap: 8px;
+      overflow-wrap: anywhere;
+    }
+    .civic-table[data-mobile-layout="cards"] tbody tr td:last-child {
+      border-bottom: 0;
+    }
+    .civic-table[data-mobile-layout="cards"] td::before {
+      content: attr(data-label);
+      font-weight: 600;
+    }
+  }
   .civic-textarea:focus-visible,
   .civic-choice input:focus-visible,
   .civic-tab-panel:focus-visible,

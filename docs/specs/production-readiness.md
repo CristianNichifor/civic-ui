@@ -110,3 +110,93 @@ npm-tarball consumers. Reviewed by reading; no automated test.
 ### CHANGELOG — done
 
 `## Unreleased` lists the 0.8.0 changes; the release PR renames it to `## 0.8.0`.
+
+## Theme D: tokens, formatters and showcase (fleet UX review)
+
+Added after the first three themes, from a fleet UX review: consumer apps diverge
+because Civic UI lacks shared tokens and data-presentation pieces. Everything is
+opt-in; no existing class, default or computed style changes.
+
+### CU-9 Token layer v1 — todo
+
+- Given any `.civic-scope`, then `--civic-success`, `--civic-warning`,
+  `--civic-info` and their `--civic-on-*` pairs (plus `--civic-on-danger`) are
+  defined, and the neutral dark mode redefines them. Each on-colour reaches 4.5:1
+  against its fill in both modes.
+- Given any `.civic-scope`, then a space scale `--civic-space-1`…`8`, a type
+  scale `--civic-text-xs`…`3xl` and weights `--civic-weight-regular`,
+  `--civic-weight-heading`, `--civic-weight-strong` are defined.
+  `--civic-space-2` keeps its 0.5rem value. Existing controls keep their literal
+  13/14/20px sizes, because moving them to rem tokens would change hosts that set
+  a non-16px root size (**needs-human**: migrate in a breaking release).
+- Given the neutral theme in light and dark, then `--civic-viz-1`…`8`
+  (categorical), `--civic-viz-seq-1`…`7` (sequential, monotonic lightness, the
+  lowest step nearest the surface) and `--civic-viz-div-n3`…`p3` (diverging, grey
+  midpoint) are defined. The categorical order passes the dataviz validator's
+  lightness band, chroma floor, adjacent CVD separation (≥ 8) and
+  normal-vision floor (≥ 15) against the neutral surfaces; slots below 3:1
+  need visible labels or the table view (`ChartFrame` provides it).
+
+Tests: `tests/tokens.test.mjs` (contrast, monotonic ramps, grey midpoint, token
+presence); `tests/tokens.spec.ts` (tokens resolve in the browser for each theme;
+existing control sizes unchanged).
+
+### CU-10 Romanian formatters — todo
+
+- `formatRON(value, options?)` formats with `Intl.NumberFormat('ro-RO',
+  { style: 'currency', currency: 'RON' })`; options override.
+- `formatDateRO(date, options?)` formats with `Intl.DateTimeFormat('ro-RO',
+  { day: 'numeric', month: 'long', year: 'numeric' })`; options override.
+- `formatNumberRO(value, options?)` formats with `Intl.NumberFormat('ro-RO')`.
+- They ship in the `locales/ro` entry beside `roLabels`; invalid dates throw
+  `RangeError`.
+
+Tests: `tests/locale.spec.ts` (output matches the engine's `ro-RO` Intl, with
+`.` thousands and `,` decimals).
+
+### CU-11 Showcase fixes — todo
+
+- The header shows the installed package version, not "v0.5.0 preview".
+- Sections are numbered in document order, and the top navigation links every
+  section.
+- An EN/RO toggle applies `roLabels` to every label-bearing component.
+- New components have a props table.
+
+Tests: `tests/showcase.spec.ts`.
+
+## Theme E: site and data presentation (fleet UX review)
+
+### CU-12 SiteShell — todo
+
+`SiteShell` renders a `FamilyBar` (back link to the family hub, tool name,
+optional status badge, optional language switch) and a `SiteFooter` with
+method, privacy, source and contact slots. Landmarks: `banner`, `main` and
+`contentinfo`; the language switch is a labelled group of links marking the
+current language with `aria-current`.
+
+Tests: `tests/site-shell.spec.ts`.
+
+### CU-13 StatTile and StatGrid — todo
+
+`StatTile` shows value, label, optional unit, delta and as-of date. Numbers are
+formatted with `Intl.NumberFormat(locale, format)`. The delta's direction is
+given in text and an icon, never by colour alone. `StatGrid` is a `ul` grid
+that wraps to one column at 390 px.
+
+Tests: `tests/stat-tile.spec.ts`.
+
+### CU-14 ChartFrame — todo
+
+`ChartFrame` is a `figure` with title, question, source and licence, an as-of
+date, an optional demo-data badge, and a "show as table" toggle (a button with
+`aria-pressed`) that swaps the host's chart for the host's table. It also has
+empty and error slots. The host renders the chart.
+
+Tests: `tests/chart-frame.spec.ts`.
+
+### CU-15 SourceCitation — todo
+
+`SourceCitation` renders one provenance line: source name (linked when a URL is
+given), licence, retrieval or as-of date, and an optional method link.
+
+Tests: `tests/chart-frame.spec.ts` (inside the frame) and the showcase.

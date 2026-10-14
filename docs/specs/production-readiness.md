@@ -299,3 +299,10 @@ for development only.
 
 Tests: `tests/tokens.spec.ts` ("palette override diagnostics"): the showcase
 reports no override, then reports `--civic-viz-2` after an inline override.
+
+### CU-24 Roadmap reflects shipped work — done
+
+`ROADMAP.md` says items 1 to 3 shipped in 0.8.0 and records the unreleased
+slices of former "Later" items 4 to 6 (CU-20 to CU-23).
+
+Tests: reviewed by reading; no automated test.

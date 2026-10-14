@@ -56,3 +56,13 @@ test('presets share one key set and Romanian uses comma-below diacritics', async
   expect(source).not.toMatch(/[şţŞŢ]/);
   expect(JSON.stringify(ro)).not.toMatch(/[şţŞŢ]/);
 });
+
+test('Romanian formatters use ro-RO separators and long month names', async ({ page }) => {
+  await page.goto('/locale.html');
+  const text = async (id: string) => (await page.getByTestId(id).textContent())!.replace(/\s/g, ' ');
+  expect(await text('ron')).toBe('1.234.567,89 RON');
+  expect(await text('ron-whole')).toBe('1.500 RON');
+  expect(await text('date')).toBe('14 octombrie 2026');
+  expect(await text('date-iso')).toBe('1 martie 2026');
+  expect(await text('number')).toBe('98.765,432');
+});

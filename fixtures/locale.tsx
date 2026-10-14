@@ -3,7 +3,7 @@ import {
   AlertDialog, Button, Dialog, FilterToolbar, LoadingIndicator, Pagination, Select, StatusMessage, ValidationSummary,
   enLabels, type CivicLabels,
 } from '@cristiannichifor/civic-ui';
-import { roLabels } from '@cristiannichifor/civic-ui/locales/ro';
+import { roLabels, formatRON, formatDateRO, formatNumberRO } from '@cristiannichifor/civic-ui/locales/ro';
 import '@cristiannichifor/civic-ui/styles.css';
 import '@cristiannichifor/civic-ui/themes/neutral.css';
 
@@ -38,6 +38,13 @@ const preset = new URLSearchParams(location.search).get('preset');
 createRoot(document.getElementById('root')!).render(
   <main className="civic-scope civic-neutral" lang={preset === 'ro' ? 'ro' : 'en'}>
     {preset === 'ro' ? <Preset labels={roLabels} /> : preset === 'en' ? <Preset labels={enLabels} /> : <Defaults />}
+    <dl>
+      <dt>RON</dt><dd data-testid="ron">{formatRON(1234567.891)}</dd>
+      <dt>RON whole</dt><dd data-testid="ron-whole">{formatRON(1500, { maximumFractionDigits: 0 })}</dd>
+      <dt>Date</dt><dd data-testid="date">{formatDateRO(new Date(2026, 9, 14))}</dd>
+      <dt>Date ISO</dt><dd data-testid="date-iso">{formatDateRO('2026-03-01')}</dd>
+      <dt>Number</dt><dd data-testid="number">{formatNumberRO(98765.4321)}</dd>
+    </dl>
     <script type="application/json" id="labels">{JSON.stringify({ en: enLabels, ro: roLabels })}</script>
   </main>,
 );

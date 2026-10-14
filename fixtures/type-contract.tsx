@@ -52,3 +52,7 @@ import { StatusMessage } from '@cristiannichifor/civic-ui';
 <StatusMessage tone="info" title="Note" />;
 // @ts-expect-error Table density is a closed set.
 <Table label="Dense" density="dense"><tbody /></Table>;
+import { formatRON, formatDateRO, formatNumberRO } from '@cristiannichifor/civic-ui/locales/ro';
+const formatted: string[] = [formatRON(1), formatRON(1, { maximumFractionDigits: 0 }), formatDateRO(new Date()), formatDateRO('2026-01-01', { month: 'short' }), formatNumberRO(2)];
+// @ts-expect-error Amounts are numbers, not preformatted strings.
+formatRON('1');

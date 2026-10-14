@@ -38,7 +38,7 @@ test.describe('forced colors', () => {
     await expect(page.getByRole('tab', { name: 'Documents', exact: true })).toHaveCSS('background-color', highlight);
   });
 
-  test('range, progress and focus rings keep visible system outlines', async ({ page }) => {
+  test('range, progress and focus rings keep visible system outlines', async ({ page, browserName }) => {
     const canvasText = await system(page, 'CanvasText');
     const slider = page.getByRole('slider', { name: 'Preview zoom' });
     await expect(slider).toHaveCSS('outline-style', 'solid');
@@ -58,16 +58,25 @@ test.describe('forced colors', () => {
       await expect(control).toBeFocused();
       await expect(control).toHaveCSS('outline-style', 'solid');
     }
+    // WebKit does not match :focus-visible on a programmatically focused radio.
+    if (browserName === 'webkit') return;
     await page.getByRole('radio', { name: 'Comfortable' }).focus();
     await page.keyboard.press('ArrowRight');
     const option = page.locator('.civic-segmented__option').filter({ hasText: 'Compact' });
     await expect(option).toHaveCSS('outline-style', 'solid');
   });
 
-  test('highlighted select options use system colours', async ({ page }) => {
+  test('highlighted menu items use system colours', async ({ page }) => {
+    // Scoped styles reach overlays only through a portal inside .civic-scope.
+    await page.goto('/showcase.html?portal=1');
     const highlight = await system(page, 'Highlight');
-    await page.getByRole('combobox', { name: 'Review format' }).press('ArrowDown');
-    await expect(page.locator('.civic-select-item[data-highlighted]')).toHaveCSS('background-color', highlight);
+    const highlightText = await system(page, 'HighlightText');
+    await page.getByRole('button', { name: 'Document actions' }).focus();
+    await page.keyboard.press('ArrowDown');
+    const item = page.getByRole('menuitem', { name: 'Edit metadata' });
+    await expect(item).toBeFocused();
+    await expect(item).toHaveCSS('background-color', highlight);
+    await expect(item).toHaveCSS('color', highlightText);
   });
 });
 

@@ -13,7 +13,7 @@ await mkdir(resolve(root, 'artifacts'), { recursive: true });
 run('npm', ['run', 'build']);
 const packed = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', 'artifacts'], { cwd: root, encoding: 'utf8' }))[0];
 const expectedFiles = ['README.md', 'COMPONENTS.md', 'NATIVE.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASING.md', 'CHANGELOG.md', 'package.json', 'dist/index.js', 'dist/index.d.ts',
-  'dist/components.d.ts', 'dist/extended.d.ts', 'dist/labels.d.ts', 'dist/locales/ro.js', 'dist/locales/ro.d.ts', 'dist/styles.css', 'dist/native.css', 'dist/foundations.css', 'dist/controls.css',
+  'dist/components.d.ts', 'dist/extended.d.ts', 'dist/labels.d.ts', 'dist/presentation.d.ts', 'dist/locales/ro.js', 'dist/locales/ro.d.ts', 'dist/styles.css', 'dist/native.css', 'dist/foundations.css', 'dist/controls.css',
   'dist/themes/usr.css', 'dist/themes/neutral.css', 'dist/licenses/react-LICENSE', 'dist/licenses/lucide-react-LICENSE'];
 assert.deepEqual(packed.files.map(({ path }) => path).sort(), expectedFiles.sort());
 const manifest = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));

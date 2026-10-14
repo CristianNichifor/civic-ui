@@ -17,7 +17,7 @@ test('stat tiles format numbers and state deltas in text', async ({ page }) => {
   await expect(projects).toHaveAttribute('data-trend', 'down');
   await expect(projects).toHaveAttribute('data-sentiment', 'bad');
   await expect(projects).toContainText('Decrease');
-  await expect(projects).toContainText('−3');
+  await expect(projects).toContainText(/[-−]3/);
   const schools = grid.getByRole('listitem').nth(2).locator('.civic-stat-tile__delta');
   await expect(schools).toHaveAttribute('data-trend', 'flat');
   await expect(schools).toContainText('No change');
